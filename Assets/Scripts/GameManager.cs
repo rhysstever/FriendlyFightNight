@@ -21,10 +21,12 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    public List<GameObject> bullets;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        bullets = new List<GameObject>();    
     }
 
     // Update is called once per frame
