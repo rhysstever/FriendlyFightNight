@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Rigidbody2D rb;
     [SerializeField]
-    private float moveSpeed, jumpSpeed, bulletSpeed, fireRate;
+    private float moveSpeed, jumpSpeed, bulletSpeed, fireRate, facingDirection;
     [SerializeField]
     private InputActionReference move, fire, block;
     [SerializeField]
@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if(rb == null) rb = GetComponent<Rigidbody2D>();
         grounded = true;
-        fireTimer = 0.0f;
+        fireTimer = fireRate;   // can fire right away
     }
 
     private void Update()
@@ -38,6 +38,10 @@ public class PlayerMovement : MonoBehaviour
         {
             yMove = jumpSpeed;
         }
+
+        if(moveDirection.x != 0.0f)
+            facingDirection = moveDirection.x;
+        
         rb.velocity = new Vector2(moveDirection.x * moveSpeed, rb.velocity.y + yMove);
         fireTimer += Time.deltaTime;
     }
@@ -74,13 +78,13 @@ public class PlayerMovement : MonoBehaviour
         if(CanFire())
         {
             Vector3 bulletPos = new Vector3(
-                transform.position.x + 0.5f,
+                transform.position.x + (gameObject.transform.localScale.x / 2 * facingDirection),
                 transform.position.y,
                 transform.position.z);
             GameObject newBullet = Instantiate(bullet, bulletPos, Quaternion.identity, GameManager.instance.gameObject.transform);
             GameManager.instance.bullets.Add(newBullet);
             newBullet.GetComponent<Rigidbody2D>().velocity = new Vector2(
-                bulletSpeed, 0.0f);
+                bulletSpeed * facingDirection, 0.0f);
             fireTimer = 0.0f;
         }
     }
