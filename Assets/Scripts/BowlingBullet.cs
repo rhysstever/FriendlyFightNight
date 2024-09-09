@@ -2,18 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class BowlingBullet : MonoBehaviour
 {
+    private float timer, lifeSpan;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        timer = 0.0f;
+        lifeSpan = GameManager.instance.GetComponent<SpecialsManager>().RhysSpecialBulletLifespan;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        
+        timer += Time.deltaTime;
+        if(timer >= lifeSpan)
+            Destroy(gameObject);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -24,18 +28,21 @@ public class Bullet : MonoBehaviour
         if(collision.gameObject == null)
             return;
 
-        switch(collision.gameObject.layer) {
+        switch(collision.gameObject.layer)
+        {
             case 6: // Walls
-                GameObject.Destroy(this.gameObject);
                 break;
-            case 7: // Other bullets
-                GameObject.Destroy(this.gameObject);
+            case 7: // Bullets
                 GameObject.Destroy(collision.gameObject);
                 break;
             case 8: // Players
                 GameObject.Destroy(this.gameObject);
                 Debug.Log("Player");
                 // Deal damage
+                break;
+            case 9: // Other specials
+                GameObject.Destroy(this.gameObject);
+                GameObject.Destroy(collision.gameObject);
                 break;
             default:
                 break;

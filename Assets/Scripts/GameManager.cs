@@ -21,12 +21,15 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    public List<GameObject> bullets;
+    [SerializeField]
+    private GameObject bullets;
+
+    public GameObject Bullets { get { return bullets; } }
 
     // Start is called before the first frame update
     void Start()
     {
-        bullets = new List<GameObject>();    
+        
     }
 
     // Update is called once per frame
