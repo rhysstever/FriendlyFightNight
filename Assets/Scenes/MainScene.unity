@@ -1789,7 +1789,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rhysSpecialBullet: {fileID: 7862096177016241195, guid: ea7011e49641e574ab1a148952cee96a, type: 3}
   rhysSpecialBulletSpeed: {x: 15, y: 15}
-  rhysSpecialBulletLifespan: 5
+  rhysSpecialBulletLifespan: 3
 --- !u!1 &2145015417
 GameObject:
   m_ObjectHideFlags: 0

@@ -34,7 +34,7 @@ public class SpecialsManager : MonoBehaviour
     [SerializeField]
     private Vector2 rhysSpecialBulletSpeed;
     [SerializeField]
-    private float rhysSpecialBulletLifespan;
+    private float rhysSpecialBulletLifespan, graceSpecialHealAmount;
 
     public float RhysSpecialBulletLifespan { get { return rhysSpecialBulletLifespan;} }
 
@@ -58,8 +58,11 @@ public class SpecialsManager : MonoBehaviour
                 playerObject.GetComponent<PlayerCombat>().Fire(
                     rhysSpecialBullet, 
                     rhysSpecialBulletSpeed, 
-                    FireAngle.Up,
-                    0.5f);
+                    FirePosition.Up,
+                    new Vector2(0.45f, 0.25f));
+                break;
+            case Character.Grace:
+                playerObject.GetComponent<PlayerCombat>().Heal(graceSpecialHealAmount);
                 break;
             default:
                 Debug.Log("Default Special Used");

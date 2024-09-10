@@ -54,7 +54,7 @@ public class PlayerInputControls : MonoBehaviour
 
     private void Fire(InputAction.CallbackContext obj)
     {
-        playerCombat.Fire(FireAngle.Middle);
+        playerCombat.Fire(FirePosition.Middle);
     }
 
     private void Block(InputAction.CallbackContext obj)
