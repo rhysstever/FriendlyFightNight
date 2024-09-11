@@ -12,18 +12,16 @@ public enum FirePosition
 public class PlayerCombat : MonoBehaviour
 {
     [SerializeField]
-    private float fireRate, bulletSpeed;
+    private float fireRate, bulletSpeed, currentHealth, maxHealth, damage, bulletGravity, armor;
     [SerializeField]
     private GameObject bullet;
 
-    private float health;
-    private float maxHealth;
     private float fireTimer;
 
     // Start is called before the first frame update
     void Start()
     {
-        health = maxHealth;
+        currentHealth = maxHealth;
         fireTimer = fireRate;   // can fire right away
     }
 
@@ -37,9 +35,12 @@ public class PlayerCombat : MonoBehaviour
         return fireTimer >= fireRate;
     }
 
-    public GameObject Fire(FirePosition origin)
+    public GameObject FireBullet()
     {
-        return Fire(bullet, new Vector2(bulletSpeed, 0.0f), origin, new Vector2(0.25f, 0.0f));
+        GameObject newBullet = Fire(bullet, new Vector2(bulletSpeed, 0.0f), FirePosition.Middle, new Vector2(0.25f, 0.0f));
+        if(newBullet != null)
+            newBullet.GetComponent<Bullet>().damage = damage;
+        return newBullet;
     }
 
     public GameObject Fire(GameObject bullet, Vector2 bulletSpeed, FirePosition origin, Vector2 extraOffset)
@@ -74,6 +75,7 @@ public class PlayerCombat : MonoBehaviour
             Vector2 bulletSpeedWithDirection = bulletSpeed;
             bulletSpeedWithDirection.x *= facingDirection;
             newBullet.GetComponent<Rigidbody2D>().velocity = bulletSpeedWithDirection;
+            newBullet.GetComponent<Rigidbody2D>().gravityScale = bulletGravity;
             // Reset the fire timer
             fireTimer = 0.0f;
 
@@ -85,9 +87,9 @@ public class PlayerCombat : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
-        health -= amount;
+        currentHealth -= amount * (1 - armor);
 
-        if(health <= 0.0f)
+        if(currentHealth <= 0.0f)
         {
             Debug.Log(gameObject.name + "Dead!");
         }
@@ -95,6 +97,21 @@ public class PlayerCombat : MonoBehaviour
 
     public void Heal(float amount)
     {
-        health = Mathf.Clamp(health + amount, health, maxHealth);
+        currentHealth = Mathf.Clamp(currentHealth + amount, currentHealth, maxHealth);
+    }
+
+    public void AdjustDamage(float percentage)
+    {
+        damage += damage * percentage;
+    }
+
+    public void AdjustArmor(float percentage)
+    {
+        armor += armor * percentage;
+    }
+
+    public void AdjustBulletGravity(float percentage)
+    {
+        bulletGravity += bulletGravity * percentage;
     }
 }

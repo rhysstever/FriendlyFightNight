@@ -13,10 +13,13 @@ GameObject:
   - component: {fileID: 5959471874610434674}
   - component: {fileID: 5341312582836827226}
   - component: {fileID: 7959126099733411130}
-  - component: {fileID: 8284000667427386967}
   - component: {fileID: 8932443620757233079}
+  - component: {fileID: 8284000667427386967}
+  - component: {fileID: 5491314690244194225}
+  - component: {fileID: 4486561651592111078}
+  - component: {fileID: -4650477312249746300}
   m_Layer: 8
-  m_Name: player
+  m_Name: player_grace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +82,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.11877227, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.48584908, b: 0.8202468, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -191,25 +194,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &8284000667427386967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4943397249663079081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e9d541fab18c6a408edb29ed2c7ce2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 5341312582836827226}
-  moveSpeed: 8
-  jumpSpeed: 30
-  bulletSpeed: 35
-  fireRate: 0.5
-  facingDirection: 0
-  bullet: {fileID: 265689066167510017, guid: bf8885dc75097d249ba031e8688d9285, type: 3}
 --- !u!114 &8932443620757233079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,3 +211,71 @@ MonoBehaviour:
   fire: {fileID: -4078217673082274707, guid: d5871f256cdfb8a41a978bf46b70653d, type: 3}
   block: {fileID: -6480912863647911379, guid: d5871f256cdfb8a41a978bf46b70653d, type: 3}
   special: {fileID: -1581262764272697836, guid: d5871f256cdfb8a41a978bf46b70653d, type: 3}
+--- !u!114 &8284000667427386967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4943397249663079081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e9d541fab18c6a408edb29ed2c7ce2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 5341312582836827226}
+  moveSpeed: 8
+  jumpSpeed: 30
+  facingDirection: 0
+--- !u!114 &5491314690244194225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4943397249663079081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e0bd3ad910be14418779b36b00c5451, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireRate: 0.5
+  bulletSpeed: 30
+  currentHealth: 0
+  maxHealth: 20
+  damage: 2
+  bulletGravity: 8
+  armor: 0
+  bullet: {fileID: 265689066167510017, guid: bf8885dc75097d249ba031e8688d9285, type: 3}
+--- !u!114 &4486561651592111078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4943397249663079081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b412e3dc6c7199f47872cc9468ca27aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: Attractive
+  passiveType: 1
+  passiveAttribute: 2
+  passivePercentage: 0.3
+  passiveRange: 30
+--- !u!114 &-4650477312249746300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4943397249663079081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77b3fa4f9ea6c8942b5d9880b49f671b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: Coffee Sip
+  cooldown: 15
+  instantAmount: 5

@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BowlingBullet : MonoBehaviour
+public class SpecialProjectile : MonoBehaviour
 {
-    public float lifeSpan;
-    private float timer;
+    private float timer, damage, lifeSpan;
 
     // Start is called before the first frame update
     void Start()
@@ -37,8 +36,7 @@ public class BowlingBullet : MonoBehaviour
                 break;
             case 8: // Players
                 GameObject.Destroy(this.gameObject);
-                Debug.Log("Player");
-                // Deal damage
+                collision.gameObject.GetComponent<PlayerCombat>().TakeDamage(damage);
                 break;
             case 9: // Other specials
                 GameObject.Destroy(this.gameObject);
@@ -47,5 +45,11 @@ public class BowlingBullet : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    public void SetValues(float damage, float lifespan)
+    {
+        this.damage = damage;
+        this.lifeSpan = lifespan;
     }
 }

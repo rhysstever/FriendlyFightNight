@@ -48,4 +48,9 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + jumpSpeed);
         }
     }
+
+    public void AdjustMoveSpeed(float percentage)
+    {
+        moveSpeed += moveSpeed * percentage;
+    }
 }

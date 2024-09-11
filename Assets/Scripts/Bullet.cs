@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public float damage;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -35,7 +37,7 @@ public class Bullet : MonoBehaviour
             case 8: // Players
                 GameObject.Destroy(this.gameObject);
                 Debug.Log("Player");
-                // Deal damage
+                collision.gameObject.GetComponent<PlayerCombat>().TakeDamage(damage);
                 break;
             default:
                 break;

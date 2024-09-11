@@ -6,8 +6,6 @@ using UnityEngine.InputSystem;
 public class PlayerInputControls : MonoBehaviour
 {
     [SerializeField]
-    private Character character;
-    [SerializeField]
     private InputActionReference move, jump, fire, block, special;
 
     private PlayerMovement playerMovement;
@@ -54,7 +52,7 @@ public class PlayerInputControls : MonoBehaviour
 
     private void Fire(InputAction.CallbackContext obj)
     {
-        playerCombat.Fire(FirePosition.Middle);
+        playerCombat.FireBullet();
     }
 
     private void Block(InputAction.CallbackContext obj)
@@ -64,6 +62,27 @@ public class PlayerInputControls : MonoBehaviour
 
     private void Special(InputAction.CallbackContext obj)
     {
-        GameManager.instance.GetComponent<SpecialsManager>().UseSpecial(gameObject, character);
+        ActiveType activeType = gameObject.GetComponent<ActiveAbility>().ActiveType;
+        switch(activeType)
+        {
+            case ActiveType.Default:
+                gameObject.GetComponent<ActiveAbility>().UseSpecial();
+                break;
+            case ActiveType.SpecialAttack:
+                gameObject.GetComponent<SpecialAttack>().UseSpecial();
+                break;
+            case ActiveType.Heal:
+                gameObject.GetComponent<Heal>().UseSpecial();
+                break;
+            case ActiveType.Buff:
+                gameObject.GetComponent<ActiveAbility>().UseSpecial();
+                break;
+            case ActiveType.Debuff:
+                gameObject.GetComponent<ActiveAbility>().UseSpecial();
+                break;
+            default:
+                gameObject.GetComponent<ActiveAbility>().UseSpecial();
+                break;
+        }
     }
 }
