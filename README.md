@@ -15,4 +15,4 @@ Raft Friend Pack (Stretch Goal 1)
 | --------- | -------- | ------ |
 | Mark | TBD | TBD |
 | Angela | TBD | Entangle. Root your opponent |
-| River | Runner. Faster move speed | TBD |
+| River | Runner. Faster move speed | Brick Layer. Lay down blocks that damage enemies that walk on them |
