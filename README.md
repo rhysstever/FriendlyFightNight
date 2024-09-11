@@ -1,31 +1,16 @@
 # FriendlyFightNight
 
-## Characters
+## Character Packs
 
 OG Pack (MVP)
-- Rhys
-  - Passive: Eagle Eye. Shots have longer range
-  - Active: Watermelon Chuck. Throw a watermelon that rolls across the stage
-- Grace
-  - Passive: Attrative. Nearby enemies move slower
-  - Active: Coffee Sip. Regain some health
-- Sam
-  - Passive: TBD
-  - Active: TBD
-- Con 
-  - Passive: TBD
-  - Active: TBD
+| Character | Passive Ability | Active Ability |
+| Rhys | Eagle Eye. Shots have longer range | Active: Watermelon Chuck. Throw a watermelon that rolls across the stage |
+| Grace | Attrative. Nearby enemies move slower | Coffee Sip. Regain some health |
+| Sam | Enemies to Friends. Increased armor | Retaliate. Damage taken will fire an extra attack. |
+| Con | Diablo Fiend. Normal attacks deal damage over time | TBD |
  
 Raft Friend Pack (Stretch Goal 1)
-- Mark
-  - Passive: TBD
-  - Active: TBD
-- Angela
-  - Passive: TBD
-  - Active: TBD
-- River
-  - Passive: TBD
-  - Active: TBD
-- Meghan
-  - Passive: TBD
-  - Active: TBD
+| Character | Passive | Active |
+| Mark | TBD | TBD |
+| Angela | TBD | Entangle. Root your opponent |
+| River | Runner. Faster move speed | TBD |
