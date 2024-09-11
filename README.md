@@ -8,6 +8,6 @@
 | OG Pack | Grace | Attrative. Nearby enemies move slower | Coffee Sip. Regain some health |
 | OG Pack | Sam | Enemies to Friends. Increased armor | Retaliate. Damage taken will fire an extra attack. |
 | OG Pack | Con | Space Gracity. Jump higher | Diablo Mag. Next round of bullets will deal damage over time |
-| Raft Friend Pack | Mark | TBD | TBD |
-| Raft Friend Pack | Angela | Growth Mindset. Slowly heal over time | Entangle. Root your opponent OR Lunge. Dash in a given direction |
-| Raft Friend Pack | River | Runner. Faster move speed | Brick Layer. Lay down blocks that damage enemies that walk on them |
+| Raft Friend 1 | Mark | TBD | TBD |
+| Raft Friend 1 | Angela | Growth Mindset. Slowly heal over time | Entangle. Root your opponent OR Lunge. Dash in a given direction |
+| Raft Friend 1 | River | Runner. Faster move speed | Brick Layer. Lay down blocks that damage enemies that walk on them |
