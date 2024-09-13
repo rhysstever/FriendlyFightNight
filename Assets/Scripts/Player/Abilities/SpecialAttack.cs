@@ -33,7 +33,7 @@ public class SpecialAttack : ActiveAbility
             GameObject specialProjectile = gameObject.GetComponent<PlayerCombat>().Fire(
                 attackProjectile,
                 projectileSpeed,
-                FirePosition.Up,
+                FirePosition.Head,
                 new Vector2(0.45f, 0.25f));
             specialProjectile.GetComponent<SpecialProjectile>().SetValues(projectileDamage, projectileLifespan);
         }

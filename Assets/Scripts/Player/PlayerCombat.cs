@@ -4,9 +4,11 @@ using UnityEngine;
 
 public enum FirePosition
 {
-    Up,
-    Middle,
-    Down
+    Head,
+    Shoulder,
+    Torso,
+    Knees,
+    Feet
 }
 
 public class PlayerCombat : MonoBehaviour
@@ -17,11 +19,17 @@ public class PlayerCombat : MonoBehaviour
     private GameObject bullet;
 
     private float fireTimer;
+    
+    public float HealthPercentage { get { return currentHealth / maxHealth; } }
+
+    private void Awake()
+    {
+        currentHealth = maxHealth;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = maxHealth;
         fireTimer = fireRate;   // can fire right away
     }
 
@@ -37,9 +45,12 @@ public class PlayerCombat : MonoBehaviour
 
     public GameObject FireBullet()
     {
-        GameObject newBullet = Fire(bullet, new Vector2(bulletSpeed, 0.0f), FirePosition.Middle, new Vector2(0.25f, 0.0f));
+        GameObject newBullet = Fire(bullet, new Vector2(bulletSpeed, 0.0f), FirePosition.Torso, new Vector2(0.25f, 0.0f));
         if(newBullet != null)
+        {
             newBullet.GetComponent<Bullet>().damage = damage;
+            fireTimer = 0.0f;
+        }
         return newBullet;
     }
 
@@ -53,17 +64,7 @@ public class PlayerCombat : MonoBehaviour
             offsetX += extraOffset.x;
             offsetX *= facingDirection;
             // Figure out the y-offset based on the fire position
-            float offsetY = 0.0f;
-            if(origin == FirePosition.Up)
-            {
-                offsetY = gameObject.transform.localScale.y / 2;
-                offsetY += extraOffset.y;
-            }
-            else if(origin == FirePosition.Down)
-            {
-                offsetY = -gameObject.transform.localScale.y / 2;
-                offsetY -= extraOffset.y;
-            }
+            float offsetY = GetOffsetYFromFireOrigin(gameObject, origin, extraOffset);
             // Calculate the bullet's starting position based on the player and the offsets
             Vector3 bulletPos = new Vector3(
                 transform.position.x + offsetX,
@@ -76,8 +77,6 @@ public class PlayerCombat : MonoBehaviour
             bulletSpeedWithDirection.x *= facingDirection;
             newBullet.GetComponent<Rigidbody2D>().velocity = bulletSpeedWithDirection;
             newBullet.GetComponent<Rigidbody2D>().gravityScale = bulletGravity;
-            // Reset the fire timer
-            fireTimer = 0.0f;
 
             return newBullet;
         }
@@ -85,9 +84,38 @@ public class PlayerCombat : MonoBehaviour
         return null;
     }
 
+    private float GetOffsetYFromFireOrigin(GameObject gameObject, FirePosition origin, Vector2 extraOffset)
+    {
+        float offsetY = 0.0f;
+        switch(origin)
+        {
+            case FirePosition.Head:
+                offsetY = gameObject.transform.localScale.y / 2;
+                offsetY += extraOffset.y;
+                break;
+            case FirePosition.Shoulder:
+                offsetY = gameObject.transform.localScale.y / 4;
+                offsetY += extraOffset.y;
+                break;
+            case FirePosition.Torso:
+                offsetY += extraOffset.y;
+                break;
+            case FirePosition.Knees:
+                offsetY = -gameObject.transform.localScale.y / 4;
+                offsetY -= extraOffset.y;
+                break;
+            case FirePosition.Feet:
+                offsetY = -gameObject.transform.localScale.y / 2;
+                offsetY -= extraOffset.y;
+                break;
+        }
+        return offsetY;
+    }
+
     public void TakeDamage(float amount)
     {
         currentHealth -= amount * (1 - armor);
+        UIManager.instance.UpdatePlayerHealth();
 
         if(currentHealth <= 0.0f)
         {

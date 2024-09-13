@@ -35,7 +35,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -152,7 +152,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 8
+  m_GravityScale: 9.81
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -226,7 +226,7 @@ MonoBehaviour:
   rb: {fileID: 5341312582836827226}
   moveSpeed: 8
   jumpSpeed: 30
-  facingDirection: 0
+  facingDirection: 1
 --- !u!114 &5491314690244194225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,10 +241,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireRate: 0.5
   bulletSpeed: 30
-  currentHealth: 0
+  currentHealth: 20
   maxHealth: 20
   damage: 2
-  bulletGravity: 8
+  bulletGravity: 4
   armor: 0
   bullet: {fileID: 265689066167510017, guid: bf8885dc75097d249ba031e8688d9285, type: 3}
 --- !u!114 &4486561651592111078
