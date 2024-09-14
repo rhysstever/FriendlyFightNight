@@ -22,9 +22,8 @@ public class GameManager : MonoBehaviour
     #endregion
 
     [SerializeField]
-    private GameObject players, bullets;
+    private GameObject bullets;
 
-    public GameObject Players { get { return players; } }
     public GameObject Bullets { get { return bullets; } }
 
     // Start is called before the first frame update

@@ -64,10 +64,10 @@ public class PassiveAbility : SpecialAbility
 
     private void ApplyDebuff(PassiveAttribute attribute, float amount, float range)
     {
-        int childCount = GameManager.instance.Players.transform.childCount;
+        int childCount = PlayerManager.instance.PlayerInputs.Count;
         for (int i = 0; i < childCount; i++)
         {
-            GameObject child = GameManager.instance.Players.transform.GetChild(i).gameObject;
+            GameObject child = PlayerManager.instance.PlayerInputs[i].gameObject;
             if(child != gameObject)
             {
                 if(Vector3.Distance(child.transform.position, gameObject.transform.position) <= range)

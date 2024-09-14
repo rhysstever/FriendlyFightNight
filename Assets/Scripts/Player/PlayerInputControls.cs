@@ -5,11 +5,18 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputControls : MonoBehaviour
 {
-    [SerializeField]
-    private InputActionReference move, jump, fire, block, special;
+    private InputActionAsset inputAsset;
+    private InputActionMap player;
+    private InputAction move;
 
     private PlayerMovement playerMovement;
     private PlayerCombat playerCombat;
+
+    private void Awake()
+    {
+        inputAsset = GetComponent<PlayerInput>().actions;
+        player = inputAsset.FindActionMap("Player");
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -26,23 +33,26 @@ public class PlayerInputControls : MonoBehaviour
 
     private void OnEnable()
     {
-        jump.action.started += Jump;
-        fire.action.started += Fire;
-        block.action.started += Block;
-        special.action.started += Special;
+        player.FindAction("Jump").started += Jump;
+        player.FindAction("Fire").started += Fire;
+        player.FindAction("Block").started += Block;
+        player.FindAction("Special").started += Special;
+        move = player.FindAction("Move");
+        player.Enable();
     }
 
     private void OnDisable()
     {
-        jump.action.started -= Jump;
-        fire.action.started -= Fire;
-        block.action.started -= Block;
-        special.action.started -= Special;
+        player.FindAction("Jump").started -= Jump;
+        player.FindAction("Fire").started -= Fire;
+        player.FindAction("Block").started -= Block;
+        player.FindAction("Special").started -= Special;
+        player.Disable();
     }
 
     public Vector2 GetMove()
     {
-        return move.action.ReadValue<Vector2>();
+        return move.ReadValue<Vector2>();
     }
 
     private void Jump(InputAction.CallbackContext obj)
