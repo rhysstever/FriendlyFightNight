@@ -59,6 +59,8 @@ public class PlayerCombat : MonoBehaviour
         if(CanFire())
         {
             float facingDirection = gameObject.GetComponent<PlayerMovement>().FacingDirection;
+            // Ensure facingDirection is either -1 or 1
+            facingDirection /= Mathf.Abs(facingDirection);
             // Figure out the x-offset based on the direction of the player
             float offsetX = gameObject.transform.localScale.x / 2;
             offsetX += extraOffset.x;

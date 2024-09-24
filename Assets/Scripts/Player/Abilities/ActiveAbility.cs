@@ -20,6 +20,7 @@ public class ActiveAbility : SpecialAbility
     private float cooldownTimer;
 
     public ActiveType ActiveType { get { return activeType; } }
+    public float SpecialPercentage { get { return cooldownTimer / cooldown; } }
 
     // Start is called before the first frame update
     void Start()
@@ -30,14 +31,15 @@ public class ActiveAbility : SpecialAbility
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
-        
+        UIManager.instance.UpdatePlayerSpecial();
     }
 
     private void FixedUpdate()
     {
-        cooldownTimer += Time.deltaTime;
+        if(cooldownTimer < cooldown)
+            cooldownTimer += Time.deltaTime;
     }
 
     public bool CanUseSpecial()

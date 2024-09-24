@@ -22,7 +22,7 @@ public class UIManager : MonoBehaviour
     #endregion
 
     [SerializeField]
-    private List<GameObject> playerHealthBars;
+    private List<GameObject> playerHealthBars, playerSpecialBars;
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +42,19 @@ public class UIManager : MonoBehaviour
         for(int i = 0; i < min; i++)
         {
             float healthPercent = PlayerManager.instance.PlayerInputs[i].GetComponent<PlayerCombat>().HealthPercentage;
+            healthPercent = Mathf.Clamp(healthPercent, healthPercent, 1.0f);
             playerHealthBars[i].transform.localScale = new Vector3(healthPercent, 1.0f, 1.0f);
+        }
+    }
+
+    public void UpdatePlayerSpecial()
+    {
+        int min = Mathf.Min(PlayerManager.instance.PlayerInputs.Count, playerSpecialBars.Count);
+        for(int i = 0; i < min; i++)
+        {
+            float specialPercent = PlayerManager.instance.PlayerInputs[i].GetComponent<ActiveAbility>().SpecialPercentage;
+            specialPercent = Mathf.Clamp(specialPercent, specialPercent, 1.0f);
+            playerSpecialBars[i].transform.localScale = new Vector3(specialPercent, 1.0f, 1.0f);
         }
     }
 }
