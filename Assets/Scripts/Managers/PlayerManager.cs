@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum Character
+{
+    Rhys,
+    Grace
+}
+
 public class PlayerManager : MonoBehaviour
 {
     #region Singleton Code
@@ -25,10 +31,13 @@ public class PlayerManager : MonoBehaviour
     }
     #endregion
 
-    private List<PlayerInput> playerInputs;
     [SerializeField]
     private List<Transform> spawnPoints;
+    [SerializeField]
+    private List<GameObject> characterPrefabs;
+    private Dictionary<Character, GameObject> characters;
 
+    private List<PlayerInput> playerInputs;
     private PlayerInputManager playerInputManager;
 
     public List<PlayerInput> PlayerInputs { get { return playerInputs; } }
@@ -36,6 +45,7 @@ public class PlayerManager : MonoBehaviour
     private void OnEnable()
     {
         playerInputManager.onPlayerJoined += AddPlayer;
+        
     }
 
     private void OnDisable()
@@ -46,7 +56,11 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        characters = new Dictionary<Character, GameObject>();
+        foreach(GameObject character in characterPrefabs)
+        {
+            characters.Add(character.GetComponent<PlayerCombat>().CharacterName, character);
+        }
     }
 
     // Update is called once per frame
@@ -59,5 +73,33 @@ public class PlayerManager : MonoBehaviour
     {
         playerInputs.Add(playerInput);
         playerInput.transform.position = spawnPoints[playerInputs.Count - 1].position;
+    }
+
+    public void ChangeCharacter(GameObject currentCharacter, int characterChange)
+    {
+        // Find the current character
+        Character characterName = currentCharacter.GetComponent<PlayerCombat>().CharacterName;
+
+        // Get the next character
+        int characterIndex = (int)characterName;
+        int newCharacterIndex = characterIndex + characterChange;
+
+        if(newCharacterIndex >= characters.Count)
+            newCharacterIndex = 0;
+        else if(newCharacterIndex < 0)
+            newCharacterIndex = characters.Count - 1;
+
+        Character newCharacter = (Character)newCharacterIndex;
+
+        Debug.Log(newCharacter);
+
+        // Instantiate the new character
+
+
+        // Move the input to the new character
+
+
+        // Destroy the old character
+
     }
 }

@@ -14,12 +14,15 @@ public enum FirePosition
 public class PlayerCombat : MonoBehaviour
 {
     [SerializeField]
+    private Character characterName;
+    [SerializeField]
     private float fireRate, bulletSpeed, currentHealth, maxHealth, damage, bulletGravity, armor;
     [SerializeField]
     private GameObject bullet;
 
     private float fireTimer;
     
+    public Character CharacterName { get { return characterName; } }
     public float HealthPercentage { get { return currentHealth / maxHealth; } }
 
     private void Awake()

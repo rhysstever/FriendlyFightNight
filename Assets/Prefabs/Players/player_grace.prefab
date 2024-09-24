@@ -249,6 +249,18 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 20decb5e-0593-4516-8026-b32948bf2375
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8ef97452-6480-4c0a-9fda-8a4bbe63fb44
+    m_ActionName: Player/Join[/Keyboard/anyKey,/DualSenseGamepadHID/start,/DualSenseGamepadHID1/start]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5d322b6f-e341-4134-9baf-cad51b78c320
+    m_ActionName: Player/ChangeCharacterUp[/DualSenseGamepadHID/rightShoulder,/DualSenseGamepadHID1/rightShoulder,/Keyboard/3]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7080cf02-d614-4e3e-860f-250440dd52cf
+    m_ActionName: Player/ChangeCharacterDown[/DualSenseGamepadHID/leftShoulder,/DualSenseGamepadHID1/leftShoulder,/Keyboard/1]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -266,11 +278,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc772ef9be15b8848a7dc15f3c22055b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  move: {fileID: 8274581360168745371, guid: d5871f256cdfb8a41a978bf46b70653d, type: 3}
-  jump: {fileID: 5341806248746727429, guid: d5871f256cdfb8a41a978bf46b70653d, type: 3}
-  fire: {fileID: -4078217673082274707, guid: d5871f256cdfb8a41a978bf46b70653d, type: 3}
-  block: {fileID: -6480912863647911379, guid: d5871f256cdfb8a41a978bf46b70653d, type: 3}
-  special: {fileID: -1581262764272697836, guid: d5871f256cdfb8a41a978bf46b70653d, type: 3}
 --- !u!114 &8284000667427386967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,6 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e0bd3ad910be14418779b36b00c5451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterName: 1
   fireRate: 0.5
   bulletSpeed: 30
   currentHealth: 20

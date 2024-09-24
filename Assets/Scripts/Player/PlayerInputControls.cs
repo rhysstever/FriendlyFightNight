@@ -38,6 +38,8 @@ public class PlayerInputControls : MonoBehaviour
         player.FindAction("Block").started += Block;
         player.FindAction("Special").started += Special;
         move = player.FindAction("Move");
+        player.FindAction("ChangeCharacterUp").started += ChangeCharacterUp;
+        player.FindAction("ChangeCharacterDown").started += ChangeCharacterDown;
         player.Enable();
     }
 
@@ -47,6 +49,8 @@ public class PlayerInputControls : MonoBehaviour
         player.FindAction("Fire").started -= Fire;
         player.FindAction("Block").started -= Block;
         player.FindAction("Special").started -= Special;
+        player.FindAction("ChangeCharacterUp").started -= ChangeCharacterUp;
+        player.FindAction("ChangeCharacterDown").started -= ChangeCharacterDown;
         player.Disable();
     }
 
@@ -94,5 +98,15 @@ public class PlayerInputControls : MonoBehaviour
                 gameObject.GetComponent<ActiveAbility>().UseSpecial();
                 break;
         }
+    }
+
+    private void ChangeCharacterUp(InputAction.CallbackContext obj)
+    {
+        PlayerManager.instance.ChangeCharacter(gameObject, 1);
+    }
+
+    private void ChangeCharacterDown(InputAction.CallbackContext obj)
+    {
+        PlayerManager.instance.ChangeCharacter(gameObject, -1);
     }
 }
