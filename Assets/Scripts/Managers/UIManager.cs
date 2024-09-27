@@ -41,7 +41,7 @@ public class UIManager : MonoBehaviour
         int min = Mathf.Min(PlayerManager.instance.PlayerInputs.Count, playerHealthBars.Count);
         for(int i = 0; i < min; i++)
         {
-            float healthPercent = PlayerManager.instance.PlayerInputs[i].GetComponent<PlayerCombat>().HealthPercentage;
+            float healthPercent = PlayerManager.instance.PlayerInputs[i].transform.GetChild(0).GetComponent<PlayerCombat>().HealthPercentage;
             healthPercent = Mathf.Clamp(healthPercent, healthPercent, 1.0f);
             playerHealthBars[i].transform.localScale = new Vector3(healthPercent, 1.0f, 1.0f);
         }
@@ -52,7 +52,7 @@ public class UIManager : MonoBehaviour
         int min = Mathf.Min(PlayerManager.instance.PlayerInputs.Count, playerSpecialBars.Count);
         for(int i = 0; i < min; i++)
         {
-            float specialPercent = PlayerManager.instance.PlayerInputs[i].GetComponent<ActiveAbility>().SpecialPercentage;
+            float specialPercent = PlayerManager.instance.PlayerInputs[i].transform.GetChild(0).GetComponent<ActiveAbility>().SpecialPercentage;
             specialPercent = Mathf.Clamp(specialPercent, specialPercent, 1.0f);
             playerSpecialBars[i].transform.localScale = new Vector3(specialPercent, 1.0f, 1.0f);
         }

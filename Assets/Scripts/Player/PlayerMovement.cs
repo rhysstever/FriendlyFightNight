@@ -17,9 +17,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        if(rb == null) rb = GetComponent<Rigidbody2D>();
-        grounded = true;
+        rb = GetComponent<Rigidbody2D>();
         input = GetComponent<PlayerInputControls>();
+        grounded = true;
     }
 
     void Update()

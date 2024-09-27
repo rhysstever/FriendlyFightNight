@@ -22,7 +22,7 @@ public class PlayerInputControls : MonoBehaviour
     void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
-        playerCombat = GetComponent<PlayerCombat>();
+        playerCombat = transform.GetChild(0).GetComponent<PlayerCombat>();
     }
 
     // Update is called once per frame
@@ -76,26 +76,27 @@ public class PlayerInputControls : MonoBehaviour
 
     private void Special(InputAction.CallbackContext obj)
     {
-        ActiveType activeType = gameObject.GetComponent<ActiveAbility>().ActiveType;
+        Transform playerChild = transform.GetChild(0);
+        ActiveType activeType = playerChild.GetComponent<ActiveAbility>().ActiveType;
         switch(activeType)
         {
             case ActiveType.Default:
-                gameObject.GetComponent<ActiveAbility>().UseSpecial();
+                playerChild.GetComponent<ActiveAbility>().UseSpecial();
                 break;
             case ActiveType.SpecialAttack:
-                gameObject.GetComponent<SpecialAttack>().UseSpecial();
+                playerChild.GetComponent<SpecialAttack>().UseSpecial();
                 break;
             case ActiveType.Heal:
-                gameObject.GetComponent<Heal>().UseSpecial();
+                playerChild.GetComponent<Heal>().UseSpecial();
                 break;
             case ActiveType.Buff:
-                gameObject.GetComponent<ActiveAbility>().UseSpecial();
+                playerChild.GetComponent<ActiveAbility>().UseSpecial();
                 break;
             case ActiveType.Debuff:
-                gameObject.GetComponent<ActiveAbility>().UseSpecial();
+                playerChild.GetComponent<ActiveAbility>().UseSpecial();
                 break;
             default:
-                gameObject.GetComponent<ActiveAbility>().UseSpecial();
+                playerChild.GetComponent<ActiveAbility>().UseSpecial();
                 break;
         }
     }
@@ -108,5 +109,11 @@ public class PlayerInputControls : MonoBehaviour
     private void ChangeCharacterDown(InputAction.CallbackContext obj)
     {
         PlayerManager.instance.ChangeCharacter(gameObject, -1);
+    }
+
+    public void UpdateCombat(PlayerCombat playerCombat)
+    {
+        this.playerCombat = playerCombat;
+        Debug.Log(playerCombat.gameObject.name);
     }
 }

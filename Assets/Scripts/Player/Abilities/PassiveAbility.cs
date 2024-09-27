@@ -54,7 +54,7 @@ public class PassiveAbility : SpecialAbility
                 GetComponent<PlayerCombat>().AdjustArmor(amount);
                 break;
             case PassiveAttribute.MoveSpeed:
-                GetComponent<PlayerMovement>().AdjustMoveSpeed(amount);
+                transform.parent.GetComponent<PlayerMovement>().AdjustMoveSpeed(amount);
                 break;
             case PassiveAttribute.BulletGravity:
                 GetComponent<PlayerCombat>().AdjustBulletGravity(amount);
@@ -68,7 +68,7 @@ public class PassiveAbility : SpecialAbility
         for (int i = 0; i < childCount; i++)
         {
             GameObject child = PlayerManager.instance.PlayerInputs[i].gameObject;
-            if(child != gameObject)
+            if(child != gameObject.transform.parent.gameObject)
             {
                 if(Vector3.Distance(child.transform.position, gameObject.transform.position) <= range)
                 {

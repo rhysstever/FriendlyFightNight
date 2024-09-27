@@ -35,6 +35,7 @@ public class PlayerManager : MonoBehaviour
     private List<Transform> spawnPoints;
     [SerializeField]
     private List<GameObject> characterPrefabs;
+
     private Dictionary<Character, GameObject> characters;
 
     private List<PlayerInput> playerInputs;
@@ -45,7 +46,6 @@ public class PlayerManager : MonoBehaviour
     private void OnEnable()
     {
         playerInputManager.onPlayerJoined += AddPlayer;
-        
     }
 
     private void OnDisable()
@@ -78,7 +78,7 @@ public class PlayerManager : MonoBehaviour
     public void ChangeCharacter(GameObject currentCharacter, int characterChange)
     {
         // Find the current character
-        Character characterName = currentCharacter.GetComponent<PlayerCombat>().CharacterName;
+        Character characterName = currentCharacter.transform.GetChild(0).GetComponent<PlayerCombat>().CharacterName;
 
         // Get the next character
         int characterIndex = (int)characterName;
@@ -89,17 +89,15 @@ public class PlayerManager : MonoBehaviour
         else if(newCharacterIndex < 0)
             newCharacterIndex = characters.Count - 1;
 
+        //Character newCharacter = (Character)newCharacterIndex;
         Character newCharacter = (Character)newCharacterIndex;
+        GameObject newCharacterPrefab = characters[newCharacter];
 
-        Debug.Log(newCharacter);
+        // Remove the current character
+        Destroy(currentCharacter.transform.GetChild(0).gameObject);
 
-        // Instantiate the new character
-
-
-        // Move the input to the new character
-
-
-        // Destroy the old character
-
+        // Add the new character
+        GameObject newCharacterObject = Instantiate(newCharacterPrefab, currentCharacter.transform);
+        currentCharacter.GetComponent<PlayerInputControls>().UpdateCombat(newCharacterObject.GetComponent<PlayerCombat>());
     }
 }
