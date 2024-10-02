@@ -31,7 +31,10 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         if(moveDirection.x != 0.0f)
+        {
             facingDirection = moveDirection.x;
+            transform.GetChild(0).GetComponent<SpriteRenderer>().flipX = facingDirection < 0.0f;
+        }
         
         rb.velocity = new Vector2(moveDirection.x * moveSpeed, rb.velocity.y);
     }

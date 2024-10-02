@@ -57,7 +57,7 @@ public class PlayerCombat : MonoBehaviour
         return newBullet;
     }
 
-    public GameObject Fire(GameObject bullet, Vector2 bulletSpeed, FirePosition origin, Vector2 extraOffset)
+    public GameObject Fire(GameObject bullet, Vector2 bulletSpeed, FirePosition origin, Vector2 extraOffset, bool usesGravity = true)
     {
         if(CanFire())
         {
@@ -81,7 +81,10 @@ public class PlayerCombat : MonoBehaviour
             Vector2 bulletSpeedWithDirection = bulletSpeed;
             bulletSpeedWithDirection.x *= facingDirection;
             newBullet.GetComponent<Rigidbody2D>().velocity = bulletSpeedWithDirection;
-            newBullet.GetComponent<Rigidbody2D>().gravityScale = bulletGravity;
+            float newBulletGravity = bulletGravity;
+            if(usesGravity)
+                newBulletGravity = 0.0f;
+            newBullet.GetComponent<Rigidbody2D>().gravityScale = newBulletGravity;
 
             return newBullet;
         }

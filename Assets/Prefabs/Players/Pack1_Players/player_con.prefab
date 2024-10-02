@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1663086466530032639}
   - component: {fileID: 7172477517110337102}
+  - component: {fileID: 6962995905872780886}
   - component: {fileID: 5491314690244194225}
-  - component: {fileID: -4228764357666851386}
-  - component: {fileID: 1658388845966170112}
+  - component: {fileID: 6746286058691049625}
   m_Layer: 8
-  m_Name: player_rhys
+  m_Name: player_con
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.64315224, g: 0, b: 1, a: 1}
+  m_Sprite: {fileID: -965813136, guid: 4511c1bf869283a44aad38e8214a3f86, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -87,6 +87,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &6962995905872780886
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4943397249663079081}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6cb6e8c1deac9f645880eb52afac2d8d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &5491314690244194225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e0bd3ad910be14418779b36b00c5451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: 0
+  characterName: 3
   fireRate: 0.5
   bulletSpeed: 30
   currentHealth: 20
@@ -108,24 +129,7 @@ MonoBehaviour:
   bulletGravity: 4
   armor: 0
   bullet: {fileID: 265689066167510017, guid: bf8885dc75097d249ba031e8688d9285, type: 3}
---- !u!114 &-4228764357666851386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4943397249663079081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b412e3dc6c7199f47872cc9468ca27aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityName: Eagle Eye
-  passiveType: 0
-  passiveAttribute: 3
-  passivePercentage: -0.5
-  passiveRange: 0
---- !u!114 &1658388845966170112
+--- !u!114 &6746286058691049625
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,10 +141,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4cf570c7f50e434587db2ebb4271078, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityName: Watermelon Chuck
-  cooldown: 7.5
-  attackProjectile: {fileID: 7862096177016241195, guid: ea7011e49641e574ab1a148952cee96a, type: 3}
-  projectileSpeed: {x: 15, y: 15}
-  projectileDamage: 5
-  projectileLifespan: 2.5
-  firePosition: 0
+  abilityName: Energy Slash
+  cooldown: 5
+  attackProjectile: {fileID: 5953922024688288479, guid: 53fc8d0ad3cc3d444a3ab011b1579de9, type: 3}
+  projectileSpeed: {x: 5, y: 0}
+  projectileDamage: 2
+  projectileLifespan: 1
+  firePosition: 2
+  usesGravity: 0

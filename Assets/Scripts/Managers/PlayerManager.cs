@@ -6,7 +6,9 @@ using UnityEngine.InputSystem;
 public enum Character
 {
     Rhys,
-    Grace
+    Grace,
+    Sam,
+    Con
 }
 
 public class PlayerManager : MonoBehaviour

@@ -12,6 +12,8 @@ public class SpecialAttack : ActiveAbility
     private float projectileDamage, projectileLifespan;
     [SerializeField]
     private FirePosition firePosition;
+    [SerializeField]
+    private bool usesGravity;
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +35,7 @@ public class SpecialAttack : ActiveAbility
             GameObject specialProjectile = gameObject.GetComponent<PlayerCombat>().Fire(
                 attackProjectile,
                 projectileSpeed,
-                FirePosition.Head,
+                firePosition,
                 new Vector2(0.45f, 0.25f));
             specialProjectile.GetComponent<SpecialProjectile>().SetValues(projectileDamage, projectileLifespan);
         }

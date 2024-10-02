@@ -52,9 +52,13 @@ public class UIManager : MonoBehaviour
         int min = Mathf.Min(PlayerManager.instance.PlayerInputs.Count, playerSpecialBars.Count);
         for(int i = 0; i < min; i++)
         {
-            float specialPercent = PlayerManager.instance.PlayerInputs[i].transform.GetChild(0).GetComponent<ActiveAbility>().SpecialPercentage;
-            specialPercent = Mathf.Clamp(specialPercent, specialPercent, 1.0f);
-            playerSpecialBars[i].transform.localScale = new Vector3(specialPercent, 1.0f, 1.0f);
+            Transform child = PlayerManager.instance.PlayerInputs[i].transform.GetChild(0);
+            if(child.GetComponent<ActiveAbility>() != null)
+            {
+                float specialPercent = child.GetComponent<ActiveAbility>().SpecialPercentage;
+                specialPercent = Mathf.Clamp(specialPercent, specialPercent, 1.0f);
+                playerSpecialBars[i].transform.localScale = new Vector3(specialPercent, 1.0f, 1.0f);
+            }
         }
     }
 }
