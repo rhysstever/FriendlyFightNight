@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(GetComponent<Rigidbody2D>().gravityScale);
+
     }
 
     // Update is called once per frame

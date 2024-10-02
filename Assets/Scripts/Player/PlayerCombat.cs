@@ -82,7 +82,7 @@ public class PlayerCombat : MonoBehaviour
             bulletSpeedWithDirection.x *= facingDirection;
             newBullet.GetComponent<Rigidbody2D>().velocity = bulletSpeedWithDirection;
             float newBulletGravity = bulletGravity;
-            if(usesGravity)
+            if(!usesGravity)
                 newBulletGravity = 0.0f;
             newBullet.GetComponent<Rigidbody2D>().gravityScale = newBulletGravity;
 

@@ -127,7 +127,7 @@ MonoBehaviour:
   currentHealth: 20
   maxHealth: 20
   damage: 2
-  bulletGravity: 4
+  bulletGravity: 2
   armor: 0
   bullet: {fileID: 265689066167510017, guid: bf8885dc75097d249ba031e8688d9285, type: 3}
 --- !u!114 &4486561651592111078
