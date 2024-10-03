@@ -74,6 +74,7 @@ public class PlayerManager : MonoBehaviour
     public void AddPlayer(PlayerInput playerInput)
     {
         playerInputs.Add(playerInput);
+        playerInput.gameObject.name = "Player" + playerInputs.Count;
         playerInput.transform.position = spawnPoints[playerInputs.Count - 1].position;
     }
 

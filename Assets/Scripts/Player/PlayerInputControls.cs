@@ -114,6 +114,5 @@ public class PlayerInputControls : MonoBehaviour
     public void UpdateCombat(PlayerCombat playerCombat)
     {
         this.playerCombat = playerCombat;
-        Debug.Log(playerCombat.gameObject.name);
     }
 }

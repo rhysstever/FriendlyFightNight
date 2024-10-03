@@ -33,6 +33,9 @@ public class PlayerMovement : MonoBehaviour
         if(moveDirection.x != 0.0f)
         {
             facingDirection = moveDirection.x;
+            // Ensure facing direction is either -1 or 1
+            facingDirection /= Mathf.Abs(facingDirection);
+            // Flip the sprite based on the facing direction
             transform.GetChild(0).GetComponent<SpriteRenderer>().flipX = facingDirection < 0.0f;
         }
         

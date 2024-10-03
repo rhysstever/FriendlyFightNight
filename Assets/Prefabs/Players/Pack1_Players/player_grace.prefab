@@ -145,7 +145,7 @@ MonoBehaviour:
   abilityName: Attractive
   passiveType: 1
   passiveAttribute: 2
-  passivePercentage: 0.3
+  passivePercentage: 0
   passiveRange: 30
 --- !u!114 &-4650477312249746300
 MonoBehaviour:
