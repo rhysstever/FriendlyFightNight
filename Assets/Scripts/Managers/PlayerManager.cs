@@ -82,6 +82,7 @@ public class PlayerManager : MonoBehaviour
     {
         // Find the current character
         Character characterName = currentCharacter.transform.GetChild(0).GetComponent<PlayerCombat>().CharacterName;
+        bool spriteFlipX = currentCharacter.transform.GetChild(0).GetComponent<SpriteRenderer>().flipX;
 
         // Get the next character
         int characterIndex = (int)characterName;
@@ -92,7 +93,7 @@ public class PlayerManager : MonoBehaviour
         else if(newCharacterIndex < 0)
             newCharacterIndex = characters.Count - 1;
 
-        //Character newCharacter = (Character)newCharacterIndex;
+        // Character newCharacter = (Character)newCharacterIndex;
         Character newCharacter = (Character)newCharacterIndex;
         GameObject newCharacterPrefab = characters[newCharacter];
 
@@ -102,5 +103,6 @@ public class PlayerManager : MonoBehaviour
         // Add the new character
         GameObject newCharacterObject = Instantiate(newCharacterPrefab, currentCharacter.transform);
         currentCharacter.GetComponent<PlayerInputControls>().UpdateCombat(newCharacterObject.GetComponent<PlayerCombat>());
+        newCharacterObject.GetComponent<SpriteRenderer>().flipX = spriteFlipX;
     }
 }
