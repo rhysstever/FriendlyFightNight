@@ -291,6 +291,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: player_rhys
       objectReference: {fileID: 0}
+    - target: {fileID: 7172477517110337102, guid: 520cd302842931a44b972ecdafc47f3f, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7172477517110337102, guid: 520cd302842931a44b972ecdafc47f3f, type: 3}
+      propertyPath: m_Size.y
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

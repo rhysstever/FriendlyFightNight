@@ -5,13 +5,14 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
-    private Rigidbody2D rb;
-    [SerializeField]
     private float moveSpeed, jumpSpeed, facingDirection;
 
     private Vector2 moveDirection;
     private bool grounded;
+
+    private Rigidbody2D rb;
     private PlayerInputControls input;
+    private Animator animator;
 
     public float FacingDirection { get { return facingDirection; } }
 
@@ -19,12 +20,14 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         input = GetComponent<PlayerInputControls>();
+        animator = transform.GetChild(0).GetComponent<Animator>();
         grounded = true;
     }
 
     void Update()
     {
         moveDirection = input.GetMove();
+        animator.SetBool("canMove", rb.velocity.x != 0.0f);
         grounded = CheckGrounded();
     }
 
