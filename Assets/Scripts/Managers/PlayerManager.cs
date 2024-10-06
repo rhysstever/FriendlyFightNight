@@ -103,6 +103,7 @@ public class PlayerManager : MonoBehaviour
         // Add the new character
         GameObject newCharacterObject = Instantiate(newCharacterPrefab, currentCharacter.transform);
         currentCharacter.GetComponent<PlayerInputControls>().UpdateCombat(newCharacterObject.GetComponent<PlayerCombat>());
+        currentCharacter.GetComponent<PlayerMovement>().UpdateAnimator(newCharacterObject.GetComponent<Animator>());
         newCharacterObject.GetComponent<SpriteRenderer>().flipX = spriteFlipX;
     }
 }

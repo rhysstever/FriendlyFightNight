@@ -62,4 +62,9 @@ public class PlayerMovement : MonoBehaviour
     {
         moveSpeed += moveSpeed * percentage;
     }
+
+    public void UpdateAnimator(Animator animator)
+    {
+        this.animator = animator;
+    }
 }
