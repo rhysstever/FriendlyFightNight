@@ -7,6 +7,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float moveSpeed, jumpSpeed, facingDirection;
 
+    [SerializeField]
+    private float moveSpeedMod;
+
     private Vector2 moveDirection;
     private bool grounded;
 
@@ -22,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
         input = GetComponent<PlayerInputControls>();
         animator = transform.GetChild(0).GetComponent<Animator>();
         grounded = true;
+        moveSpeedMod = 1.0f;
     }
 
     void Update()
@@ -42,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
             transform.GetChild(0).GetComponent<SpriteRenderer>().flipX = facingDirection < 0.0f;
         }
         
-        rb.velocity = new Vector2(moveDirection.x * moveSpeed, rb.velocity.y);
+        rb.velocity = new Vector2(moveDirection.x * moveSpeed * moveSpeedMod, rb.velocity.y);
     }
 
     private bool CheckGrounded()
@@ -60,7 +64,12 @@ public class PlayerMovement : MonoBehaviour
 
     public void AdjustMoveSpeed(float percentage)
     {
-        moveSpeed += moveSpeed * percentage;
+        moveSpeedMod += percentage;
+    }
+
+    public void ResetMoveSpeedMod()
+    {
+        moveSpeedMod = 1.0f;
     }
 
     public void UpdateAnimator(Animator animator)

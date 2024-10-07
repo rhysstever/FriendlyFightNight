@@ -11,7 +11,7 @@ public enum AbilityType
 public class SpecialAbility : MonoBehaviour
 {
     [SerializeField]
-    private string abilityName;
+    protected string abilityName;
     internal AbilityType abilityType;
 
     public AbilityType AbilityType { get { return abilityType; } }

@@ -32,8 +32,10 @@ public class PassiveAbility : SpecialAbility
     {
         abilityType = AbilityType.Passive;
 
-        if(passiveType == PassiveType.Buff)
-            ApplyBuff(passiveAttribute, passivePercentage);
+        while(passivePercentage > 1.0f)
+        {
+            passivePercentage /= 10.0f;
+        }
     }
 
     // Update is called once per frame
@@ -41,25 +43,14 @@ public class PassiveAbility : SpecialAbility
     {
         if(passiveType == PassiveType.Debuff)
             ApplyDebuff(passiveAttribute, passivePercentage, passiveRange);
+        else
+            ApplyBuff(passiveAttribute, passivePercentage);
     }
 
     private void ApplyBuff(PassiveAttribute attribute, float amount)
     {
-        switch(attribute)
-        {
-            case PassiveAttribute.Damage:
-                GetComponent<PlayerCombat>().AdjustDamage(amount);
-                break;
-            case PassiveAttribute.Armor:
-                GetComponent<PlayerCombat>().AdjustArmor(amount);
-                break;
-            case PassiveAttribute.MoveSpeed:
-                transform.parent.GetComponent<PlayerMovement>().AdjustMoveSpeed(amount);
-                break;
-            case PassiveAttribute.BulletGravity:
-                GetComponent<PlayerCombat>().AdjustBulletGravity(amount);
-                break;
-        }
+        Effect effect = new Effect(abilityName, true, attribute, amount, 1.0f);
+        GetComponent<PlayerCombat>().ApplyEffect(effect);
     }
 
     private void ApplyDebuff(PassiveAttribute attribute, float amount, float range)
@@ -67,12 +58,13 @@ public class PassiveAbility : SpecialAbility
         int childCount = PlayerManager.instance.PlayerInputs.Count;
         for (int i = 0; i < childCount; i++)
         {
-            GameObject child = PlayerManager.instance.PlayerInputs[i].gameObject;
-            if(child != gameObject.transform.parent.gameObject)
+            Transform childTran = PlayerManager.instance.PlayerInputs[i].gameObject.transform.GetChild(0);
+            if(childTran != gameObject.transform)
             {
-                if(Vector3.Distance(child.transform.position, gameObject.transform.position) <= range)
+                if(Vector3.Distance(childTran.position, gameObject.transform.position) <= range)
                 {
-                    ApplyBuff(attribute, -amount);
+                    Effect effect = new Effect(abilityName, false, attribute, amount, 1.0f);
+                    childTran.GetComponent<PlayerCombat>().ApplyEffect(effect);
                 }
             }
         }

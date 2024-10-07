@@ -37,7 +37,7 @@ public class Bullet : MonoBehaviour
             case 8: // Players
                 GameObject.Destroy(this.gameObject);
                 Debug.Log("Player");
-                collision.gameObject.GetComponent<PlayerCombat>().TakeDamage(damage);
+                collision.gameObject.transform.GetChild(0).GetComponent<PlayerCombat>().TakeDamage(damage);
                 break;
             default:
                 break;

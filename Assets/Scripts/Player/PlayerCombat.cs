@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public enum FirePosition
@@ -18,12 +19,17 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField]
     private float fireRate, bulletSpeed, currentHealth, maxHealth, damage, bulletGravity, armor;
     [SerializeField]
+    private float damageMod, bulletGravityMod, armorMod;
+    [SerializeField]
     private GameObject bullet;
 
     private float fireTimer;
+
+    private Dictionary<string, Effect> effects;
     
     public Character CharacterName { get { return characterName; } }
     public float HealthPercentage { get { return currentHealth / maxHealth; } }
+    public Dictionary<string, Effect> Effects { get { return effects; } }
 
     private void Awake()
     {
@@ -34,6 +40,15 @@ public class PlayerCombat : MonoBehaviour
     void Start()
     {
         fireTimer = fireRate;   // can fire right away
+        effects = new Dictionary<string, Effect>();
+        damageMod = 1.0f;
+        bulletGravityMod = 1.0f;
+        armorMod = 1.0f;
+    }
+
+    private void Update()
+    {
+        ProcessEffects();
     }
 
     private void FixedUpdate()
@@ -51,7 +66,7 @@ public class PlayerCombat : MonoBehaviour
         GameObject newBullet = Fire(bullet, new Vector2(bulletSpeed, 0.0f), FirePosition.Torso, new Vector2(0.25f, 0.0f));
         if(newBullet != null)
         {
-            newBullet.GetComponent<Bullet>().damage = damage;
+            newBullet.GetComponent<Bullet>().damage = damage * damageMod;
             fireTimer = 0.0f;
         }
         return newBullet;
@@ -79,7 +94,7 @@ public class PlayerCombat : MonoBehaviour
             Vector2 bulletSpeedWithDirection = bulletSpeed;
             bulletSpeedWithDirection.x *= facingDirection;
             newBullet.GetComponent<Rigidbody2D>().velocity = bulletSpeedWithDirection;
-            float newBulletGravity = bulletGravity;
+            float newBulletGravity = bulletGravity * bulletGravityMod;
             if(!usesGravity)
                 newBulletGravity = 0.0f;
             newBullet.GetComponent<Rigidbody2D>().gravityScale = newBulletGravity;
@@ -120,12 +135,67 @@ public class PlayerCombat : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
-        currentHealth -= amount * (1 - armor);
+        float damageTaken = amount * (2 - armor * armorMod);
+        Debug.Log(damageTaken);
+        currentHealth -= damageTaken;
         UIManager.instance.UpdatePlayerHealth();
 
         if(currentHealth <= 0.0f)
         {
             Debug.Log(gameObject.name + "Dead!");
+        }
+    }
+
+    public void ApplyEffect(Effect effect)
+    {
+        if(effects.ContainsKey(effect.Name))
+        {
+            effects[effect.Name].Reset();
+        } 
+        else
+        {
+            effects.Add(effect.Name, effect);
+        }
+    }
+
+    private void ProcessEffects()
+    {
+        // Reset Mods
+        damageMod = 1.0f;
+        bulletGravityMod = 1.0f;
+        armorMod = 1.0f;
+        transform.parent.GetComponent<PlayerMovement>().ResetMoveSpeedMod();
+
+        for(int i = effects.Count - 1; i >= 0; i--)
+        {
+            Effect effect = effects.ElementAt(i).Value;
+            effect.Increment(Time.deltaTime);
+            if(effect.IsActive())
+            {
+                float amount = effect.Amount;
+                if(!effect.IsBuff)
+                    amount *= -1;
+
+                switch(effect.Attribute)
+                {
+                    case PassiveAttribute.Damage:
+                        GetComponent<PlayerCombat>().AdjustDamage(amount);
+                        break;
+                    case PassiveAttribute.Armor:
+                        GetComponent<PlayerCombat>().AdjustArmor(amount);
+                        break;
+                    case PassiveAttribute.MoveSpeed:
+                        transform.parent.GetComponent<PlayerMovement>().AdjustMoveSpeed(amount);
+                        break;
+                    case PassiveAttribute.BulletGravity:
+                        GetComponent<PlayerCombat>().AdjustBulletGravity(amount);
+                        break;
+                }
+            } 
+            else
+            {
+                effects.Remove(effect.Name);
+            }
         }
     }
 
@@ -136,16 +206,16 @@ public class PlayerCombat : MonoBehaviour
 
     public void AdjustDamage(float percentage)
     {
-        damage += damage * percentage;
+        damageMod += percentage;
     }
 
     public void AdjustArmor(float percentage)
     {
-        armor += armor * percentage;
+        armorMod += percentage;
     }
 
     public void AdjustBulletGravity(float percentage)
     {
-        bulletGravity += bulletGravity * percentage;
+        bulletGravityMod += percentage;
     }
 }
