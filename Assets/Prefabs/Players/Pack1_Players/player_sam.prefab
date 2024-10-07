@@ -147,5 +147,6 @@ MonoBehaviour:
   abilityName: Enemies to Friends
   passiveType: 0
   passiveAttribute: 1
-  passivePercentage: 0.1
+  passivePercentage: 0.2
   passiveRange: 0
+  rangeIsWithin: 0

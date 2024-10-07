@@ -24,6 +24,8 @@ public class PassiveAbility : SpecialAbility
     private PassiveAttribute passiveAttribute;
     [SerializeField]
     private float passivePercentage, passiveRange;
+    [SerializeField]
+    private bool rangeIsWithin;
 
     public PassiveType PassiveType { get { return passiveType; } }
 
@@ -61,11 +63,22 @@ public class PassiveAbility : SpecialAbility
             Transform childTran = PlayerManager.instance.PlayerInputs[i].gameObject.transform.GetChild(0);
             if(childTran != gameObject.transform)
             {
-                if(Vector3.Distance(childTran.position, gameObject.transform.position) <= range)
+                if(rangeIsWithin)
                 {
-                    Effect effect = new Effect(abilityName, false, attribute, amount, 1.0f);
-                    childTran.GetComponent<PlayerCombat>().ApplyEffect(effect);
+                    if(Vector3.Distance(childTran.position, gameObject.transform.position) <= range)
+                    {
+                        Effect effect = new Effect(abilityName, false, attribute, amount, 1.0f);
+                        childTran.GetComponent<PlayerCombat>().ApplyEffect(effect);
+                    }
                 }
+                else
+                {
+                    if(Vector3.Distance(childTran.position, gameObject.transform.position) >= range)
+                    {
+                        Effect effect = new Effect(abilityName, false, attribute, amount, 1.0f);
+                        childTran.GetComponent<PlayerCombat>().ApplyEffect(effect);
+                    }
+                } 
             }
         }
     }
