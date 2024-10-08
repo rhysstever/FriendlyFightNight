@@ -105,5 +105,9 @@ public class PlayerManager : MonoBehaviour
         currentCharacter.GetComponent<PlayerInputControls>().UpdateCombat(newCharacterObject.GetComponent<PlayerCombat>());
         currentCharacter.GetComponent<PlayerMovement>().UpdateAnimator(newCharacterObject.GetComponent<Animator>());
         newCharacterObject.GetComponent<SpriteRenderer>().flipX = spriteFlipX;
+        currentCharacter.gameObject.name = newCharacter.ToString();
+
+        // Update UI
+        UIManager.instance.UpdatePlayerNames();
     }
 }

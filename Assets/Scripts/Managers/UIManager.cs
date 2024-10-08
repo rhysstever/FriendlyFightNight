@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -22,6 +23,8 @@ public class UIManager : MonoBehaviour
     #endregion
 
     [SerializeField]
+    private List<TMP_Text> playerNameTexts;
+    [SerializeField]
     private List<GameObject> playerHealthBars, playerSpecialBars;
 
     // Start is called before the first frame update
@@ -33,7 +36,17 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    public void UpdatePlayerNames()
+    {
+        int min = Mathf.Min(PlayerManager.instance.PlayerInputs.Count, playerNameTexts.Count);
+        for(int i = 0; i < min; i++)
+        {
+            string name = PlayerManager.instance.PlayerInputs[i].gameObject.name;
+            playerNameTexts[i].text = name;
+        }
     }
 
     public void UpdatePlayerHealth()
