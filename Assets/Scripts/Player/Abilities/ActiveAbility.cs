@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ActiveType
-{
+public enum ActiveType {
     Default,
     SpecialAttack,
     Heal,
@@ -11,8 +10,7 @@ public enum ActiveType
     Debuff
 }
 
-public class ActiveAbility : SpecialAbility
-{
+public class ActiveAbility : SpecialAbility {
     [SerializeField]
     private float cooldown;
 
@@ -23,32 +21,27 @@ public class ActiveAbility : SpecialAbility
     public float SpecialPercentage { get { return cooldownTimer / cooldown; } }
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         abilityType = AbilityType.Active;
         activeType = ActiveType.Default;
         cooldownTimer = 0.0f;
     }
 
     // Update is called once per frame
-    protected virtual void Update()
-    {
+    protected virtual void Update() {
         UIManager.instance.UpdatePlayerSpecial();
     }
 
-    private void FixedUpdate()
-    {
+    private void FixedUpdate() {
         if(cooldownTimer < cooldown)
             cooldownTimer += Time.deltaTime;
     }
 
-    public bool CanUseSpecial()
-    {
+    public bool CanUseSpecial() {
         return cooldownTimer >= cooldown;
     }
 
-    public virtual void UseSpecial()
-    {
+    public virtual void UseSpecial() {
         cooldownTimer = 0.0f;
     }
 }

@@ -2,15 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
-{
+public class GameManager : MonoBehaviour {
     #region Singleton Code
     // A public reference to this script
     public static GameManager instance = null;
 
     // Awake is called even before start
-    private void Awake()
-    {
+    private void Awake() {
         // If the reference for this script is null, assign it this script
         if(instance == null)
             instance = this;
@@ -27,14 +25,12 @@ public class GameManager : MonoBehaviour
     public GameObject Bullets { get { return bullets; } }
 
     // Start is called before the first frame update
-    void Start()
-    {
-        
+    void Start() {
+
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
+    void Update() {
+
     }
 }

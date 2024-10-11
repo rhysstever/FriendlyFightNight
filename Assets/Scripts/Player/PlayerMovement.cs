@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
-{
+public class PlayerMovement : MonoBehaviour {
     [SerializeField]
     private float moveSpeed, jumpSpeed, facingDirection;
 
@@ -19,8 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float FacingDirection { get { return facingDirection; } }
 
-    void Start()
-    {
+    void Start() {
         rb = GetComponent<Rigidbody2D>();
         input = GetComponent<PlayerInputControls>();
         animator = transform.GetChild(0).GetComponent<Animator>();
@@ -28,52 +26,43 @@ public class PlayerMovement : MonoBehaviour
         moveSpeedMod = 1.0f;
     }
 
-    void Update()
-    {
+    void Update() {
         moveDirection = input.GetMove();
         animator.SetBool("canMove", rb.velocity.x != 0.0f);
         grounded = CheckGrounded();
     }
 
-    void FixedUpdate()
-    {
-        if(moveDirection.x != 0.0f)
-        {
+    void FixedUpdate() {
+        if(moveDirection.x != 0.0f) {
             facingDirection = moveDirection.x;
             // Ensure facing direction is either -1 or 1
             facingDirection /= Mathf.Abs(facingDirection);
             // Flip the sprite based on the facing direction
             transform.GetChild(0).GetComponent<SpriteRenderer>().flipX = facingDirection < 0.0f;
         }
-        
+
         rb.velocity = new Vector2(moveDirection.x * moveSpeed * moveSpeedMod, rb.velocity.y);
     }
 
-    private bool CheckGrounded()
-    {
+    private bool CheckGrounded() {
         return rb.velocity.y == 0.0f;
     }
-    
-    public void Jump()
-    {
-        if(grounded)
-        {
+
+    public void Jump() {
+        if(grounded) {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + jumpSpeed);
         }
     }
 
-    public void AdjustMoveSpeed(float percentage)
-    {
+    public void AdjustMoveSpeed(float percentage) {
         moveSpeedMod += percentage;
     }
 
-    public void ResetMoveSpeedMod()
-    {
+    public void ResetMoveSpeedMod() {
         moveSpeedMod = 1.0f;
     }
 
-    public void UpdateAnimator(Animator animator)
-    {
+    public void UpdateAnimator(Animator animator) {
         this.animator = animator;
     }
 }

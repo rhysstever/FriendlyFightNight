@@ -2,33 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpecialProjectile : MonoBehaviour
-{
+public class SpecialProjectile : MonoBehaviour {
     private float timer, damage, lifeSpan;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         timer = 0.0f;
     }
 
-    private void FixedUpdate()
-    {
+    private void FixedUpdate() {
         timer += Time.deltaTime;
         if(timer >= lifeSpan)
             Destroy(gameObject);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
+    private void OnCollisionEnter2D(Collision2D collision) {
         if(collision == null)
             return;
 
         if(collision.gameObject == null)
             return;
 
-        switch(collision.gameObject.layer)
-        {
+        switch(collision.gameObject.layer) {
             case 6: // Walls
                 break;
             case 7: // Bullets
@@ -47,8 +42,7 @@ public class SpecialProjectile : MonoBehaviour
         }
     }
 
-    public void SetValues(float damage, float lifespan)
-    {
+    public void SetValues(float damage, float lifespan) {
         this.damage = damage;
         this.lifeSpan = lifespan;
     }

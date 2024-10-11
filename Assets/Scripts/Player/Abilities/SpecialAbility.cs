@@ -2,14 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum AbilityType
-{
+public enum AbilityType {
     Passive,
     Active
 }
 
-public class SpecialAbility : MonoBehaviour
-{
+public class SpecialAbility : MonoBehaviour {
     [SerializeField]
     protected string abilityName;
     internal AbilityType abilityType;
@@ -17,14 +15,12 @@ public class SpecialAbility : MonoBehaviour
     public AbilityType AbilityType { get { return abilityType; } }
 
     // Start is called before the first frame update
-    void Start()
-    {
-        
+    void Start() {
+
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
+    void Update() {
+
     }
 }
