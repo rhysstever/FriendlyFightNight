@@ -27,8 +27,7 @@ public class UIManager : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        UpdatePlayerHealth();
-        UpdatePlayerNames();
+        UpdateAllPlayerUI();
     }
 
     // Update is called once per frame
@@ -36,6 +35,15 @@ public class UIManager : MonoBehaviour {
 
     }
 
+    public void UpdateAllPlayerUI() {
+        UpdatePlayerNames();
+        UpdatePlayerHealth();
+        UpdatePlayerSpecial();
+    }
+
+    /// <summary>
+    /// Update the display name for each player in the scene
+    /// </summary>
     public void UpdatePlayerNames() {
         for(int i = 0; i < playerNameTexts.Count; i++) {
             string characterName = "";
@@ -46,31 +54,50 @@ public class UIManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Update a display name for a specific player
+    /// </summary>
+    /// <param name="playerIndex">The player's index</param>
+    /// <param name="name">The new name for the player</param>
     public void UpdatePlayerNames(int playerIndex, string name) {
-        if(playerIndex >= PlayerManager.instance.PlayerInputs.Count) {
-            playerNameTexts[playerIndex].text = "";
-        } else {
+        if(playerIndex < PlayerManager.instance.PlayerInputs.Count) {
             playerNameTexts[playerIndex].text = name;
+        } else {
+            playerNameTexts[playerIndex].text = "";
         }
     }
 
+    /// <summary>
+    /// Update the health bar for each player in the scene
+    /// </summary>
     public void UpdatePlayerHealth() {
-        int min = Mathf.Min(PlayerManager.instance.PlayerInputs.Count, playerHealthBars.Count);
-        for(int i = 0; i < min; i++) {
-            float healthPercent = PlayerManager.instance.PlayerInputs[i].transform.GetChild(0).GetComponent<PlayerCombat>().HealthPercentage;
-            healthPercent = Mathf.Clamp(healthPercent, healthPercent, 1.0f);
-            playerHealthBars[i].transform.localScale = new Vector3(healthPercent, 1.0f, 1.0f);
+        for(int i = 0; i < playerHealthBars.Count; i++) {
+            bool playerExists = i < PlayerManager.instance.PlayerInputs.Count;
+            playerHealthBars[i].transform.parent.gameObject.SetActive(playerExists);
+
+            if(playerExists) {
+                float healthPercent = PlayerManager.instance.PlayerInputs[i].transform.GetChild(0).GetComponent<PlayerCombat>().HealthPercentage;
+                healthPercent = Mathf.Clamp(healthPercent, healthPercent, 1.0f);
+                playerHealthBars[i].transform.localScale = new Vector3(healthPercent, 1.0f, 1.0f);
+            }
         }
     }
 
+    /// <summary>
+    /// Update the special bar for each player in the scene
+    /// </summary>
     public void UpdatePlayerSpecial() {
-        int min = Mathf.Min(PlayerManager.instance.PlayerInputs.Count, playerSpecialBars.Count);
-        for(int i = 0; i < min; i++) {
-            Transform child = PlayerManager.instance.PlayerInputs[i].transform.GetChild(0);
-            if(child.GetComponent<ActiveAbility>() != null) {
-                float specialPercent = child.GetComponent<ActiveAbility>().SpecialPercentage;
-                specialPercent = Mathf.Clamp(specialPercent, specialPercent, 1.0f);
-                playerSpecialBars[i].transform.localScale = new Vector3(specialPercent, 1.0f, 1.0f);
+        for(int i = 0; i < playerSpecialBars.Count; i++) {
+            bool playerExists = i < PlayerManager.instance.PlayerInputs.Count;
+            playerSpecialBars[i].transform.parent.gameObject.SetActive(playerExists);
+
+            if(playerExists) {
+                Transform child = PlayerManager.instance.PlayerInputs[i].transform.GetChild(0);
+                if(child.GetComponent<ActiveAbility>() != null) {
+                    float specialPercent = child.GetComponent<ActiveAbility>().SpecialPercentage;
+                    specialPercent = Mathf.Clamp(specialPercent, specialPercent, 1.0f);
+                    playerSpecialBars[i].transform.localScale = new Vector3(specialPercent, 1.0f, 1.0f);
+                }
             }
         }
     }

@@ -53,9 +53,10 @@ public class PlayerManager : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
+        // Create a dictionary of characters and the corresponding prefab object
         characters = new Dictionary<Character, GameObject>();
-        foreach(GameObject character in characterPrefabs) {
-            characters.Add(character.GetComponent<PlayerCombat>().Character, character);
+        foreach(GameObject characterPrefab in characterPrefabs) {
+            characters.Add(characterPrefab.GetComponent<PlayerCombat>().Character, characterPrefab);
         }
     }
 
@@ -64,13 +65,22 @@ public class PlayerManager : MonoBehaviour {
 
     }
 
+    /// <summary>
+    /// Adds a PlayerInput to the scene and updates its values
+    /// </summary>
+    /// <param name="playerInput">The PlayerInput being added to the scene</param>
     public void AddPlayer(PlayerInput playerInput) {
         playerInputs.Add(playerInput);
         playerInput.gameObject.name = "Player" + playerInputs.Count;
         playerInput.transform.position = spawnPoints[playerInputs.Count - 1].position;
-        UIManager.instance.UpdatePlayerNames();
+        UIManager.instance.UpdateAllPlayerUI();
     }
 
+    /// <summary>
+    /// Changes a character object to another character
+    /// </summary>
+    /// <param name="currentCharacter">The current character object</param>
+    /// <param name="characterChange">How index of the current character will change</param>
     public void ChangeCharacter(GameObject currentCharacter, int characterChange) {
         // Find the current character
         Character characterName = currentCharacter.transform.GetChild(0).GetComponent<PlayerCombat>().Character;
@@ -80,6 +90,7 @@ public class PlayerManager : MonoBehaviour {
         int characterIndex = (int)characterName;
         int newCharacterIndex = characterIndex + characterChange;
 
+        // Account for the index wrapping
         if(newCharacterIndex >= characters.Count)
             newCharacterIndex = 0;
         else if(newCharacterIndex < 0)
@@ -101,7 +112,7 @@ public class PlayerManager : MonoBehaviour {
         Debug.Log(currentCharacter.name.Substring("Player".Length));
 
         // Get the index of player (indexed at 1)
-        if(Int32.TryParse(currentCharacter.name.Substring("Player".Length), out int index)) {
+        if(int.TryParse(currentCharacter.name.Substring("Player".Length), out int index)) {
             // Update Player Name UI
             UIManager.instance.UpdatePlayerNames(index - 1, newCharacter.ToString());
         }
