@@ -86,7 +86,7 @@ public class PlayerManager : MonoBehaviour {
         Character characterName = currentCharacter.transform.GetChild(0).GetComponent<PlayerCombat>().Character;
         bool spriteFlipX = currentCharacter.transform.GetChild(0).GetComponent<SpriteRenderer>().flipX;
 
-        // Get the next character
+        // Get the next character index
         int characterIndex = (int)characterName;
         int newCharacterIndex = characterIndex + characterChange;
 
@@ -105,9 +105,13 @@ public class PlayerManager : MonoBehaviour {
 
         // Add the new character
         GameObject newCharacterObject = Instantiate(newCharacterPrefab, currentCharacter.transform);
+
+        // Update the parent player object with new references to components of the new child character object
         currentCharacter.GetComponent<PlayerInputControls>().UpdateCombat(newCharacterObject.GetComponent<PlayerCombat>());
         currentCharacter.GetComponent<PlayerMovement>().UpdateAnimator(newCharacterObject.GetComponent<Animator>());
-        newCharacterObject.GetComponent<SpriteRenderer>().flipX = spriteFlipX;
+
+        // Ensure the sprite is facing the same way as it was before
+        newCharacterObject.GetComponent<SpriteRenderer>().flipX = spriteFlipX;  
 
         Debug.Log(currentCharacter.name.Substring("Player".Length));
 
