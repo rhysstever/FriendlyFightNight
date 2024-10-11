@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class UIManager : MonoBehaviour
-{
+public class UIManager : MonoBehaviour {
     #region Singleton Code
     // A public reference to this script
     public static UIManager instance = null;
 
     // Awake is called even before start
-    private void Awake()
-    {
+    private void Awake() {
         // If the reference for this script is null, assign it this script
         if(instance == null)
             instance = this;
@@ -28,46 +26,48 @@ public class UIManager : MonoBehaviour
     private List<GameObject> playerHealthBars, playerSpecialBars;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         UpdatePlayerHealth();
+        UpdatePlayerNames();
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
 
     }
 
-    public void UpdatePlayerNames()
-    {
-        int min = Mathf.Min(PlayerManager.instance.PlayerInputs.Count, playerNameTexts.Count);
-        for(int i = 0; i < min; i++)
-        {
-            string name = PlayerManager.instance.PlayerInputs[i].gameObject.name;
-            playerNameTexts[i].text = name;
+    public void UpdatePlayerNames() {
+        for(int i = 0; i < playerNameTexts.Count; i++) {
+            string characterName = "";
+            if(i < PlayerManager.instance.PlayerInputs.Count) {
+                characterName = PlayerManager.instance.PlayerInputs[i].GetComponentInChildren<PlayerCombat>().Character.ToString();
+            }
+            UpdatePlayerNames(i, characterName);
         }
     }
 
-    public void UpdatePlayerHealth()
-    {
+    public void UpdatePlayerNames(int playerIndex, string name) {
+        if(playerIndex >= PlayerManager.instance.PlayerInputs.Count) {
+            playerNameTexts[playerIndex].text = "";
+        } else {
+            playerNameTexts[playerIndex].text = name;
+        }
+    }
+
+    public void UpdatePlayerHealth() {
         int min = Mathf.Min(PlayerManager.instance.PlayerInputs.Count, playerHealthBars.Count);
-        for(int i = 0; i < min; i++)
-        {
+        for(int i = 0; i < min; i++) {
             float healthPercent = PlayerManager.instance.PlayerInputs[i].transform.GetChild(0).GetComponent<PlayerCombat>().HealthPercentage;
             healthPercent = Mathf.Clamp(healthPercent, healthPercent, 1.0f);
             playerHealthBars[i].transform.localScale = new Vector3(healthPercent, 1.0f, 1.0f);
         }
     }
 
-    public void UpdatePlayerSpecial()
-    {
+    public void UpdatePlayerSpecial() {
         int min = Mathf.Min(PlayerManager.instance.PlayerInputs.Count, playerSpecialBars.Count);
-        for(int i = 0; i < min; i++)
-        {
+        for(int i = 0; i < min; i++) {
             Transform child = PlayerManager.instance.PlayerInputs[i].transform.GetChild(0);
-            if(child.GetComponent<ActiveAbility>() != null)
-            {
+            if(child.GetComponent<ActiveAbility>() != null) {
                 float specialPercent = child.GetComponent<ActiveAbility>().SpecialPercentage;
                 specialPercent = Mathf.Clamp(specialPercent, specialPercent, 1.0f);
                 playerSpecialBars[i].transform.localScale = new Vector3(specialPercent, 1.0f, 1.0f);

@@ -1,25 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public enum Character
-{
+public enum Character {
     Rhys,
     Grace,
     Sam,
     Con
 }
 
-public class PlayerManager : MonoBehaviour
-{
+public class PlayerManager : MonoBehaviour {
     #region Singleton Code
     // A public reference to this script
     public static PlayerManager instance = null;
 
     // Awake is called even before start
-    private void Awake()
-    {
+    private void Awake() {
         // If the reference for this script is null, assign it this script
         if(instance == null)
             instance = this;
@@ -45,43 +43,37 @@ public class PlayerManager : MonoBehaviour
 
     public List<PlayerInput> PlayerInputs { get { return playerInputs; } }
 
-    private void OnEnable()
-    {
+    private void OnEnable() {
         playerInputManager.onPlayerJoined += AddPlayer;
     }
 
-    private void OnDisable()
-    {
+    private void OnDisable() {
         playerInputManager.onPlayerLeft -= AddPlayer;
     }
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         characters = new Dictionary<Character, GameObject>();
-        foreach(GameObject character in characterPrefabs)
-        {
-            characters.Add(character.GetComponent<PlayerCombat>().CharacterName, character);
+        foreach(GameObject character in characterPrefabs) {
+            characters.Add(character.GetComponent<PlayerCombat>().Character, character);
         }
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
+    void Update() {
+
     }
 
-    public void AddPlayer(PlayerInput playerInput)
-    {
+    public void AddPlayer(PlayerInput playerInput) {
         playerInputs.Add(playerInput);
         playerInput.gameObject.name = "Player" + playerInputs.Count;
         playerInput.transform.position = spawnPoints[playerInputs.Count - 1].position;
+        UIManager.instance.UpdatePlayerNames();
     }
 
-    public void ChangeCharacter(GameObject currentCharacter, int characterChange)
-    {
+    public void ChangeCharacter(GameObject currentCharacter, int characterChange) {
         // Find the current character
-        Character characterName = currentCharacter.transform.GetChild(0).GetComponent<PlayerCombat>().CharacterName;
+        Character characterName = currentCharacter.transform.GetChild(0).GetComponent<PlayerCombat>().Character;
         bool spriteFlipX = currentCharacter.transform.GetChild(0).GetComponent<SpriteRenderer>().flipX;
 
         // Get the next character
@@ -105,9 +97,13 @@ public class PlayerManager : MonoBehaviour
         currentCharacter.GetComponent<PlayerInputControls>().UpdateCombat(newCharacterObject.GetComponent<PlayerCombat>());
         currentCharacter.GetComponent<PlayerMovement>().UpdateAnimator(newCharacterObject.GetComponent<Animator>());
         newCharacterObject.GetComponent<SpriteRenderer>().flipX = spriteFlipX;
-        currentCharacter.gameObject.name = newCharacter.ToString();
 
-        // Update UI
-        UIManager.instance.UpdatePlayerNames();
+        Debug.Log(currentCharacter.name.Substring("Player".Length));
+
+        // Get the index of player (indexed at 1)
+        if(Int32.TryParse(currentCharacter.name.Substring("Player".Length), out int index)) {
+            // Update Player Name UI
+            UIManager.instance.UpdatePlayerNames(index - 1, newCharacter.ToString());
+        }
     }
 }

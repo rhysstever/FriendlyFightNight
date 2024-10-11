@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e0bd3ad910be14418779b36b00c5451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: 3
+  character: 3
   fireRate: 0.5
   bulletSpeed: 30
   currentHealth: 20

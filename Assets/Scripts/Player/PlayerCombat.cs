@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public enum FirePosition
-{
+public enum FirePosition {
     Head,
     Shoulder,
     Torso,
@@ -12,10 +11,10 @@ public enum FirePosition
     Feet
 }
 
-public class PlayerCombat : MonoBehaviour
-{
+public class PlayerCombat : MonoBehaviour {
+
     [SerializeField]
-    private Character characterName;
+    private Character character;
     [SerializeField]
     private float fireRate, bulletSpeed, currentHealth, maxHealth, damage, bulletGravity, armor;
     [SerializeField]
@@ -26,19 +25,17 @@ public class PlayerCombat : MonoBehaviour
     private float fireTimer;
 
     private Dictionary<string, Effect> effects;
-    
-    public Character CharacterName { get { return characterName; } }
+
+    public Character Character { get { return character; } }
     public float HealthPercentage { get { return currentHealth / maxHealth; } }
     public Dictionary<string, Effect> Effects { get { return effects; } }
 
-    private void Awake()
-    {
+    private void Awake() {
         currentHealth = maxHealth;
     }
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         fireTimer = fireRate;   // can fire right away
         effects = new Dictionary<string, Effect>();
         damageMod = 1.0f;
@@ -46,36 +43,29 @@ public class PlayerCombat : MonoBehaviour
         armorMod = 1.0f;
     }
 
-    private void Update()
-    {
+    private void Update() {
         ProcessEffects();
     }
 
-    private void FixedUpdate()
-    {
+    private void FixedUpdate() {
         fireTimer += Time.deltaTime;
     }
 
-    private bool CanFire()
-    {
+    private bool CanFire() {
         return fireTimer >= fireRate;
     }
 
-    public GameObject FireBullet()
-    {
+    public GameObject FireBullet() {
         GameObject newBullet = Fire(bullet, new Vector2(bulletSpeed, 0.0f), FirePosition.Torso, new Vector2(0.25f, 0.0f));
-        if(newBullet != null)
-        {
+        if(newBullet != null) {
             newBullet.GetComponent<Bullet>().damage = damage * damageMod;
             fireTimer = 0.0f;
         }
         return newBullet;
     }
 
-    public GameObject Fire(GameObject bullet, Vector2 bulletSpeed, FirePosition origin, Vector2 extraOffset, bool usesGravity = true)
-    {
-        if(CanFire())
-        {
+    public GameObject Fire(GameObject bullet, Vector2 bulletSpeed, FirePosition origin, Vector2 extraOffset, bool usesGravity = true) {
+        if(CanFire()) {
             float facingDirection = transform.parent.GetComponent<PlayerMovement>().FacingDirection;
             // Figure out the x-offset based on the direction of the player
             float offsetX = gameObject.transform.localScale.x / 2;
@@ -105,11 +95,9 @@ public class PlayerCombat : MonoBehaviour
         return null;
     }
 
-    private float GetOffsetYFromFireOrigin(GameObject gameObject, FirePosition origin, Vector2 extraOffset)
-    {
+    private float GetOffsetYFromFireOrigin(GameObject gameObject, FirePosition origin, Vector2 extraOffset) {
         float offsetY = 0.0f;
-        switch(origin)
-        {
+        switch(origin) {
             case FirePosition.Head:
                 offsetY = gameObject.transform.localScale.y / 2;
                 offsetY += extraOffset.y;
@@ -133,51 +121,41 @@ public class PlayerCombat : MonoBehaviour
         return offsetY;
     }
 
-    public void TakeDamage(float amount)
-    {
+    public void TakeDamage(float amount) {
         float damageTaken = amount * (2 - armor * armorMod);
         Debug.Log(damageTaken);
         currentHealth -= damageTaken;
         UIManager.instance.UpdatePlayerHealth();
 
-        if(currentHealth <= 0.0f)
-        {
+        if(currentHealth <= 0.0f) {
             Debug.Log(gameObject.name + "Dead!");
         }
     }
 
-    public void ApplyEffect(Effect effect)
-    {
-        if(effects.ContainsKey(effect.Name))
-        {
+    public void ApplyEffect(Effect effect) {
+        if(effects.ContainsKey(effect.Name)) {
             effects[effect.Name].Reset();
-        } 
-        else
-        {
+        } else {
             effects.Add(effect.Name, effect);
         }
     }
 
-    private void ProcessEffects()
-    {
+    private void ProcessEffects() {
         // Reset Mods
         damageMod = 1.0f;
         bulletGravityMod = 1.0f;
         armorMod = 1.0f;
         transform.parent.GetComponent<PlayerMovement>().ResetMoveSpeedMod();
 
-        for(int i = effects.Count - 1; i >= 0; i--)
-        {
+        for(int i = effects.Count - 1; i >= 0; i--) {
             Effect effect = effects.ElementAt(i).Value;
             effect.Increment(Time.deltaTime);
-            if(effect.IsActive())
-            {
+            if(effect.IsActive()) {
                 float amount = effect.Amount;
                 if(!effect.IsBuff)
                     amount *= -1;
 
-                switch(effect.Attribute)
-                {
+                switch(effect.Attribute) {
                     case PassiveAttribute.Damage:
                         GetComponent<PlayerCombat>().AdjustDamage(amount);
                         break;
@@ -191,31 +169,25 @@ public class PlayerCombat : MonoBehaviour
                         GetComponent<PlayerCombat>().AdjustBulletGravity(amount);
                         break;
                 }
-            } 
-            else
-            {
+            } else {
                 effects.Remove(effect.Name);
             }
         }
     }
 
-    public void Heal(float amount)
-    {
+    public void Heal(float amount) {
         currentHealth = Mathf.Clamp(currentHealth + amount, currentHealth, maxHealth);
     }
 
-    public void AdjustDamage(float percentage)
-    {
+    public void AdjustDamage(float percentage) {
         damageMod += percentage;
     }
 
-    public void AdjustArmor(float percentage)
-    {
+    public void AdjustArmor(float percentage) {
         armorMod += percentage;
     }
 
-    public void AdjustBulletGravity(float percentage)
-    {
+    public void AdjustBulletGravity(float percentage) {
         bulletGravityMod += percentage;
     }
 }
