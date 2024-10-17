@@ -108,12 +108,10 @@ public class PlayerManager : MonoBehaviour {
 
         // Update the parent player object with new references to components of the new child character object
         currentCharacter.GetComponent<PlayerInputControls>().UpdateCombat(newCharacterObject.GetComponent<PlayerCombat>());
-        currentCharacter.GetComponent<PlayerMovement>().UpdateAnimator(newCharacterObject.GetComponent<Animator>());
+        currentCharacter.GetComponent<PlayerMovement>().SetNewAnimator(newCharacterObject.GetComponent<Animator>());
 
         // Ensure the sprite is facing the same way as it was before
-        newCharacterObject.GetComponent<SpriteRenderer>().flipX = spriteFlipX;  
-
-        Debug.Log(currentCharacter.name.Substring("Player".Length));
+        newCharacterObject.GetComponent<SpriteRenderer>().flipX = spriteFlipX;
 
         // Get the index of player (indexed at 1)
         if(int.TryParse(currentCharacter.name.Substring("Player".Length), out int index)) {

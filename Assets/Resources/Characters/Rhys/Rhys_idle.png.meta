@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Rhys_idle_0
+      name: Rhys_Idle_0
       rect:
         serializedVersion: 2
         x: 0
@@ -137,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c24fde2a39ce3004c8169378d7ae4244
-      internalID: 238159582
+      spriteID: c7ede0c57a8ed6e44a1a767816b008a2
+      internalID: -1194947922
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rhys_idle_1
+      name: Rhys_Idle_1
       rect:
         serializedVersion: 2
         x: 16
@@ -158,14 +158,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4bcd40f6d022e8f4880faff776f7c997
-      internalID: 996321182
+      spriteID: c01b2f184a2dc6e40bed8c7662160a8d
+      internalID: -687448210
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rhys_idle_2
+      name: Rhys_Idle_2
       rect:
         serializedVersion: 2
         x: 32
@@ -179,14 +179,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e378aa717e8abf747a2907c8996722c3
-      internalID: -1972654981
+      spriteID: ac5d956308ff63d4faf74ff64609c509
+      internalID: -1552695531
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rhys_idle_3
+      name: Rhys_Idle_3
       rect:
         serializedVersion: 2
         x: 0
@@ -200,14 +200,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: af1d5a74f7dc4784aa918acaad1ff615
-      internalID: -1297069251
+      spriteID: 24b06780e600bbb4aa7932b4e156f888
+      internalID: -591915352
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rhys_idle_4
+      name: Rhys_Idle_4
       rect:
         serializedVersion: 2
         x: 16
@@ -221,14 +221,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 172bf979bc38d6140af724e58a612288
-      internalID: -674283794
+      spriteID: efac95f1b1258ad4a828e98029606bba
+      internalID: 1482738853
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rhys_idle_5
+      name: Rhys_Idle_5
       rect:
         serializedVersion: 2
         x: 32
@@ -242,8 +242,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 540812b6f4d725e4cbb452ccae9acd9a
-      internalID: 570098216
+      spriteID: 9f5ff3cdb0f33ad4e9af3cc089a86f63
+      internalID: 802238896
       vertices: []
       indices: 
       edges: []
@@ -259,12 +259,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Rhys_idle_0: 238159582
-      Rhys_idle_1: 996321182
-      Rhys_idle_2: -1972654981
-      Rhys_idle_3: -1297069251
-      Rhys_idle_4: -674283794
-      Rhys_idle_5: 570098216
+      Rhys_Idle_0: -1194947922
+      Rhys_Idle_1: -687448210
+      Rhys_Idle_2: -1552695531
+      Rhys_Idle_3: -591915352
+      Rhys_Idle_4: 1482738853
+      Rhys_Idle_5: 802238896
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

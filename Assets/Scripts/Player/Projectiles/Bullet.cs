@@ -32,7 +32,6 @@ public class Bullet : MonoBehaviour {
                 break;
             case 8: // Players
                 GameObject.Destroy(this.gameObject);
-                Debug.Log("Player");
                 collision.gameObject.transform.GetChild(0).GetComponent<PlayerCombat>().TakeDamage(damage);
                 break;
             default:
