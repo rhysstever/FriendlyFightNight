@@ -137,8 +137,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: edf148eff1eb6854a9f715d12bccb3f6
-      internalID: 1883538977
+      spriteID: 4b983ab61b08dee4b8b0c91a8ecf46e1
+      internalID: -78960070
       vertices: []
       indices: 
       edges: []
@@ -158,8 +158,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 598b11f7c9551c644925d37e4f2484cc
-      internalID: 1535424109
+      spriteID: 93bbaf04a7a4fd44e8c2033b317fa205
+      internalID: -1668398230
       vertices: []
       indices: 
       edges: []
@@ -179,8 +179,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 144e08595b96b924d8f2888129f17b9f
-      internalID: 550117507
+      spriteID: 0899c6ee224713d428c58bb5b54b3b27
+      internalID: 812815107
       vertices: []
       indices: 
       edges: []
@@ -200,8 +200,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5c1580e1e96cb104986fa18d39ed8082
-      internalID: -1885971903
+      spriteID: 8f847c6129516eb4e8569decb65c67cd
+      internalID: 737427191
       vertices: []
       indices: 
       edges: []
@@ -217,10 +217,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Rhys_Run_0: 1883538977
-      Rhys_Run_1: 1535424109
-      Rhys_Run_2: 550117507
-      Rhys_Run_3: -1885971903
+      Rhys_Run_0: -78960070
+      Rhys_Run_1: -1668398230
+      Rhys_Run_2: 812815107
+      Rhys_Run_3: 737427191
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

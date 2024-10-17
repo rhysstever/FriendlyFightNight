@@ -137,8 +137,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 716d2414d6c001447ae5f5cc9a2d84cf
-      internalID: -1662455108
+      spriteID: c0e208c6ca9610b4cb4023461db15476
+      internalID: 1554278541
       vertices: []
       indices: 
       edges: []
@@ -158,8 +158,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 01d2f3ce1d599bd46a4268be8da8709e
-      internalID: -1182923401
+      spriteID: 85d2ff790c0b7a148afc68c7cfe4cd49
+      internalID: -1276068916
       vertices: []
       indices: 
       edges: []
@@ -179,8 +179,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5202734b843b651419e6ba3dc3333504
-      internalID: -1407632888
+      spriteID: 631cfb18cf0ae61409d345fd49dcbf8b
+      internalID: 43619798
       vertices: []
       indices: 
       edges: []
@@ -200,8 +200,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7ac04899ea9bd204aacf9495011f774b
-      internalID: -1751570001
+      spriteID: dab6c7d8ce26de24bbb9e5fc9baaa94f
+      internalID: -2093485013
       vertices: []
       indices: 
       edges: []
@@ -217,10 +217,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Grace_Run_0: -1662455108
-      Grace_Run_1: -1182923401
-      Grace_Run_2: -1407632888
-      Grace_Run_3: -1751570001
+      Grace_Run_0: 1554278541
+      Grace_Run_1: -1276068916
+      Grace_Run_2: 43619798
+      Grace_Run_3: -2093485013
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

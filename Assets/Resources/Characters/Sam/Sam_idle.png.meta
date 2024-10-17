@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Sam_idle_0
+      name: Sam_Idle_0
       rect:
         serializedVersion: 2
         x: 0
@@ -137,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c36aa603963fae84a872eb12b6384f5c
-      internalID: 683571908
+      spriteID: 2696780e9ea164d48a88b4c6596b97f4
+      internalID: -148838842
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sam_idle_1
+      name: Sam_Idle_1
       rect:
         serializedVersion: 2
         x: 16
@@ -158,14 +158,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bbf8bad3b1b034d4d9312f3ebc9eff3f
-      internalID: -1323019970
+      spriteID: 5a85d7496766dae46bea572332eaaec4
+      internalID: 1253303898
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sam_idle_2
+      name: Sam_Idle_2
       rect:
         serializedVersion: 2
         x: 32
@@ -179,14 +179,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2f0e9e36482b1c047a71a40a62c32a76
-      internalID: -50760901
+      spriteID: 746a78702d48ecf458d4188281fabf8b
+      internalID: 785607528
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sam_idle_3
+      name: Sam_Idle_3
       rect:
         serializedVersion: 2
         x: 0
@@ -200,14 +200,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 25f90ff3a438494439d934684892a376
-      internalID: 131565523
+      spriteID: af9ae493fe420e74d94081c16b3afd75
+      internalID: 2100860386
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sam_idle_4
+      name: Sam_Idle_4
       rect:
         serializedVersion: 2
         x: 16
@@ -221,14 +221,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5889205856b6ca343901c6951213f15d
-      internalID: -1408970950
+      spriteID: 3739472c421e9964a91e3289c8403f1f
+      internalID: -1618331547
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sam_idle_5
+      name: Sam_Idle_5
       rect:
         serializedVersion: 2
         x: 32
@@ -242,8 +242,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 40edf82d42bb01e4ab9db0e7ffdacf65
-      internalID: 1345977245
+      spriteID: 27e7d2a5283783a4e82f8eadbd2a5d6f
+      internalID: -250014155
       vertices: []
       indices: 
       edges: []
@@ -259,12 +259,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Sam_idle_0: 683571908
-      Sam_idle_1: -1323019970
-      Sam_idle_2: -50760901
-      Sam_idle_3: 131565523
-      Sam_idle_4: -1408970950
-      Sam_idle_5: 1345977245
+      Sam_Idle_0: -148838842
+      Sam_Idle_1: 1253303898
+      Sam_Idle_2: 785607528
+      Sam_Idle_3: 2100860386
+      Sam_Idle_4: -1618331547
+      Sam_Idle_5: -250014155
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

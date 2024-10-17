@@ -137,8 +137,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 543f46f06aee0364f8479c1e3b65a015
-      internalID: 600351575
+      spriteID: 8975eb1d305d85047b67afb0aba46e72
+      internalID: 1940217618
       vertices: []
       indices: 
       edges: []
@@ -158,8 +158,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 98afb26753a7a47458642f97e9aa7cb7
-      internalID: 1210952735
+      spriteID: 75f8f81779b88c548b6094bdd4a8375a
+      internalID: 1462889513
       vertices: []
       indices: 
       edges: []
@@ -179,8 +179,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aee8932c62f3aaa46be662a01d41759c
-      internalID: 472715
+      spriteID: 9cc300b897b7f3f4eb5df35f0d60a85b
+      internalID: -28004950
       vertices: []
       indices: 
       edges: []
@@ -200,8 +200,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 255e1157a379575409ed0c7299a7e460
-      internalID: -1887631655
+      spriteID: 3b300cd82531fa245a523a6c4e886489
+      internalID: -999736272
       vertices: []
       indices: 
       edges: []
@@ -217,10 +217,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Connor_Run_0: 600351575
-      Connor_Run_1: 1210952735
-      Connor_Run_2: 472715
-      Connor_Run_3: -1887631655
+      Connor_Run_0: 1940217618
+      Connor_Run_1: 1462889513
+      Connor_Run_2: -28004950
+      Connor_Run_3: -999736272
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

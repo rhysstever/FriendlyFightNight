@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Grace_idle_0
+      name: Grace_Idle_0
       rect:
         serializedVersion: 2
         x: 0
@@ -137,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f7de8f7a4124ed44cb431e0540f98bbb
-      internalID: 1059575135
+      spriteID: 9f8c6b0b52556d745b821870028abc6f
+      internalID: -166813807
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Grace_idle_1
+      name: Grace_Idle_1
       rect:
         serializedVersion: 2
         x: 16
@@ -158,14 +158,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fe6485147f499b241a4e13da40e2707a
-      internalID: -792661211
+      spriteID: 0395e83a4bf967a4584ff6b649c62738
+      internalID: -738684247
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Grace_idle_2
+      name: Grace_Idle_2
       rect:
         serializedVersion: 2
         x: 32
@@ -179,14 +179,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 809834ed7aada25488f4b174d40aed44
-      internalID: 472324802
+      spriteID: 0fb7017da597adf4cb178ade13e7be0b
+      internalID: -428507785
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Grace_idle_3
+      name: Grace_Idle_3
       rect:
         serializedVersion: 2
         x: 0
@@ -200,14 +200,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2fd7c6bb8282c0142aac81cd560c5d1e
-      internalID: -2071467747
+      spriteID: 6d2034ef6d13e8d47b6bad19e9f1284b
+      internalID: -1425467315
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Grace_idle_4
+      name: Grace_Idle_4
       rect:
         serializedVersion: 2
         x: 16
@@ -221,14 +221,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b4b4b6917e6285c4ba8177dc018e61a7
-      internalID: 1307846487
+      spriteID: ea726155e9799ce4fa786949ede891b3
+      internalID: 247088389
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Grace_idle_5
+      name: Grace_Idle_5
       rect:
         serializedVersion: 2
         x: 32
@@ -242,8 +242,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e8264e32ffd965f47a755489ad04d780
-      internalID: 1052997680
+      spriteID: 40d9b5382a9978243bfaabbbd7f431fc
+      internalID: 732423604
       vertices: []
       indices: 
       edges: []
@@ -259,12 +259,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Grace_idle_0: 1059575135
-      Grace_idle_1: -792661211
-      Grace_idle_2: 472324802
-      Grace_idle_3: -2071467747
-      Grace_idle_4: 1307846487
-      Grace_idle_5: 1052997680
+      Grace_Idle_0: -166813807
+      Grace_Idle_1: -738684247
+      Grace_Idle_2: -428507785
+      Grace_Idle_3: -1425467315
+      Grace_Idle_4: 247088389
+      Grace_Idle_5: 732423604
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
