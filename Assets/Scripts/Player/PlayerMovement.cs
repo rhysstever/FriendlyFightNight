@@ -47,6 +47,7 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         rb.velocity = new Vector2(moveDirection.x * moveSpeed * moveSpeedMod, rb.velocity.y);
+        animator.SetFloat("yVelocity", rb.velocity.y);
     }
 
     /// <summary>
