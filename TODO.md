@@ -23,3 +23,22 @@
 | Grace | ✔️   | ✔️     | ✔️      |        |         |
 | Rhys  | ✔️   | ✔️     | ✔️      |        |         |
 | Sam   | ✔️   | ✔️     | ✔️      |        |         |
+
+## UI
+
+- [ ] Main Menu
+- [ ] Character Select Menu
+- [ ] Game UI
+  - [x] Player health bars
+  - [x] Player special bars
+  - [x] Player character names
+  - [ ] Player special text when used
+  - [ ] Active effects (buffs and debuffs)
+- [ ] Pause Menu
+- [ ] Game Over Menu
+
+## Misc
+- [x] Add a custom font for UI text
+- [ ] Use Kenny assets
+  - [ ] UI components
+  - [ ] Credit Kenny
