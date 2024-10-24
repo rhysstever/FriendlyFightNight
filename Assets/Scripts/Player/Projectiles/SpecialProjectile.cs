@@ -8,6 +8,8 @@ public class SpecialProjectile : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         timer = 0.0f;
+
+        Debug.Log(gameObject.GetComponent<Rigidbody2D>().gravityScale);
     }
 
     private void FixedUpdate() {

@@ -31,7 +31,8 @@ public class SpecialAttack : ActiveAbility {
                 attackProjectile,
                 projectileSpeed,
                 firePosition,
-                new Vector2(0.45f, 0.25f));
+                new Vector2(0.45f, 0.25f),
+                usesGravity);
             specialProjectile.GetComponent<SpecialProjectile>().SetValues(projectileDamage, projectileLifespan);
         }
     }
