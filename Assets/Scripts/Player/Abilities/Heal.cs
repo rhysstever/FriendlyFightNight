@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Heal : ActiveAbility {
+public class Heal : SpecialAbility {
     [SerializeField]
-    private float instantAmount;
+    private float instantAmount, duration, tickRate, tickAmount;
 
     // Start is called before the first frame update
-    void Start() {
-        activeType = ActiveType.Heal;
+    protected override void Start() {
+        base.Start();
     }
 
     // Update is called once per frame
@@ -20,6 +20,13 @@ public class Heal : ActiveAbility {
         if(CanUseSpecial()) {
             base.UseSpecial();
             gameObject.GetComponent<PlayerCombat>().Heal(instantAmount);
+            Effect healingOverTime = new Effect(
+                abilityName,
+                true,
+                Attribute.Damage,
+                tickAmount,
+                duration);
+            gameObject.GetComponent<PlayerCombat>().ApplyEffect(healingOverTime);
         }
     }
 }

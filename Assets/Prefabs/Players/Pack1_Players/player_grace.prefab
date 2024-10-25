@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7172477517110337102}
   - component: {fileID: -5105112371434070761}
   - component: {fileID: 5491314690244194225}
-  - component: {fileID: 4486561651592111078}
+  - component: {fileID: 7275120628871982663}
   - component: {fileID: -4650477312249746300}
   m_Layer: 8
   m_Name: player_grace
@@ -133,7 +133,7 @@ MonoBehaviour:
   bulletGravityMod: 1
   armorMod: 1
   bullet: {fileID: 265689066167510017, guid: bf8885dc75097d249ba031e8688d9285, type: 3}
---- !u!114 &4486561651592111078
+--- !u!114 &7275120628871982663
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,15 +142,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 4943397249663079081}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b412e3dc6c7199f47872cc9468ca27aa, type: 3}
+  m_Script: {fileID: 11500000, guid: bb846911504652141b9a6a91d8e28e60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   abilityName: Attractive
-  passiveType: 1
-  passiveAttribute: 2
-  passivePercentage: 0.15
-  passiveRange: 15
-  rangeIsWithin: 0
+  cooldown: 0
+  isActive: 0
+  effectType: 1
+  attribute: 2
+  effectPercentage: 0.2
+  range: 10
+  affectWithinRange: 0
 --- !u!114 &-4650477312249746300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,4 +167,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Coffee Sip
   cooldown: 15
-  instantAmount: 5
+  isActive: 1
+  instantAmount: 0
+  duration: 2
+  tickRate: 0.25
+  tickAmount: 0.5

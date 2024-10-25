@@ -32,7 +32,7 @@ public class UIManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-
+        UpdatePlayerSpecial();
     }
 
     public void UpdateAllPlayerUI() {
@@ -93,8 +93,8 @@ public class UIManager : MonoBehaviour {
 
             if(playerExists) {
                 Transform child = PlayerManager.instance.PlayerInputs[i].transform.GetChild(0);
-                if(child.GetComponent<ActiveAbility>() != null) {
-                    float specialPercent = child.GetComponent<ActiveAbility>().SpecialPercentage;
+                if(child.GetComponent<PlayerCombat>().ActiveAbility != null) {
+                    float specialPercent = child.GetComponent<PlayerCombat>().ActiveAbility.CooldownPercentage;
                     specialPercent = Mathf.Clamp(specialPercent, specialPercent, 1.0f);
                     playerSpecialBars[i].transform.localScale = new Vector3(specialPercent, 1.0f, 1.0f);
                 }

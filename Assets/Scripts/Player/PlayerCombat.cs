@@ -22,6 +22,7 @@ public class PlayerCombat : MonoBehaviour {
     [SerializeField]
     private GameObject bullet;
 
+    private SpecialAbility passiveAbility, activeAbility;
     private float fireTimer;
 
     private Dictionary<string, Effect> effects;
@@ -29,9 +30,19 @@ public class PlayerCombat : MonoBehaviour {
     public Character Character { get { return character; } }
     public float HealthPercentage { get { return currentHealth / maxHealth; } }
     public Dictionary<string, Effect> Effects { get { return effects; } }
+    public SpecialAbility PassiveAbility { get { return passiveAbility; } }
+    public SpecialAbility ActiveAbility { get { return activeAbility; } }
 
     private void Awake() {
         currentHealth = maxHealth;
+
+        SpecialAbility[] specialAbilities = GetComponents<SpecialAbility>();
+        foreach(SpecialAbility specialAbility in specialAbilities) {
+            if(specialAbility.IsActive)
+                activeAbility = specialAbility;
+            else 
+                passiveAbility = specialAbility;
+        }
     }
 
     // Start is called before the first frame update
@@ -156,16 +167,16 @@ public class PlayerCombat : MonoBehaviour {
                     amount *= -1;
 
                 switch(effect.Attribute) {
-                    case PassiveAttribute.Damage:
+                    case Attribute.Damage:
                         GetComponent<PlayerCombat>().AdjustDamage(amount);
                         break;
-                    case PassiveAttribute.Armor:
+                    case Attribute.Armor:
                         GetComponent<PlayerCombat>().AdjustArmor(amount);
                         break;
-                    case PassiveAttribute.MoveSpeed:
+                    case Attribute.MoveSpeed:
                         transform.parent.GetComponent<PlayerMovement>().AdjustMoveSpeed(amount);
                         break;
-                    case PassiveAttribute.BulletGravity:
+                    case Attribute.BulletGravity:
                         GetComponent<PlayerCombat>().AdjustBulletGravity(amount);
                         break;
                 }

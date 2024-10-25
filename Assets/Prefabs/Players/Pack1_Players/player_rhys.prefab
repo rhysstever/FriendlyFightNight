@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7172477517110337102}
   - component: {fileID: 1103638747043590551}
   - component: {fileID: 5491314690244194225}
-  - component: {fileID: -4228764357666851386}
+  - component: {fileID: -8469960936298678913}
   - component: {fileID: 1658388845966170112}
   m_Layer: 8
   m_Name: player_rhys
@@ -133,7 +133,7 @@ MonoBehaviour:
   bulletGravityMod: 1
   armorMod: 1
   bullet: {fileID: 265689066167510017, guid: bf8885dc75097d249ba031e8688d9285, type: 3}
---- !u!114 &-4228764357666851386
+--- !u!114 &-8469960936298678913
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,15 +142,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 4943397249663079081}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b412e3dc6c7199f47872cc9468ca27aa, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a717ae345e71a74e92e518eb32f999d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   abilityName: Eagle Eye
-  passiveType: 0
-  passiveAttribute: 3
-  passivePercentage: -0.5
-  passiveRange: 0
-  rangeIsWithin: 0
+  cooldown: 0
+  isActive: 0
+  effectType: 0
+  attribute: 3
+  effectPercentage: -0.5
 --- !u!114 &1658388845966170112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,6 +165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Watermelon Chuck
   cooldown: 7.5
+  isActive: 1
   attackProjectile: {fileID: 7862096177016241195, guid: ea7011e49641e574ab1a148952cee96a, type: 3}
   projectileSpeed: {x: 15, y: 15}
   projectileDamage: 5

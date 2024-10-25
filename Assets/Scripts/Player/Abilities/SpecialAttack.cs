@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpecialAttack : ActiveAbility {
+public class SpecialAttack : SpecialAbility {
     [SerializeField]
     private GameObject attackProjectile;
     [SerializeField]
@@ -15,13 +15,17 @@ public class SpecialAttack : ActiveAbility {
     private bool usesGravity;
 
     // Start is called before the first frame update
-    void Start() {
-        activeType = ActiveType.SpecialAttack;
+    protected override void Start() {
+        base.Start();
     }
 
     // Update is called once per frame
     protected override void Update() {
         base.Update();
+    }
+
+    protected override void FixedUpdate() {
+        base.FixedUpdate();
     }
 
     public override void UseSpecial() {

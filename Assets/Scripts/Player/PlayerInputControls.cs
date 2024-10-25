@@ -66,27 +66,7 @@ public class PlayerInputControls : MonoBehaviour {
 
     private void Special(InputAction.CallbackContext obj) {
         Transform playerChild = transform.GetChild(0);
-        ActiveType activeType = playerChild.GetComponent<ActiveAbility>().ActiveType;
-        switch(activeType) {
-            case ActiveType.Default:
-                playerChild.GetComponent<ActiveAbility>().UseSpecial();
-                break;
-            case ActiveType.SpecialAttack:
-                playerChild.GetComponent<SpecialAttack>().UseSpecial();
-                break;
-            case ActiveType.Heal:
-                playerChild.GetComponent<Heal>().UseSpecial();
-                break;
-            case ActiveType.Buff:
-                playerChild.GetComponent<ActiveAbility>().UseSpecial();
-                break;
-            case ActiveType.Debuff:
-                playerChild.GetComponent<ActiveAbility>().UseSpecial();
-                break;
-            default:
-                playerChild.GetComponent<ActiveAbility>().UseSpecial();
-                break;
-        }
+        playerChild.GetComponent<PlayerCombat>().ActiveAbility.UseSpecial();
     }
 
     private void ChangeCharacterUp(InputAction.CallbackContext obj) {

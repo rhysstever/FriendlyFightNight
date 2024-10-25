@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7172477517110337102}
   - component: {fileID: 2007658453345318045}
   - component: {fileID: 5491314690244194225}
-  - component: {fileID: -6098322462808733825}
+  - component: {fileID: 3671748674445691560}
   m_Layer: 8
   m_Name: player_sam
   m_TagString: Untagged
@@ -132,7 +132,9 @@ MonoBehaviour:
   bulletGravityMod: 1
   armorMod: 1
   bullet: {fileID: 265689066167510017, guid: bf8885dc75097d249ba031e8688d9285, type: 3}
---- !u!114 &-6098322462808733825
+  passiveAbility: {fileID: 0}
+  activeAbility: {fileID: 0}
+--- !u!114 &3671748674445691560
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,12 +143,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4943397249663079081}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b412e3dc6c7199f47872cc9468ca27aa, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a717ae345e71a74e92e518eb32f999d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityName: Enemies to Friends
-  passiveType: 0
-  passiveAttribute: 1
-  passivePercentage: 0.2
-  passiveRange: 0
-  rangeIsWithin: 0
+  abilityName: Befriend
+  cooldown: 0
+  isActive: 0
+  effectType: 0
+  attribute: 1
+  effectPercentage: 0.2

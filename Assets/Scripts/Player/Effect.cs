@@ -5,19 +5,19 @@ using UnityEngine;
 public class Effect {
     private string name;
     private bool isBuff;
-    private PassiveAttribute attribute;
+    private Attribute attribute;
     private float amount;
     private float duration;
     private float timer;
 
     public string Name { get { return name; } }
     public bool IsBuff { get { return isBuff; } }
-    public PassiveAttribute Attribute { get { return attribute; } }
+    public Attribute Attribute { get { return attribute; } }
     public float Amount { get { return amount; } }
     public float Duration { get { return duration; } }
     public float CurrentTimer { get { return timer; } }
 
-    public Effect(string name, bool isBuff, PassiveAttribute attribute, float amount, float duration) {
+    public Effect(string name, bool isBuff, Attribute attribute, float amount, float duration) {
         this.name = name;
         this.isBuff = isBuff;
         this.attribute = attribute;
