@@ -149,7 +149,7 @@ MonoBehaviour:
   cooldown: 0
   isActive: 0
   effectType: 1
-  attribute: 2
+  attribute: 5
   effectPercentage: 0.2
   range: 10
   affectWithinRange: 0
@@ -172,3 +172,4 @@ MonoBehaviour:
   duration: 2
   tickRate: 0.25
   tickAmount: 0.5
+  effectOverTimeAttribute: 4

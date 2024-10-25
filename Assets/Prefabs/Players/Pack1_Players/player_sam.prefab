@@ -132,8 +132,6 @@ MonoBehaviour:
   bulletGravityMod: 1
   armorMod: 1
   bullet: {fileID: 265689066167510017, guid: bf8885dc75097d249ba031e8688d9285, type: 3}
-  passiveAbility: {fileID: 0}
-  activeAbility: {fileID: 0}
 --- !u!114 &3671748674445691560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,5 +148,5 @@ MonoBehaviour:
   cooldown: 0
   isActive: 0
   effectType: 0
-  attribute: 1
+  attribute: 0
   effectPercentage: 0.2

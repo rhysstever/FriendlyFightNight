@@ -163,21 +163,27 @@ public class PlayerCombat : MonoBehaviour {
             effect.Increment(Time.deltaTime);
             if(effect.IsActive()) {
                 float amount = effect.Amount;
-                if(!effect.IsBuff)
+                if(!effect.IsBuff && effect.Attribute != Attribute.Damage)
                     amount *= -1;
 
                 switch(effect.Attribute) {
-                    case Attribute.Damage:
-                        GetComponent<PlayerCombat>().AdjustDamage(amount);
-                        break;
                     case Attribute.Armor:
-                        GetComponent<PlayerCombat>().AdjustArmor(amount);
+                        AdjustArmor(amount);
+                        break;
+                    case Attribute.BulletGravity:
+                        AdjustBulletGravity(amount);
+                        break;
+                    case Attribute.Damage:
+                        TakeDamage(amount);
+                        break;
+                    case Attribute.DamageMod:
+                        AdjustDamage(amount);
+                        break;
+                    case Attribute.Health:
+                        Heal(amount);
                         break;
                     case Attribute.MoveSpeed:
                         transform.parent.GetComponent<PlayerMovement>().AdjustMoveSpeed(amount);
-                        break;
-                    case Attribute.BulletGravity:
-                        GetComponent<PlayerCombat>().AdjustBulletGravity(amount);
                         break;
                 }
             } else {

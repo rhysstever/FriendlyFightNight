@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7172477517110337102}
   - component: {fileID: 6962995905872780886}
   - component: {fileID: 5491314690244194225}
+  - component: {fileID: -8726810189374839632}
   - component: {fileID: 6746286058691049625}
   m_Layer: 8
   m_Name: player_con
@@ -132,8 +133,26 @@ MonoBehaviour:
   bulletGravityMod: 1
   armorMod: 1
   bullet: {fileID: 265689066167510017, guid: bf8885dc75097d249ba031e8688d9285, type: 3}
-  passiveAbility: {fileID: 0}
-  activeAbility: {fileID: 0}
+--- !u!114 &-8726810189374839632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4943397249663079081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77b3fa4f9ea6c8942b5d9880b49f671b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: Diablo Rounds
+  cooldown: 0
+  isActive: 0
+  instantAmount: 0
+  duration: 2
+  tickRate: 0.5
+  tickAmount: 0.25
+  effectOverTimeAttribute: 2
 --- !u!114 &6746286058691049625
 MonoBehaviour:
   m_ObjectHideFlags: 0

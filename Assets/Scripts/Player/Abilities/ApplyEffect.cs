@@ -8,11 +8,12 @@ public enum EffectType {
 }
 
 public enum Attribute {
-    Damage,
     Armor,
-    MoveSpeed,
     BulletGravity,
-    Health
+    Damage,
+    DamageMod,
+    Health,
+    MoveSpeed
 }
 
 public class ApplyEffect : SpecialAbility {
