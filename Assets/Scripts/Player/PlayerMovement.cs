@@ -55,20 +55,23 @@ public class PlayerMovement : MonoBehaviour {
     /// </summary>
     /// <returns>Whether the player is on a jumpable surface</returns>
     private bool CheckGrounded() {
-        RaycastHit2D hit = Physics2D.Raycast(
+        RaycastHit2D[] hits = Physics2D.RaycastAll(
             new Vector2(
                 gameObject.transform.position.x,
-                gameObject.transform.position.y - gameObject.transform.localScale.y - 0.05f
+                gameObject.transform.position.y - gameObject.transform.localScale.y / 2
             ),
             Vector2.down,
-            0.05f);
+            0.75f);
 
-        // If the raycast hits a different object with a rigidbody
-        if(hit.rigidbody != null && hit.rigidbody != rb) {
-            // If the raycast hits a wall or player
-            if(hit.rigidbody.gameObject.layer == 6 ||
-                hit.rigidbody.gameObject.layer == 8) {
-                return true;
+        foreach(RaycastHit2D hit in hits) {
+            // If the raycast hits a different object with a rigidbody
+            if(hit.rigidbody != null && hit.rigidbody != rb) {
+
+                // If the raycast hits a wall or player
+                if(hit.rigidbody.gameObject.layer == 6 ||
+                    hit.rigidbody.gameObject.layer == 8) {
+                    return true;
+                }
             }
         }
 
