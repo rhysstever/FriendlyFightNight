@@ -77,7 +77,7 @@ public class UIManager : MonoBehaviour {
 
             if(playerExists) {
                 float healthPercent = PlayerManager.instance.PlayerInputs[i].transform.GetChild(0).GetComponent<PlayerCombat>().HealthPercentage;
-                healthPercent = Mathf.Clamp(healthPercent, healthPercent, 1.0f);
+                healthPercent = Mathf.Clamp(healthPercent, 0.0f, 1.0f);
                 playerHealthBars[i].transform.localScale = new Vector3(healthPercent, 1.0f, 1.0f);
             }
         }

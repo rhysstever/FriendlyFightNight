@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour {
     public float damage;
+    public GameObject source;
 
     // Start is called before the first frame update
     void Start() {
@@ -32,6 +33,11 @@ public class Bullet : MonoBehaviour {
                 break;
             case 8: // Players
                 GameObject.Destroy(this.gameObject);
+
+                if(source.GetComponent<EffectOverTime>() != null 
+                    && source.GetComponent<EffectOverTime>().EffectOverTimeAttribute == Attribute.Damage) {
+                    source.GetComponent<EffectOverTime>().UseSpecial(collision.gameObject);
+                }
                 collision.gameObject.transform.GetChild(0).GetComponent<PlayerCombat>().TakeDamage(damage);
                 break;
             default:

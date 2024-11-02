@@ -8,6 +8,8 @@ public class EffectOverTime : SpecialAbility {
     [SerializeField]
     private Attribute effectOverTimeAttribute;
 
+    public Attribute EffectOverTimeAttribute { get { return effectOverTimeAttribute; } }
+
     // Start is called before the first frame update
     protected override void Start() {
         base.Start();
@@ -22,32 +24,43 @@ public class EffectOverTime : SpecialAbility {
         }
     }
 
-    public override void UseSpecial() {
+    public void UseSpecial(GameObject target) {
         if(CanUseSpecial()) {
             base.UseSpecial();
 
+            if(target.GetComponent<PlayerCombat>() == null) {
+                target = target.GetComponentInChildren<PlayerCombat>().gameObject;
+            }
+
             switch(effectOverTimeAttribute) {
                 case Attribute.Damage:
-                    gameObject.GetComponent<PlayerCombat>().Heal(instantAmount);
+                    Debug.Log(target.name);
+                    target.GetComponent<PlayerCombat>().TakeDamage(instantAmount);
                     Effect damageOverTime = new Effect(
                         abilityName,
                         false,
                         Attribute.Damage,
                         tickAmount,
+                        tickRate,
                         duration);
-                    gameObject.GetComponent<PlayerCombat>().ApplyEffect(damageOverTime);
+                    target.GetComponent<PlayerCombat>().ApplyEffect(damageOverTime);
                     break;
                 case Attribute.Health:
-                    gameObject.GetComponent<PlayerCombat>().Heal(instantAmount);
+                    target.GetComponent<PlayerCombat>().Heal(instantAmount);
                     Effect healOverTime = new Effect(
                         abilityName,
                         true,
                         Attribute.Health,
                         tickAmount,
+                        tickRate,
                         duration);
-                    gameObject.GetComponent<PlayerCombat>().ApplyEffect(healOverTime);
+                    target.GetComponent<PlayerCombat>().ApplyEffect(healOverTime);
                     break;
             }
         }
+    }
+
+    public override void UseSpecial() {
+        UseSpecial(gameObject);
     }
 }

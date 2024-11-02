@@ -52,7 +52,7 @@ public class ApplyEffect : SpecialAbility {
     }
 
     protected void ApplyBuff(Attribute attribute, float amount) {
-        Effect effect = new Effect(abilityName, true, attribute, amount, 1.0f);
+        Effect effect = new Effect(abilityName, true, attribute, amount, 0.0f, 1.0f);
         GetComponent<PlayerCombat>().ApplyEffect(effect);
     }
 
@@ -61,7 +61,7 @@ public class ApplyEffect : SpecialAbility {
         for(int i = 0; i < childCount; i++) {
             Transform childTran = PlayerManager.instance.PlayerInputs[i].gameObject.transform.GetChild(0);
             if(childTran != gameObject.transform) {
-                Effect effect = new Effect(abilityName, false, attribute, amount, 1.0f);
+                Effect effect = new Effect(abilityName, false, attribute, amount, 0.0f, 1.0f);
                 childTran.GetComponent<PlayerCombat>().ApplyEffect(effect);
             }
         }

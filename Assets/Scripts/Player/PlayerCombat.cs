@@ -55,11 +55,12 @@ public class PlayerCombat : MonoBehaviour {
     }
 
     private void Update() {
-        ProcessEffects();
+
     }
 
     private void FixedUpdate() {
         fireTimer += Time.deltaTime;
+        ProcessEffects();
     }
 
     private bool CanFire() {
@@ -70,6 +71,7 @@ public class PlayerCombat : MonoBehaviour {
         GameObject newBullet = Fire(bullet, new Vector2(bulletSpeed, 0.0f), FirePosition.Torso, new Vector2(0.25f, 0.0f));
         if(newBullet != null) {
             newBullet.GetComponent<Bullet>().damage = damage * damageMod;
+            newBullet.GetComponent<Bullet>().source = gameObject;
             fireTimer = 0.0f;
         }
         return newBullet;
@@ -89,9 +91,10 @@ public class PlayerCombat : MonoBehaviour {
                 transform.position.x + offsetX,
                 transform.position.y + offsetY,
                 transform.position.z);
+            
             // Create the bullet in the scene under the bullet parent gameObject
             GameObject newBullet = Instantiate(bullet, bulletPos, Quaternion.identity, GameManager.instance.Bullets.transform);
-            // Set the bullet's velocity
+            // Set the bullet's stats
             Vector2 bulletSpeedWithDirection = bulletSpeed;
             bulletSpeedWithDirection.x *= facingDirection;
             newBullet.GetComponent<Rigidbody2D>().velocity = bulletSpeedWithDirection;
@@ -162,29 +165,31 @@ public class PlayerCombat : MonoBehaviour {
             Effect effect = effects.ElementAt(i).Value;
             effect.Increment(Time.deltaTime);
             if(effect.IsActive()) {
-                float amount = effect.Amount;
-                if(!effect.IsBuff && effect.Attribute != Attribute.Damage)
-                    amount *= -1;
+                if(effect.Tick()) {
+                    float amount = effect.Amount;
+                    if(!effect.IsBuff && effect.Attribute != Attribute.Damage)
+                        amount *= -1;
 
-                switch(effect.Attribute) {
-                    case Attribute.Armor:
-                        AdjustArmor(amount);
-                        break;
-                    case Attribute.BulletGravity:
-                        AdjustBulletGravity(amount);
-                        break;
-                    case Attribute.Damage:
-                        TakeDamage(amount);
-                        break;
-                    case Attribute.DamageMod:
-                        AdjustDamage(amount);
-                        break;
-                    case Attribute.Health:
-                        Heal(amount);
-                        break;
-                    case Attribute.MoveSpeed:
-                        transform.parent.GetComponent<PlayerMovement>().AdjustMoveSpeed(amount);
-                        break;
+                    switch(effect.Attribute) {
+                        case Attribute.Armor:
+                            AdjustArmor(amount);
+                            break;
+                        case Attribute.BulletGravity:
+                            AdjustBulletGravity(amount);
+                            break;
+                        case Attribute.Damage:
+                            TakeDamage(amount);
+                            break;
+                        case Attribute.DamageMod:
+                            AdjustDamage(amount);
+                            break;
+                        case Attribute.Health:
+                            Heal(amount);
+                            break;
+                        case Attribute.MoveSpeed:
+                            transform.parent.GetComponent<PlayerMovement>().AdjustMoveSpeed(amount);
+                            break;
+                    }
                 }
             } else {
                 effects.Remove(effect.Name);

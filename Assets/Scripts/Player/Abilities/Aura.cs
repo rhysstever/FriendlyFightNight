@@ -29,7 +29,7 @@ public class Aura : ApplyEffect
     }
 
     protected void ApplyBuff(Attribute attribute, float amount, float range) {
-        Effect effect = new Effect(abilityName, true, attribute, amount, 1.0f);
+        Effect effect = new Effect(abilityName, true, attribute, amount, 0.0f, 1.0f);
         GetComponent<PlayerCombat>().ApplyEffect(effect);
     }
 
@@ -40,12 +40,12 @@ public class Aura : ApplyEffect
             if(childTran != gameObject.transform) {
                 if(affectWithinRange) {
                     if(Vector3.Distance(childTran.position, gameObject.transform.position) <= range) {
-                        Effect effect = new Effect(abilityName, false, attribute, amount, 1.0f);
+                        Effect effect = new Effect(abilityName, false, attribute, amount, 0.0f, 1.0f);
                         childTran.GetComponent<PlayerCombat>().ApplyEffect(effect);
                     }
                 } else {
                     if(Vector3.Distance(childTran.position, gameObject.transform.position) >= range) {
-                        Effect effect = new Effect(abilityName, false, attribute, amount, 1.0f);
+                        Effect effect = new Effect(abilityName, false, attribute, amount, 0.0f, 1.0f);
                         childTran.GetComponent<PlayerCombat>().ApplyEffect(effect);
                     }
                 }

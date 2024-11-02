@@ -149,8 +149,8 @@ MonoBehaviour:
   cooldown: 0
   isActive: 0
   instantAmount: 0
-  duration: 2
-  tickRate: 0.5
+  duration: 1
+  tickRate: 0.25
   tickAmount: 0.25
   effectOverTimeAttribute: 2
 --- !u!114 &6746286058691049625
