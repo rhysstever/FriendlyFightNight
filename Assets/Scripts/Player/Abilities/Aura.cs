@@ -21,11 +21,17 @@ public class Aura : ApplyEffect
         }
     }
 
-    public override void UseSpecial() {
+    public override bool UseSpecial() {
+        if(!base.UseSpecial()) {
+            return false;
+        }
+
         if(effectType == EffectType.Debuff)
             ApplyDebuff(attribute, effectPercentage, range);
         else
             ApplyBuff(attribute, effectPercentage, range);
+
+        return true;
     }
 
     protected void ApplyBuff(Attribute attribute, float amount, float range) {

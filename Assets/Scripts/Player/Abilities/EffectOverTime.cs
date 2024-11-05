@@ -24,43 +24,45 @@ public class EffectOverTime : SpecialAbility {
         }
     }
 
-    public void UseSpecial(GameObject target) {
-        if(CanUseSpecial()) {
-            base.UseSpecial();
-
-            if(target.GetComponent<PlayerCombat>() == null) {
-                target = target.GetComponentInChildren<PlayerCombat>().gameObject;
-            }
-
-            switch(effectOverTimeAttribute) {
-                case Attribute.Damage:
-                    Debug.Log(target.name);
-                    target.GetComponent<PlayerCombat>().TakeDamage(instantAmount);
-                    Effect damageOverTime = new Effect(
-                        abilityName,
-                        false,
-                        Attribute.Damage,
-                        tickAmount,
-                        tickRate,
-                        duration);
-                    target.GetComponent<PlayerCombat>().ApplyEffect(damageOverTime);
-                    break;
-                case Attribute.Health:
-                    target.GetComponent<PlayerCombat>().Heal(instantAmount);
-                    Effect healOverTime = new Effect(
-                        abilityName,
-                        true,
-                        Attribute.Health,
-                        tickAmount,
-                        tickRate,
-                        duration);
-                    target.GetComponent<PlayerCombat>().ApplyEffect(healOverTime);
-                    break;
-            }
+    public bool UseSpecial(GameObject target) {
+        if(!base.UseSpecial()) {
+            return false;
         }
+
+        if(target.GetComponent<PlayerCombat>() == null) {
+            target = target.GetComponentInChildren<PlayerCombat>().gameObject;
+        }
+
+        switch(effectOverTimeAttribute) {
+            case Attribute.Damage:
+                Debug.Log(target.name);
+                target.GetComponent<PlayerCombat>().TakeDamage(instantAmount);
+                Effect damageOverTime = new Effect(
+                    abilityName,
+                    false,
+                    Attribute.Damage,
+                    tickAmount,
+                    tickRate,
+                    duration);
+                target.GetComponent<PlayerCombat>().ApplyEffect(damageOverTime);
+                break;
+            case Attribute.Health:
+                target.GetComponent<PlayerCombat>().Heal(instantAmount);
+                Effect healOverTime = new Effect(
+                    abilityName,
+                    true,
+                    Attribute.Health,
+                    tickAmount,
+                    tickRate,
+                    duration);
+                target.GetComponent<PlayerCombat>().ApplyEffect(healOverTime);
+                break;
+        }
+
+        return true;
     }
 
-    public override void UseSpecial() {
-        UseSpecial(gameObject);
+    public override bool UseSpecial() {
+        return UseSpecial(gameObject);
     }
 }

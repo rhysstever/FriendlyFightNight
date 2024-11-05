@@ -163,6 +163,7 @@ public class PlayerCombat : MonoBehaviour {
 
         for(int i = effects.Count - 1; i >= 0; i--) {
             Effect effect = effects.ElementAt(i).Value;
+            //Debug.Log(effect.Name);
             effect.Increment(Time.deltaTime);
             if(effect.IsActive()) {
                 if(effect.Tick()) {

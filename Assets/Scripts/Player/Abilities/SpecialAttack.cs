@@ -28,16 +28,18 @@ public class SpecialAttack : SpecialAbility {
         base.FixedUpdate();
     }
 
-    public override void UseSpecial() {
-        if(CanUseSpecial()) {
-            base.UseSpecial();
-            GameObject specialProjectile = gameObject.GetComponent<PlayerCombat>().Fire(
-                attackProjectile,
-                projectileSpeed,
-                firePosition,
-                new Vector2(0.45f, 0.25f),
-                usesGravity);
-            specialProjectile.GetComponent<SpecialProjectile>().SetValues(projectileDamage, projectileLifespan);
+    public override bool UseSpecial() {
+        if(!base.UseSpecial()) {
+            return false;
         }
+
+        GameObject specialProjectile = gameObject.GetComponent<PlayerCombat>().Fire(
+            attackProjectile,
+            projectileSpeed,
+            firePosition,
+            new Vector2(0.45f, 0.25f),
+            usesGravity);
+        specialProjectile.GetComponent<SpecialProjectile>().SetValues(projectileDamage, projectileLifespan);
+        return true;
     }
 }

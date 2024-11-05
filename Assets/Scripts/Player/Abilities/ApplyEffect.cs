@@ -44,11 +44,17 @@ public class ApplyEffect : SpecialAbility {
         }
     }
 
-    public override void UseSpecial() {
+    public override bool UseSpecial() {
+        if(!base.UseSpecial()) {
+            return false;
+        }
+
         if(effectType == EffectType.Debuff)
             ApplyDebuff(attribute, effectPercentage);
         else
             ApplyBuff(attribute, effectPercentage);
+
+        return true;
     }
 
     protected void ApplyBuff(Attribute attribute, float amount) {

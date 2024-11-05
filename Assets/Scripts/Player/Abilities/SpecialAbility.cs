@@ -32,15 +32,16 @@ public class SpecialAbility : MonoBehaviour {
             cooldownTimer += Time.deltaTime;
     }
 
-    public virtual void UseSpecial() {
+    public virtual bool UseSpecial() {
         if(!CanUseSpecial()) {
-            return;
+            return false;
         }
 
         cooldownTimer = 0.0f;
+        return true;
     }
 
-    public bool CanUseSpecial() {
+    private bool CanUseSpecial() {
         return cooldownTimer >= cooldown;
     }
 }
