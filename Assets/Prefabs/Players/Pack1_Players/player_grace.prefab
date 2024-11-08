@@ -147,7 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Attractive
   cooldown: 0
-  isActive: 0
+  isPassive: 1
   effectType: 1
   attribute: 5
   effectPercentage: 0.2
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Coffee Sip
   cooldown: 15
-  isActive: 1
+  isPassive: 0
   instantAmount: 0
   duration: 2
   tickRate: 0.25

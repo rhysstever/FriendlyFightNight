@@ -16,9 +16,7 @@ public class Aura : ApplyEffect
 
     // Update is called once per frame
     protected override void Update() {
-        if(!isActive) {
-            UseSpecial();
-        }
+        
     }
 
     public override bool UseSpecial() {
@@ -35,8 +33,12 @@ public class Aura : ApplyEffect
     }
 
     protected void ApplyBuff(Attribute attribute, float amount, float range) {
-        Effect effect = new Effect(abilityName, true, attribute, amount, 0.0f, 1.0f);
-        GetComponent<PlayerCombat>().ApplyEffect(effect);
+        Effect buff = gameObject.AddComponent<Effect>();
+        buff.EffectName = abilityName;
+        buff.IsActive = true;
+        buff.IsBuff = true;
+        buff.Attribute = attribute;
+        buff.Amount = amount;
     }
 
     protected void ApplyDebuff(Attribute attribute, float amount, float range) {
@@ -44,16 +46,23 @@ public class Aura : ApplyEffect
         for(int i = 0; i < childCount; i++) {
             Transform childTran = PlayerManager.instance.PlayerInputs[i].gameObject.transform.GetChild(0);
             if(childTran != gameObject.transform) {
-                if(affectWithinRange) {
-                    if(Vector3.Distance(childTran.position, gameObject.transform.position) <= range) {
-                        Effect effect = new Effect(abilityName, false, attribute, amount, 0.0f, 1.0f);
-                        childTran.GetComponent<PlayerCombat>().ApplyEffect(effect);
-                    }
-                } else {
-                    if(Vector3.Distance(childTran.position, gameObject.transform.position) >= range) {
-                        Effect effect = new Effect(abilityName, false, attribute, amount, 0.0f, 1.0f);
-                        childTran.GetComponent<PlayerCombat>().ApplyEffect(effect);
-                    }
+                if((affectWithinRange 
+                    && Vector3.Distance(
+                        childTran.position, 
+                        gameObject.transform.position
+                        ) <= range
+                    ) || (!affectWithinRange 
+                    && Vector3.Distance(
+                        childTran.position, 
+                        gameObject.transform.position
+                        ) >= range)
+                ) {
+                    Effect debuff = gameObject.AddComponent<Effect>();
+                    debuff.EffectName = abilityName;
+                    debuff.IsActive = true;
+                    debuff.IsBuff = false;
+                    debuff.Attribute = attribute;
+                    debuff.Amount = amount;
                 }
             }
         }

@@ -147,11 +147,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Diablo Rounds
   cooldown: 0
-  isActive: 0
-  instantAmount: 0
-  duration: 1
-  tickRate: 0.25
-  tickAmount: 0.25
+  isPassive: 1
+  instantAmount: 1
+  duration: 1.5
+  tickRate: 0.5
+  tickAmount: 0.5
   effectOverTimeAttribute: 2
 --- !u!114 &6746286058691049625
 MonoBehaviour:
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Energy Slash
   cooldown: 5
-  isActive: 1
+  isPassive: 0
   attackProjectile: {fileID: 5953922024688288479, guid: 53fc8d0ad3cc3d444a3ab011b1579de9, type: 3}
   projectileSpeed: {x: 10, y: 0}
   projectileDamage: 2

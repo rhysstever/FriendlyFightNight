@@ -25,11 +25,8 @@ public class PlayerCombat : MonoBehaviour {
     private SpecialAbility passiveAbility, activeAbility;
     private float fireTimer;
 
-    private Dictionary<string, Effect> effects;
-
     public Character Character { get { return character; } }
     public float HealthPercentage { get { return currentHealth / maxHealth; } }
-    public Dictionary<string, Effect> Effects { get { return effects; } }
     public SpecialAbility PassiveAbility { get { return passiveAbility; } }
     public SpecialAbility ActiveAbility { get { return activeAbility; } }
 
@@ -38,20 +35,19 @@ public class PlayerCombat : MonoBehaviour {
 
         SpecialAbility[] specialAbilities = GetComponents<SpecialAbility>();
         foreach(SpecialAbility specialAbility in specialAbilities) {
-            if(specialAbility.IsActive)
-                activeAbility = specialAbility;
-            else 
+            if(specialAbility.IsPassive)
                 passiveAbility = specialAbility;
+            else 
+                activeAbility = specialAbility;
         }
     }
 
     // Start is called before the first frame update
     void Start() {
         fireTimer = fireRate;   // can fire right away
-        effects = new Dictionary<string, Effect>();
-        damageMod = 1.0f;
-        bulletGravityMod = 1.0f;
-        armorMod = 1.0f;
+        damageMod = 0.0f;
+        bulletGravityMod = 0.0f;
+        armorMod = 0.0f;
     }
 
     private void Update() {
@@ -60,7 +56,6 @@ public class PlayerCombat : MonoBehaviour {
 
     private void FixedUpdate() {
         fireTimer += Time.deltaTime;
-        ProcessEffects();
     }
 
     private bool CanFire() {
@@ -98,9 +93,11 @@ public class PlayerCombat : MonoBehaviour {
             Vector2 bulletSpeedWithDirection = bulletSpeed;
             bulletSpeedWithDirection.x *= facingDirection;
             newBullet.GetComponent<Rigidbody2D>().velocity = bulletSpeedWithDirection;
-            float newBulletGravity = bulletGravity * bulletGravityMod;
-            if(!usesGravity)
+            float newBulletGravity = bulletGravity + bulletGravityMod;
+            if(!usesGravity) {
                 newBulletGravity = 0.0f;
+            }
+            Debug.Log(newBulletGravity);
             newBullet.GetComponent<Rigidbody2D>().gravityScale = newBulletGravity;
 
             return newBullet;
@@ -137,7 +134,6 @@ public class PlayerCombat : MonoBehaviour {
 
     public void TakeDamage(float amount) {
         float damageTaken = amount * (2 - armor * armorMod);
-        Debug.Log(damageTaken);
         currentHealth -= damageTaken;
         UIManager.instance.UpdatePlayerHealth();
 
@@ -146,71 +142,19 @@ public class PlayerCombat : MonoBehaviour {
         }
     }
 
-    public void ApplyEffect(Effect effect) {
-        if(effects.ContainsKey(effect.Name)) {
-            effects[effect.Name].Reset();
-        } else {
-            effects.Add(effect.Name, effect);
-        }
-    }
-
-    private void ProcessEffects() {
-        // Reset Mods
-        damageMod = 1.0f;
-        bulletGravityMod = 1.0f;
-        armorMod = 1.0f;
-        transform.parent.GetComponent<PlayerMovement>().ResetMoveSpeedMod();
-
-        for(int i = effects.Count - 1; i >= 0; i--) {
-            Effect effect = effects.ElementAt(i).Value;
-            //Debug.Log(effect.Name);
-            effect.Increment(Time.deltaTime);
-            if(effect.IsActive()) {
-                if(effect.Tick()) {
-                    float amount = effect.Amount;
-                    if(!effect.IsBuff && effect.Attribute != Attribute.Damage)
-                        amount *= -1;
-
-                    switch(effect.Attribute) {
-                        case Attribute.Armor:
-                            AdjustArmor(amount);
-                            break;
-                        case Attribute.BulletGravity:
-                            AdjustBulletGravity(amount);
-                            break;
-                        case Attribute.Damage:
-                            TakeDamage(amount);
-                            break;
-                        case Attribute.DamageMod:
-                            AdjustDamage(amount);
-                            break;
-                        case Attribute.Health:
-                            Heal(amount);
-                            break;
-                        case Attribute.MoveSpeed:
-                            transform.parent.GetComponent<PlayerMovement>().AdjustMoveSpeed(amount);
-                            break;
-                    }
-                }
-            } else {
-                effects.Remove(effect.Name);
-            }
-        }
-    }
-
     public void Heal(float amount) {
         currentHealth = Mathf.Clamp(currentHealth + amount, currentHealth, maxHealth);
     }
 
-    public void AdjustDamage(float percentage) {
-        damageMod += percentage;
-    }
-
     public void AdjustArmor(float percentage) {
-        armorMod += percentage;
+        armorMod += armor * percentage;
     }
 
     public void AdjustBulletGravity(float percentage) {
-        bulletGravityMod += percentage;
+        bulletGravityMod += bulletGravity * percentage;
+    }
+
+    public void AdjustDamage(float percentage) {
+        damageMod += damage * percentage;
     }
 }

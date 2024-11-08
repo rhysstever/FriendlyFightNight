@@ -39,8 +39,8 @@ public class PlayerMovement : MonoBehaviour {
 
     void FixedUpdate() {
         if(moveDirection.x != 0.0f) {
-            facingDirection = moveDirection.x;
             // Ensure facing direction is either -1 or 1
+            facingDirection = moveDirection.x;
             facingDirection /= Mathf.Abs(facingDirection);
             // Flip the sprite based on the facing direction
             transform.GetChild(0).GetComponent<SpriteRenderer>().flipX = facingDirection < 0.0f;
@@ -92,14 +92,14 @@ public class PlayerMovement : MonoBehaviour {
     /// </summary>
     /// <param name="percentage">The percentage change (0.0f -> 1.0f)</param>
     public void AdjustMoveSpeed(float percentage) {
-        moveSpeedMod += percentage;
+        moveSpeedMod += moveSpeed * percentage;
     }
 
     /// <summary>
     /// Reset the modifier for the player's move speed
     /// </summary>
     public void ResetMoveSpeedMod() {
-        moveSpeedMod = 1.0f;
+        moveSpeedMod = 0.0f;
     }
 
     /// <summary>

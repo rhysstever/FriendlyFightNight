@@ -9,12 +9,12 @@ public class SpecialAbility : MonoBehaviour {
     protected float cooldown;
     protected float cooldownTimer;
     [SerializeField]
-    protected bool isActive;
+    protected bool isPassive;
 
     public string AbilityName { get { return abilityName; } }
     public float Cooldown { get { return cooldown; } }
     public float CooldownTimer { get { return cooldownTimer; } }
-    public bool IsActive { get { return isActive; } }
+    public bool IsPassive { get { return isPassive; } }
     public float CooldownPercentage { get { return cooldownTimer / cooldown; } }
 
     // Start is called before the first frame update

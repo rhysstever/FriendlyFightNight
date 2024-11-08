@@ -147,7 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Befriend
   cooldown: 0
-  isActive: 0
+  isPassive: 1
   effectType: 0
   attribute: 0
   effectPercentage: 0.2
@@ -164,8 +164,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityName: Pooled Luck
-  cooldown: 15
-  isActive: 1
+  cooldown: 5
+  isPassive: 0
   leechingAttributes: 010000000300000005000000
   leechingAmountPercentage: 0.2
   leechingDuration: 5
