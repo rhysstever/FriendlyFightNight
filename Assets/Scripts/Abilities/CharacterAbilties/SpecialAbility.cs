@@ -19,12 +19,10 @@ public class SpecialAbility : MonoBehaviour {
 
     // Start is called before the first frame update
     protected virtual void Start() {
+        if(isPassive) {
+            cooldown = 0.0f;
+        }
         cooldownTimer = 0.0f;
-    }
-
-    // Update is called once per frame
-    protected virtual void Update() {
-
     }
 
     protected virtual void FixedUpdate() {
@@ -37,11 +35,15 @@ public class SpecialAbility : MonoBehaviour {
             return false;
         }
 
-        cooldownTimer = 0.0f;
+        ResetCooldown();
         return true;
     }
 
-    private bool CanUseSpecial() {
+    protected bool CanUseSpecial() {
         return cooldownTimer >= cooldown;
+    }
+
+    protected void ResetCooldown() {
+        cooldownTimer = 0.0f;
     }
 }

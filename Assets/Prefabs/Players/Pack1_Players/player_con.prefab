@@ -148,11 +148,12 @@ MonoBehaviour:
   abilityName: Diablo Rounds
   cooldown: 0
   isPassive: 1
-  instantAmount: 1
-  duration: 1.5
+  effectType: 1
+  attribute: 2
+  amount: 0
+  duration: 2
   tickRate: 0.5
   tickAmount: 0.5
-  effectOverTimeAttribute: 2
 --- !u!114 &6746286058691049625
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -32,13 +32,12 @@ public class Bullet : MonoBehaviour {
                 GameObject.Destroy(collision.gameObject);
                 break;
             case 8: // Players
-                GameObject.Destroy(this.gameObject);
-
                 if(source.GetComponent<EffectOverTime>() != null 
-                    && source.GetComponent<EffectOverTime>().EffectOverTimeAttribute == Attribute.Damage) {
+                    && source.GetComponent<EffectOverTime>().Attribute == Attribute.Damage) {
                     source.GetComponent<EffectOverTime>().UseSpecial(collision.gameObject);
                 }
                 collision.gameObject.transform.GetChild(0).GetComponent<PlayerCombat>().TakeDamage(damage);
+                GameObject.Destroy(this.gameObject);
                 break;
             default:
                 break;

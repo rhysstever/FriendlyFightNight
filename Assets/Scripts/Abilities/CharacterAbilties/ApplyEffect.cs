@@ -22,42 +22,41 @@ public class ApplyEffect : SpecialAbility {
     [SerializeField]
     protected Attribute attribute;
     [SerializeField]
-    protected float effectPercentage;
+    protected float amount;
 
     public EffectType EffectType { get { return effectType; } }
+    public Attribute Attribute { get { return attribute; } }
 
     // Start is called before the first frame update
     protected override void Start() {
         base.Start();
 
-        while(effectPercentage > 1.0f) {
-            effectPercentage /= 10.0f;
-        }
-
-        if(isPassive) {
+        if(isPassive && effectType == EffectType.Buff) {
             UseSpecial();
         }
     }
 
-    // Update is called once per frame
-    protected override void Update() {
-        base.Update();
+    public override bool UseSpecial() {
+        return UseSpecial();
     }
 
-    public override bool UseSpecial() {
+    public bool UseSpecial(bool isApplying = true) {
+        Debug.Log("Using Apply Effect");
         if(!base.UseSpecial()) {
             return false;
         }
 
-        if(effectType == EffectType.Debuff)
-            ApplyDebuff(attribute, effectPercentage);
-        else
-            ApplyBuff(attribute, effectPercentage);
+        if(isApplying) {
+            if(effectType == EffectType.Debuff)
+                ApplyDebuff(attribute, amount);
+            else
+                ApplyBuff(attribute, amount);
+        }
 
         return true;
     }
 
-    protected void ApplyBuff(Attribute attribute, float amount) {
+    private void ApplyBuff(Attribute attribute, float amount) {
         Effect buff = gameObject.AddComponent<Effect>();
         buff.EffectName = abilityName;
         buff.IsActive = true;
@@ -66,7 +65,7 @@ public class ApplyEffect : SpecialAbility {
         buff.Amount = amount;
     }
 
-    protected void ApplyDebuff(Attribute attribute, float amount) {
+    private void ApplyDebuff(Attribute attribute, float amount) {
         int childCount = PlayerManager.instance.PlayerInputs.Count;
         for(int i = 0; i < childCount; i++) {
             Transform childTran = PlayerManager.instance.PlayerInputs[i].gameObject.transform.GetChild(0);

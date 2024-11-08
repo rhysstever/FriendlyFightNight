@@ -150,7 +150,7 @@ MonoBehaviour:
   isPassive: 1
   effectType: 0
   attribute: 0
-  effectPercentage: 0.2
+  amount: 0.2
 --- !u!114 &3909762269102701011
 MonoBehaviour:
   m_ObjectHideFlags: 0

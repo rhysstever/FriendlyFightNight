@@ -8,8 +8,6 @@ public class SpecialProjectile : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         timer = 0.0f;
-
-        Debug.Log(gameObject.GetComponent<Rigidbody2D>().gravityScale);
     }
 
     private void FixedUpdate() {
@@ -32,8 +30,8 @@ public class SpecialProjectile : MonoBehaviour {
                 GameObject.Destroy(collision.gameObject);
                 break;
             case 8: // Players
+                collision.gameObject.transform.GetChild(0).GetComponent<PlayerCombat>().TakeDamage(damage);
                 GameObject.Destroy(this.gameObject);
-                collision.gameObject.GetComponent<PlayerCombat>().TakeDamage(damage);
                 break;
             case 9: // Other specials
                 GameObject.Destroy(this.gameObject);

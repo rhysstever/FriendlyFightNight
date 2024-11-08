@@ -88,18 +88,18 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     /// <summary>
-    /// Change the player's move speed modifier based on the base modifier (1.0f)
+    /// Change the player's move speed modifier
     /// </summary>
-    /// <param name="percentage">The percentage change (0.0f -> 1.0f)</param>
-    public void AdjustMoveSpeed(float percentage) {
-        moveSpeedMod += moveSpeed * percentage;
+    /// <param name="amount">The amount change</param>
+    public void AdjustMoveSpeed(float amount) {
+        moveSpeedMod += amount;
     }
 
     /// <summary>
     /// Reset the modifier for the player's move speed
     /// </summary>
     public void ResetMoveSpeedMod() {
-        moveSpeedMod = 0.0f;
+        moveSpeedMod = 1.0f;
     }
 
     /// <summary>

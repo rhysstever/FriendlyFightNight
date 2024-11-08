@@ -16,17 +16,11 @@ public class Leech : SpecialAbility {
         
     }
 
-    // Update is called once per frame
-    protected override void Update()
-    {
-        
-    }
-
     public override bool UseSpecial() {
         if(!base.UseSpecial()) {
             return false;
         }
-        
+
         // Get the target
         GameObject target = GetTarget();
         if(target == null) {

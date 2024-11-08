@@ -14,25 +14,30 @@ public class Aura : ApplyEffect
         base.Start();
     }
 
-    // Update is called once per frame
-    protected override void Update() {
-        
+    protected void Update() {
+        if(isPassive) {
+            UseAura();
+        }
     }
 
     public override bool UseSpecial() {
-        if(!base.UseSpecial()) {
+        Debug.Log("Using Aura");
+        if(!base.UseSpecial(false)) {
             return false;
         }
 
-        if(effectType == EffectType.Debuff)
-            ApplyDebuff(attribute, effectPercentage, range);
-        else
-            ApplyBuff(attribute, effectPercentage, range);
+        return UseAura();
+    }
 
+    private bool UseAura() {
+        if(effectType == EffectType.Buff)
+            ApplyBuff(attribute, amount);
+        else
+            ApplyDebuff(attribute, amount, range);
         return true;
     }
 
-    protected void ApplyBuff(Attribute attribute, float amount, float range) {
+    private void ApplyBuff(Attribute attribute, float amount) {
         Effect buff = gameObject.AddComponent<Effect>();
         buff.EffectName = abilityName;
         buff.IsActive = true;
@@ -41,23 +46,22 @@ public class Aura : ApplyEffect
         buff.Amount = amount;
     }
 
-    protected void ApplyDebuff(Attribute attribute, float amount, float range) {
+    private void ApplyDebuff(Attribute attribute, float amount, float range) {
         int childCount = PlayerManager.instance.PlayerInputs.Count;
         for(int i = 0; i < childCount; i++) {
-            Transform childTran = PlayerManager.instance.PlayerInputs[i].gameObject.transform.GetChild(0);
-            if(childTran != gameObject.transform) {
-                if((affectWithinRange 
-                    && Vector3.Distance(
-                        childTran.position, 
+            GameObject childCharObject = PlayerManager.instance.PlayerInputs[i].gameObject.transform.GetChild(0).gameObject;
+            if(childCharObject != gameObject) {
+                if((affectWithinRange           //  1) If the aura affects within range
+                    && Vector3.Distance(        // AND the target is within range
+                        childCharObject.transform.position, 
                         gameObject.transform.position
-                        ) <= range
-                    ) || (!affectWithinRange 
-                    && Vector3.Distance(
-                        childTran.position, 
-                        gameObject.transform.position
-                        ) >= range)
-                ) {
-                    Effect debuff = gameObject.AddComponent<Effect>();
+                        ) <= range)
+                    || (!affectWithinRange      // OR 2) if the aura affects outside of range
+                        && Vector3.Distance(    // AND the target is outside of range
+                            childCharObject.transform.position, 
+                            gameObject.transform.position
+                        ) >= range)) {
+                    Effect debuff = childCharObject.AddComponent<Effect>();
                     debuff.EffectName = abilityName;
                     debuff.IsActive = true;
                     debuff.IsBuff = false;

@@ -19,11 +19,6 @@ public class SpecialAttack : SpecialAbility {
         base.Start();
     }
 
-    // Update is called once per frame
-    protected override void Update() {
-        base.Update();
-    }
-
     protected override void FixedUpdate() {
         base.FixedUpdate();
     }
@@ -40,6 +35,7 @@ public class SpecialAttack : SpecialAbility {
             new Vector2(0.45f, 0.25f),
             usesGravity);
         specialProjectile.GetComponent<SpecialProjectile>().SetValues(projectileDamage, projectileLifespan);
+
         return true;
     }
 }

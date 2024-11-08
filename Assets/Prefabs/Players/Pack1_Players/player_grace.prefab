@@ -150,7 +150,7 @@ MonoBehaviour:
   isPassive: 1
   effectType: 1
   attribute: 5
-  effectPercentage: 0.2
+  amount: 0.2
   range: 10
   affectWithinRange: 0
 --- !u!114 &-4650477312249746300
@@ -166,10 +166,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityName: Coffee Sip
-  cooldown: 15
+  cooldown: 10
   isPassive: 0
-  instantAmount: 0
+  effectType: 0
+  attribute: 4
+  amount: 0
   duration: 2
   tickRate: 0.25
   tickAmount: 0.5
-  effectOverTimeAttribute: 4

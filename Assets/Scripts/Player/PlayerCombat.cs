@@ -51,7 +51,7 @@ public class PlayerCombat : MonoBehaviour {
     }
 
     private void Update() {
-
+        
     }
 
     private void FixedUpdate() {
@@ -65,7 +65,7 @@ public class PlayerCombat : MonoBehaviour {
     public GameObject FireBullet() {
         GameObject newBullet = Fire(bullet, new Vector2(bulletSpeed, 0.0f), FirePosition.Torso, new Vector2(0.25f, 0.0f));
         if(newBullet != null) {
-            newBullet.GetComponent<Bullet>().damage = damage * damageMod;
+            newBullet.GetComponent<Bullet>().damage = damage + damageMod;
             newBullet.GetComponent<Bullet>().source = gameObject;
             fireTimer = 0.0f;
         }
@@ -97,7 +97,6 @@ public class PlayerCombat : MonoBehaviour {
             if(!usesGravity) {
                 newBulletGravity = 0.0f;
             }
-            Debug.Log(newBulletGravity);
             newBullet.GetComponent<Rigidbody2D>().gravityScale = newBulletGravity;
 
             return newBullet;
@@ -133,7 +132,7 @@ public class PlayerCombat : MonoBehaviour {
     }
 
     public void TakeDamage(float amount) {
-        float damageTaken = amount * (2 - armor * armorMod);
+        float damageTaken = amount * (2 - armor + armorMod);
         currentHealth -= damageTaken;
         UIManager.instance.UpdatePlayerHealth();
 
@@ -144,17 +143,18 @@ public class PlayerCombat : MonoBehaviour {
 
     public void Heal(float amount) {
         currentHealth = Mathf.Clamp(currentHealth + amount, currentHealth, maxHealth);
+        UIManager.instance.UpdatePlayerHealth();
     }
 
-    public void AdjustArmor(float percentage) {
-        armorMod += armor * percentage;
+    public void AdjustArmor(float amount) {
+        armorMod += amount;
     }
 
-    public void AdjustBulletGravity(float percentage) {
-        bulletGravityMod += bulletGravity * percentage;
+    public void AdjustBulletGravity(float amount) {
+        bulletGravityMod += amount;
     }
 
-    public void AdjustDamage(float percentage) {
-        damageMod += damage * percentage;
+    public void AdjustDamage(float amount) {
+        damageMod += amount;
     }
 }
