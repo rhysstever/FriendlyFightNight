@@ -33,22 +33,11 @@ public class Leech : SpecialAbility {
         Debug.Log(leechingName);
 
         // Take amount away from target
-        ActiveEffect targetDebuff = gameObject.AddComponent<ActiveEffect>();
-        targetDebuff.EffectName = leechingName;
-        targetDebuff.IsActive = true;
-        targetDebuff.IsBuff = false;
-        targetDebuff.Attribute = leechingAttribute;
-        targetDebuff.Amount = leechingAmountPercentage;
-        targetDebuff.Duration = leechingDuration;
-
+        target.GetComponent<PlayerCombat>().AddEffect(
+            leechingName, true, false, leechingAttribute, leechingAmountPercentage, leechingDuration);
         // Give amount to player
-        ActiveEffect selfBuff = gameObject.AddComponent<ActiveEffect>();
-        selfBuff.EffectName = leechingName;
-        selfBuff.IsActive = true;
-        selfBuff.IsBuff = true;
-        selfBuff.Attribute = leechingAttribute;
-        selfBuff.Amount = leechingAmountPercentage;
-        selfBuff.Duration = leechingDuration;
+        gameObject.GetComponent<PlayerCombat>().AddEffect(
+            leechingName, true, true, leechingAttribute, leechingAmountPercentage, leechingDuration);
 
         return true;
     }

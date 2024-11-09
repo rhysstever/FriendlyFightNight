@@ -41,42 +41,26 @@ public class ApplyEffect : SpecialAbility {
     }
 
     public bool UseSpecial(bool isApplying = true) {
-        Debug.Log("Using Apply Effect");
         if(!base.UseSpecial()) {
             return false;
         }
 
         if(isApplying) {
-            if(effectType == EffectType.Debuff)
-                ApplyDebuff(attribute, amount);
-            else
-                ApplyBuff(attribute, amount);
+            if(effectType == EffectType.Buff) {
+                gameObject.GetComponent<PlayerCombat>().AddEffect(
+                    abilityName, true, true, attribute, amount);
+            } else {
+                int childCount = PlayerManager.instance.PlayerInputs.Count;
+                for(int i = 0; i < childCount; i++) {
+                    Transform childTran = PlayerManager.instance.PlayerInputs[i].gameObject.transform.GetChild(0);
+                    if(childTran != gameObject.transform) {
+                        childTran.gameObject.GetComponent<PlayerCombat>().AddEffect(
+                            abilityName, true, false, attribute, amount);
+                    }
+                }
+            }
         }
 
         return true;
-    }
-
-    private void ApplyBuff(Attribute attribute, float amount) {
-        Effect buff = gameObject.AddComponent<Effect>();
-        buff.EffectName = abilityName;
-        buff.IsActive = true;
-        buff.IsBuff = true;
-        buff.Attribute = attribute;
-        buff.Amount = amount;
-    }
-
-    private void ApplyDebuff(Attribute attribute, float amount) {
-        int childCount = PlayerManager.instance.PlayerInputs.Count;
-        for(int i = 0; i < childCount; i++) {
-            Transform childTran = PlayerManager.instance.PlayerInputs[i].gameObject.transform.GetChild(0);
-            if(childTran != gameObject.transform) {
-                Effect debuff = gameObject.AddComponent<Effect>();
-                debuff.EffectName = abilityName;
-                debuff.IsActive = true;
-                debuff.IsBuff = false;
-                debuff.Attribute = attribute;
-                debuff.Amount = amount;
-            }
-        }
     }
 }

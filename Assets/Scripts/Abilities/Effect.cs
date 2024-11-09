@@ -13,7 +13,7 @@ public class Effect : MonoBehaviour
     [SerializeField]
     protected float amount;
 
-    public string EffectName { set { effectName = value; } }
+    public string EffectName { get { return effectName; } set { effectName = value; } }
     public bool IsActive { set { isActive = value; } }
     public bool IsBuff { set { isBuff = value; } }
     public Attribute Attribute { set { attribute = value; } }
@@ -61,6 +61,19 @@ public class Effect : MonoBehaviour
             case Attribute.MoveSpeed:
                 movement.AdjustMoveSpeed(amount);
                 break;
+        }
+    }
+
+    public void Toggle(bool newActiveState) {
+        if(isActive == newActiveState) {
+            return;
+        } else {
+            isActive = newActiveState;
+            if(newActiveState) {
+                AddAmount(attribute, amount);
+            } else {
+                AddAmount(attribute, -amount);
+            }
         }
     }
 }

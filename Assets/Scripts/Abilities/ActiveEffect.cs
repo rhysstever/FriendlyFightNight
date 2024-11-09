@@ -34,7 +34,7 @@ public class ActiveEffect : Effect {
         Destroy(this);
     }
 
-    protected void Reset() {
+    public void Reset() {
         timer = 0.0f;
     }
 }

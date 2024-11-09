@@ -157,4 +157,96 @@ public class PlayerCombat : MonoBehaviour {
     public void AdjustDamage(float amount) {
         damageMod += amount;
     }
+
+    public Effect AddEffect(
+        string effectName, bool isActive, bool isBuff, 
+        Attribute attribute, float amount
+    ) {
+        Effect effect = GetEffect(effectName);
+        if(effect != null) {
+            return effect;
+        } else {
+            Effect newEffect = gameObject.AddComponent<Effect>();
+            newEffect.EffectName = effectName;
+            newEffect.IsActive = isActive;
+            newEffect.IsBuff = isBuff;
+            newEffect.Attribute = attribute;
+            newEffect.Amount = amount;
+            return newEffect;
+        }
+    }
+
+    public Effect AddEffect(
+        string effectName, bool isActive, bool isBuff, 
+        Attribute attribute, float amount, float duration
+    ) {
+        ActiveEffect effect = (ActiveEffect)GetEffect(effectName);
+        if(effect != null) {
+            effect.Reset();
+            return effect;
+        } else {
+            ActiveEffect newEffect = gameObject.AddComponent<ActiveEffect>();
+            newEffect.EffectName = effectName;
+            newEffect.IsActive = isActive;
+            newEffect.IsBuff = isBuff;
+            newEffect.Attribute = attribute;
+            newEffect.Amount = amount;
+            newEffect.Duration = duration;
+            return newEffect;
+        }
+    }
+
+    public Effect AddEffect(
+        string effectName, bool isActive, bool isBuff, 
+        Attribute attribute, float amount, float duration,
+        float tickRate, float tickAmount
+    ) {
+        TickEffect effect = (TickEffect)GetEffect(effectName);
+        if(effect != null) {
+            effect.Reset();
+            return effect;
+        } else {
+            TickEffect newEffect = gameObject.AddComponent<TickEffect>();
+            newEffect.EffectName = effectName;
+            newEffect.IsActive = isActive;
+            newEffect.IsBuff = isBuff;
+            newEffect.Attribute = attribute;
+            newEffect.Amount = amount;
+            newEffect.Duration = duration;
+            newEffect.TickRate = tickRate;
+            newEffect.TickAmount = tickAmount;
+            newEffect.ApplyAtStart = Mathf.Abs(amount) > 0.0f;
+            return newEffect;
+        }
+    }
+
+    public Effect GetEffect(string effectName) {
+        Effect[] effects = GetComponents<Effect>();
+        foreach(Effect effect in effects) {
+            if(effectName == effect.EffectName) {
+                return effect;
+            }
+        }
+        return null;
+    }
+
+    public bool UpdateEffect(string effectName, bool isActive) {
+        Effect effect = GetEffect(effectName);
+        if(effect != null) {
+            effect.Toggle(isActive);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public bool RemoveEffect(string effectName) {
+        Effect effect = GetEffect(effectName);
+        if(effect != null) {
+            Destroy(effect);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

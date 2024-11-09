@@ -16,51 +16,18 @@ public class EffectOverTime : ApplyEffect {
             return false;
         }
 
-        if(effectType == EffectType.Buff)
-            ApplyBuff(target, attribute, amount);
-        else
-            ApplyDebuff(target, attribute, amount);
+        // Ensure the target is the Character Object
+        if(target.GetComponent<PlayerCombat>() == null) {
+            target = target.GetComponentInChildren<PlayerCombat>().gameObject;
+        }
 
+        target.GetComponent<PlayerCombat>().AddEffect(
+                abilityName, true, effectType == EffectType.Buff, attribute,
+                amount, duration, tickRate, tickAmount);
         return true;
     }
 
     public override bool UseSpecial() {
         return UseSpecial(gameObject);
-    }
-
-    private void ApplyBuff(GameObject target, Attribute attribute, float amount) {
-        // Apply the heal over time tick effect
-        TickEffect healOverTime = target.AddComponent<TickEffect>();
-        healOverTime.EffectName = abilityName;
-        healOverTime.IsActive = true;
-        healOverTime.IsBuff = true;
-        healOverTime.Attribute = attribute;
-        healOverTime.Amount = amount;
-        healOverTime.Duration = duration;
-        healOverTime.TickRate = tickRate;
-        healOverTime.TickAmount = tickAmount;
-        if(amount > 0) {
-            healOverTime.ApplyAtStart = true;
-        }
-    }
-
-    private void ApplyDebuff(GameObject target, Attribute attribute, float amount) {
-        // Ensure the target is the Character Object
-        if(target.GetComponent<PlayerCombat>() == null) {
-            target = target.GetComponentInChildren<PlayerCombat>().gameObject;
-        }
-        // Apply the damage over time tick effect
-        TickEffect damageOverTime = target.AddComponent<TickEffect>();
-        damageOverTime.EffectName = abilityName;
-        damageOverTime.IsActive = true;
-        damageOverTime.IsBuff = false;
-        damageOverTime.Attribute = attribute;
-        damageOverTime.Amount = amount;
-        damageOverTime.Duration = duration;
-        damageOverTime.TickRate = tickRate;
-        damageOverTime.TickAmount = tickAmount;
-        if(amount > 0) {
-            damageOverTime.ApplyAtStart = true;
-        }
     }
 }

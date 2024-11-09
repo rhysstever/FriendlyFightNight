@@ -30,45 +30,47 @@ public class Aura : ApplyEffect
     }
 
     private bool UseAura() {
-        if(effectType == EffectType.Buff)
-            ApplyBuff(attribute, amount);
-        else
-            ApplyDebuff(attribute, amount, range);
-        return true;
-    }
-
-    private void ApplyBuff(Attribute attribute, float amount) {
-        Effect buff = gameObject.AddComponent<Effect>();
-        buff.EffectName = abilityName;
-        buff.IsActive = true;
-        buff.IsBuff = true;
-        buff.Attribute = attribute;
-        buff.Amount = amount;
-    }
-
-    private void ApplyDebuff(Attribute attribute, float amount, float range) {
-        int childCount = PlayerManager.instance.PlayerInputs.Count;
-        for(int i = 0; i < childCount; i++) {
-            GameObject childCharObject = PlayerManager.instance.PlayerInputs[i].gameObject.transform.GetChild(0).gameObject;
-            if(childCharObject != gameObject) {
-                if((affectWithinRange           //  1) If the aura affects within range
-                    && Vector3.Distance(        // AND the target is within range
-                        childCharObject.transform.position, 
-                        gameObject.transform.position
-                        ) <= range)
-                    || (!affectWithinRange      // OR 2) if the aura affects outside of range
-                        && Vector3.Distance(    // AND the target is outside of range
-                            childCharObject.transform.position, 
-                            gameObject.transform.position
-                        ) >= range)) {
-                    Effect debuff = childCharObject.AddComponent<Effect>();
-                    debuff.EffectName = abilityName;
-                    debuff.IsActive = true;
-                    debuff.IsBuff = false;
-                    debuff.Attribute = attribute;
-                    debuff.Amount = amount;
+        if(effectType == EffectType.Buff) {
+            gameObject.GetComponent<PlayerCombat>().AddEffect(
+                abilityName, true, true, attribute, amount);
+        }
+        else {
+            // Loop through all players and find all other players
+            int childCount = PlayerManager.instance.PlayerInputs.Count;
+            for(int i = 0; i < childCount; i++) {
+                // Convert from the parent player object to the child character gameObject
+                GameObject childCharObject = PlayerManager.instance.PlayerInputs[i].gameObject.transform.GetChild(0).gameObject;
+                // Affect the gameObject if it is not this gameObject 
+                if(childCharObject != gameObject) {
+                    // Check if the character has the effect already,
+                    if(childCharObject.GetComponent<PlayerCombat>().GetEffect(abilityName) != null) {
+                        // If so, update whether it is active (based on range)
+                        childCharObject.GetComponent<PlayerCombat>().UpdateEffect(
+                            abilityName, IsInAffectedRange(childCharObject, range, affectWithinRange));
+                    } else {
+                        // If not, add the effect
+                        childCharObject.GetComponent<PlayerCombat>().AddEffect(
+                            abilityName, IsInAffectedRange(childCharObject, range, affectWithinRange),
+                            false, attribute, amount);
+                    }
                 }
             }
         }
+        return true;
+    }
+
+    private bool IsInAffectedRange(GameObject target, float range, bool affectWithinRange) {
+            // 1) If the aura affects within range AND the target is within range
+        return (affectWithinRange 
+            && Vector3.Distance(
+                target.transform.position,
+                gameObject.transform.position
+            ) <= range) ||  // OR
+            // 2) if the aura affects outside of range AND the target is outside of range
+            (!affectWithinRange
+            && Vector3.Distance(
+                target.transform.position,
+                gameObject.transform.position
+            ) >= range);
     }
 }
