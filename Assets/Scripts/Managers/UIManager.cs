@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour {
     #region Singleton Code
@@ -21,18 +22,42 @@ public class UIManager : MonoBehaviour {
     #endregion
 
     [SerializeField]
+    private GameObject titleParent, characterSelectParent, mapSelectParent, gameParent, pauseParent, resultsParent;
+    [SerializeField]
+    private Button startButton;
+    [SerializeField]
     private List<TMP_Text> playerNameTexts;
     [SerializeField]
     private List<GameObject> playerHealthBars, playerSpecialBars;
 
+    private Dictionary<MenuState, GameObject> menuStateParents;
+
     // Start is called before the first frame update
     void Start() {
+        // Map each menu state to a ui menu parent
+        menuStateParents = new Dictionary<MenuState, GameObject>() {
+            [MenuState.Title] = titleParent,
+            [MenuState.CharacterSelect] = characterSelectParent,
+            [MenuState.MapSelect] = mapSelectParent,
+            [MenuState.Game] = gameParent,
+            [MenuState.Pause] = pauseParent,
+            [MenuState.Results] = resultsParent
+        };
+
+        startButton.onClick.AddListener(() => GameManager.instance.ChangeMenuState(MenuState.CharacterSelect));
+
         UpdateAllPlayerUI();
     }
 
     // Update is called once per frame
     void Update() {
         UpdatePlayerSpecial();
+    }
+
+    public void UpdateUI(MenuState newMenuState) {
+        foreach(KeyValuePair<MenuState, GameObject> menuStateData in menuStateParents) {
+            menuStateData.Value.SetActive(menuStateData.Key == newMenuState);
+        }
     }
 
     public void UpdateAllPlayerUI() {

@@ -35,6 +35,7 @@ public class PlayerInputControls : MonoBehaviour {
         move = player.FindAction("Move");
         player.FindAction("ChangeCharacterUp").started += ChangeCharacterUp;
         player.FindAction("ChangeCharacterDown").started += ChangeCharacterDown;
+        player.FindAction("Pause").started += PauseGame;
         player.Enable();
     }
 
@@ -45,6 +46,7 @@ public class PlayerInputControls : MonoBehaviour {
         player.FindAction("Special").started -= Special;
         player.FindAction("ChangeCharacterUp").started -= ChangeCharacterUp;
         player.FindAction("ChangeCharacterDown").started -= ChangeCharacterDown;
+        player.FindAction("Pause").started -= PauseGame;
         player.Disable();
     }
 
@@ -75,6 +77,10 @@ public class PlayerInputControls : MonoBehaviour {
 
     private void ChangeCharacterDown(InputAction.CallbackContext obj) {
         PlayerManager.instance.ChangeCharacter(gameObject, -1);
+    }
+
+    private void PauseGame(InputAction.CallbackContext obj) {
+        GameManager.instance.ChangeMenuState(MenuState.Pause);
     }
 
     public void UpdateCombat(PlayerCombat playerCombat) {
