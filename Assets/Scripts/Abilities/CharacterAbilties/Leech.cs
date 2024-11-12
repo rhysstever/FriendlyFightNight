@@ -29,15 +29,13 @@ public class Leech : SpecialAbility {
 
         // Get the attribute being leeched
         Attribute leechingAttribute = leechingAttributes[Random.Range(0, leechingAttributes.Count)];
-        string leechingName = string.Format("{0}: {1}", AbilityName, leechingAttribute.ToString());
-        Debug.Log(leechingName);
 
         // Take amount away from target
         target.GetComponent<PlayerCombat>().AddEffect(
-            leechingName, true, false, leechingAttribute, leechingAmountPercentage, leechingDuration);
+            abilityName, true, false, leechingAttribute, leechingAmountPercentage, leechingDuration);
         // Give amount to player
         gameObject.GetComponent<PlayerCombat>().AddEffect(
-            leechingName, true, true, leechingAttribute, leechingAmountPercentage, leechingDuration);
+            abilityName, true, true, leechingAttribute, leechingAmountPercentage, leechingDuration);
 
         return true;
     }

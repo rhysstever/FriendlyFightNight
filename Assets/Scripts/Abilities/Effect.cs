@@ -34,7 +34,8 @@ public class Effect : MonoBehaviour
 
     protected void ApplyEffect() {
         if(isActive) {
-            if(!isBuff && attribute != Attribute.Damage)
+            // Debuffs that are not damage or bullet gravity should give a negative value
+            if(!isBuff && attribute != Attribute.Damage && attribute != Attribute.BulletGravity)
                 amount *= -1;
 
             AddAmount(attribute, amount);
