@@ -24,7 +24,7 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     private GameObject titleParent, characterSelectParent, mapSelectParent, gameParent, pauseParent, resultsParent;
     [SerializeField]
-    private Button startButton;
+    private Button startButton, continueToMapSelect, continueToGame;
     [SerializeField]
     private List<TMP_Text> playerNameTexts;
     [SerializeField]
@@ -45,6 +45,8 @@ public class UIManager : MonoBehaviour {
         };
 
         startButton.onClick.AddListener(() => GameManager.instance.ChangeMenuState(MenuState.CharacterSelect));
+        continueToMapSelect.onClick.AddListener(() => GameManager.instance.ChangeMenuState(MenuState.MapSelect));
+        continueToGame.onClick.AddListener(() => GameManager.instance.ChangeMenuState(MenuState.Game));
 
         UpdateAllPlayerUI();
     }
