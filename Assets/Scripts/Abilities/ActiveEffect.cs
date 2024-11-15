@@ -29,7 +29,7 @@ public class ActiveEffect : Effect {
         }
     }
 
-    protected void RemoveEffect() {
+    public void RemoveEffect() {
         AddAmount(attribute, -amount);
         Destroy(this);
     }

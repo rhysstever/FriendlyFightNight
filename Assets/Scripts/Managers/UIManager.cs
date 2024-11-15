@@ -71,6 +71,7 @@ public class UIManager : MonoBehaviour {
 
         switch(newMenuState) {
             case MenuState.Title:
+                EventSystem.current.SetSelectedGameObject(startButton.gameObject);
                 foreach(TMP_Text playerSubText in characterSelectionPlayerSubTexts) {
                     playerSubText.text = "";
                 }
@@ -112,6 +113,13 @@ public class UIManager : MonoBehaviour {
             if(i < PlayerManager.instance.PlayerInputs.Count) {
                 if(CharacterSelectManager.instance.PlayerReadyStatuses[i]) {
                     subTextString = string.Format("Player {0} is Ready!", i + 1);
+                } else {
+                    //PlayerCombat playerCombat = PlayerManager.instance.PlayerInputs[i].GetComponentInChildren<PlayerCombat>();
+                    //Debug.Log(playerCombat.ToString());
+                    //subTextString = string.Format("{0}\n{1}\n{2}",
+                    //    playerCombat.Character,
+                    //    playerCombat.PassiveAbility.AbilityName,
+                    //    playerCombat.ActiveAbility.AbilityName);
                 }
 
                 characterSelectionPlayerSubTexts[i].text = subTextString;
@@ -171,8 +179,10 @@ public class UIManager : MonoBehaviour {
 
             if(playerExists) {
                 Transform child = PlayerManager.instance.PlayerInputs[i].transform.GetChild(0);
-                if(child.GetComponent<PlayerCombat>().ActiveAbility != null) {
-                    float specialPercent = child.GetComponent<PlayerCombat>().ActiveAbility.CooldownPercentage;
+                SpecialAbility activeAbility = child.GetComponent<PlayerCombat>().GetAbility(false);
+
+                if(activeAbility != null) {
+                    float specialPercent = activeAbility.CooldownPercentage;
                     specialPercent = Mathf.Clamp(specialPercent, specialPercent, 1.0f);
                     playerSpecialBars[i].transform.localScale = new Vector3(specialPercent, 1.0f, 1.0f);
                 }

@@ -22,24 +22,13 @@ public class PlayerCombat : MonoBehaviour {
     [SerializeField]
     private GameObject bullet;
 
-    private SpecialAbility passiveAbility, activeAbility;
     private float fireTimer;
 
     public Character Character { get { return character; } }
     public float HealthPercentage { get { return currentHealth / maxHealth; } }
-    public SpecialAbility PassiveAbility { get { return passiveAbility; } }
-    public SpecialAbility ActiveAbility { get { return activeAbility; } }
 
     private void Awake() {
         currentHealth = maxHealth;
-
-        SpecialAbility[] specialAbilities = GetComponents<SpecialAbility>();
-        foreach(SpecialAbility specialAbility in specialAbilities) {
-            if(specialAbility.IsPassive)
-                passiveAbility = specialAbility;
-            else 
-                activeAbility = specialAbility;
-        }
     }
 
     // Start is called before the first frame update
@@ -58,6 +47,14 @@ public class PlayerCombat : MonoBehaviour {
         if(GameManager.instance.CurrentMenuState == MenuState.Game) {
             fireTimer += Time.deltaTime;
         }
+    }
+
+    public SpecialAbility GetAbility(bool isPassive) {
+        foreach(SpecialAbility specialAbility in GetComponents<SpecialAbility>()) {
+            if(specialAbility.IsPassive == isPassive)
+                return specialAbility;
+        }
+        return null;
     }
 
     private bool CanFire() {

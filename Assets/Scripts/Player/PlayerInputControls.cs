@@ -69,7 +69,7 @@ public class PlayerInputControls : MonoBehaviour {
 
     private void Special(InputAction.CallbackContext obj) {
         Transform playerChild = transform.GetChild(0);
-        playerChild.GetComponent<PlayerCombat>().ActiveAbility.UseSpecial();
+        playerChild.GetComponent<PlayerCombat>().GetAbility(false).UseSpecial();
     }
 
     private void PauseGame(InputAction.CallbackContext obj) {

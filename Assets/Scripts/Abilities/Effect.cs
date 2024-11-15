@@ -15,7 +15,7 @@ public class Effect : MonoBehaviour
 
     public string EffectName { get { return effectName; } set { effectName = value; } }
     public bool IsActive { set { isActive = value; } }
-    public bool IsBuff { set { isBuff = value; } }
+    public bool IsBuff { get { return isBuff; } set { isBuff = value; } }
     public Attribute Attribute { set { attribute = value; } }
     public float Amount { set { amount = value; } }
 
