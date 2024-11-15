@@ -64,12 +64,14 @@ public class PlayerManager : MonoBehaviour {
     /// </summary>
     /// <param name="playerInput">The PlayerInput being added to the scene</param>
     public void AddPlayer(PlayerInput playerInput) {
-        if(GameManager.instance.CurrentMenuState == MenuState.CharacterSelect) {
-            playerInputs.Add(playerInput);
-            playerInput.gameObject.name = "Player" + playerInputs.Count;
-            playerInput.transform.position = spawnPoints[playerInputs.Count - 1].position;
-            UIManager.instance.UpdateAllPlayerUI();
+        playerInputs.Add(playerInput);
+        playerInput.gameObject.name = "Player" + playerInputs.Count;
+        playerInput.transform.position = spawnPoints[playerInputs.Count - 1].position;
+        // Flip the sprite if it is the second player
+        if(playerInputs.Count % 2 == 0) {
+            playerInput.gameObject.GetComponentInChildren<SpriteRenderer>().flipX = true;
         }
+        UIManager.instance.UpdateAllPlayerUI();
     }
 
     public void ChangeCharacter(Character newCharacter, int playerNum) {
