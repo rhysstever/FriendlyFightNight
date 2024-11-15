@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -142,9 +141,6 @@ public class CharacterSelectManager : MonoBehaviour
         playerReadyStatuses[playerNum] = true;
         UIManager.instance.UpdateCharacterSelectPlayerSubText();
 
-        // Change the Character for the player
-        PlayerManager.instance.ChangeCharacter(playerCharacterSelections[playerNum], playerNum);
-
         // Check if at least one player is NOT ready
         foreach(bool playerReady in playerReadyStatuses) {
             if(!playerReady) {
@@ -203,5 +199,7 @@ public class CharacterSelectManager : MonoBehaviour
         playerFocusIndecies[playerNum] = newFocus;
         // Update the Character the player is focused on
         playerCharacterSelections[playerNum] = uiParent.GetChild(playerFocusIndecies[playerNum]).GetComponent<CharacterSelectItem>().Focus(playerNum);
+        // Change the Character for the player
+        PlayerManager.instance.ChangeCharacter(playerCharacterSelections[playerNum], playerNum);
     }
 }
