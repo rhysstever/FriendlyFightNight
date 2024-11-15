@@ -137,7 +137,8 @@ public class PlayerCombat : MonoBehaviour {
         UIManager.instance.UpdatePlayerHealth();
 
         if(currentHealth <= 0.0f) {
-            Debug.Log(gameObject.name + "Dead!");
+            GameManager.instance.ChangeMenuState(MenuState.Results);
+            gameObject.transform.parent.gameObject.SetActive(false);
         }
     }
 

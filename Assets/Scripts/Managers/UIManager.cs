@@ -32,6 +32,10 @@ public class UIManager : MonoBehaviour {
     private List<TMP_Text> playerNameTexts;
     [SerializeField]
     private List<GameObject> playerHealthBars, playerSpecialBars;
+    [SerializeField]
+    private TMP_Text resultsText;
+    [SerializeField]
+    private Button backToMainMenuButton;
 
     private Dictionary<MenuState, GameObject> menuStateParents;
 
@@ -47,13 +51,11 @@ public class UIManager : MonoBehaviour {
             [MenuState.Results] = resultsParent
         };
 
-        startButton.onClick.AddListener(delegate {
-            GameManager.instance.ChangeMenuState(MenuState.CharacterSelect);
-        });
+        startButton.onClick.AddListener(() => GameManager.instance.ChangeMenuState(MenuState.CharacterSelect));
 
-        continueToGame.onClick.AddListener(delegate {
-            GameManager.instance.ChangeMenuState(MenuState.Game);
-        });
+        continueToGame.onClick.AddListener(() => GameManager.instance.ChangeMenuState(MenuState.Game));
+
+        backToMainMenuButton.onClick.AddListener(() => GameManager.instance.ChangeMenuState(MenuState.Title));
 
         UpdateAllPlayerUI();
     }
@@ -81,6 +83,14 @@ public class UIManager : MonoBehaviour {
                 break;
             case MenuState.MapSelect:
                 EventSystem.current.SetSelectedGameObject(continueToGame.gameObject);
+                break;
+            case MenuState.Results:
+                for(int i = 0; i < PlayerManager.instance.PlayerInputs.Count; i++) {
+                    if(PlayerManager.instance.PlayerInputs[i].gameObject.activeSelf) {
+                        resultsText.text = string.Format("Player {0} Wins!", i + 1);
+                    }
+                }
+                EventSystem.current.SetSelectedGameObject(backToMainMenuButton.gameObject);
                 break;
         }
     }
