@@ -101,9 +101,7 @@ public class CharacterSelectManager : MonoBehaviour
     }
 
     public void ShowCharacterSelectors(int playerCount) {
-        for(int i = 0; i < playerCount; i++) {
-            uiParent.transform.GetChild(0).GetComponent<CharacterSelectItem>().Focus(i);
-        }
+        uiParent.transform.GetChild(0).GetComponent<CharacterSelectItem>().Focus(playerCount - 1);
     }
 
     public bool CanUpdateSelection(int playerNum) {
