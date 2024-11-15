@@ -137,7 +137,6 @@ public class PlayerCombat : MonoBehaviour {
 
         if(currentHealth <= 0.0f) {
             GameManager.instance.ChangeMenuState(MenuState.Results);
-            gameObject.transform.parent.gameObject.SetActive(false);
         }
     }
 

@@ -86,7 +86,7 @@ public class UIManager : MonoBehaviour {
                 break;
             case MenuState.Results:
                 for(int i = 0; i < PlayerManager.instance.PlayerInputs.Count; i++) {
-                    if(PlayerManager.instance.PlayerInputs[i].gameObject.activeSelf) {
+                    if(PlayerManager.instance.PlayerInputs[i].GetComponentInChildren<PlayerCombat>().HealthPercentage > 0.0f) {
                         resultsText.text = string.Format("Player {0} Wins!", i + 1);
                     }
                 }
