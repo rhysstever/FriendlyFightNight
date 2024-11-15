@@ -42,6 +42,7 @@ public class PlayerManager : MonoBehaviour {
     private PlayerInputManager playerInputManager;
 
     public List<PlayerInput> PlayerInputs { get { return playerInputs; } }
+    public PlayerInputManager PlayerInputManager { get { return playerInputManager; } }
 
     private void OnEnable() {
         playerInputManager.onPlayerJoined += AddPlayer;
@@ -60,11 +61,6 @@ public class PlayerManager : MonoBehaviour {
         }
     }
 
-    // Update is called once per frame
-    void Update() {
-
-    }
-
     /// <summary>
     /// Adds a PlayerInput to the scene and updates its values
     /// </summary>
@@ -76,28 +72,21 @@ public class PlayerManager : MonoBehaviour {
         UIManager.instance.UpdateAllPlayerUI();
     }
 
+    public void ChangeCharacter(Character newCharacter, int playerNum) {
+        GameObject currentPlayerObject = playerInputs[playerNum].gameObject;
+        ChangeCharacter(currentPlayerObject, newCharacter);
+    }
+
     /// <summary>
     /// Changes a character object to another character
     /// </summary>
     /// <param name="currentCharacter">The current character object</param>
     /// <param name="characterChange">How index of the current character will change</param>
-    public void ChangeCharacter(GameObject currentCharacter, int characterChange) {
-        // Find the current character
-        Character characterName = currentCharacter.transform.GetChild(0).GetComponent<PlayerCombat>().Character;
+    public void ChangeCharacter(GameObject currentCharacter, Character newCharacter) {
+        // Use the current character to get the sprite facing direction
         bool spriteFlipX = currentCharacter.transform.GetChild(0).GetComponent<SpriteRenderer>().flipX;
 
-        // Get the next character index
-        int characterIndex = (int)characterName;
-        int newCharacterIndex = characterIndex + characterChange;
-
-        // Account for the index wrapping
-        if(newCharacterIndex >= characters.Count)
-            newCharacterIndex = 0;
-        else if(newCharacterIndex < 0)
-            newCharacterIndex = characters.Count - 1;
-
-        // Character newCharacter = (Character)newCharacterIndex;
-        Character newCharacter = (Character)newCharacterIndex;
+        // Get the new character's prefab
         GameObject newCharacterPrefab = characters[newCharacter];
 
         // Remove the current character
@@ -118,5 +107,15 @@ public class PlayerManager : MonoBehaviour {
             // Update Player Name UI
             UIManager.instance.UpdatePlayerNames(index - 1, newCharacter.ToString());
         }
+    }
+
+    public int GetPlayerNum(GameObject parentObject) {
+        for(int i = 0; i < playerInputs.Count; i++) {
+            if(playerInputs[i].gameObject == parentObject) {
+                return i;
+            }
+        }
+
+        return -1;
     }
 }

@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviour {
                 break;
             case MenuState.CharacterSelect:
                 ChangePlayerInputs(InputType.Menu);
+                CharacterSelectManager.instance.DisplayCharacterSelections();
                 break;
             case MenuState.MapSelect:
                 ChangePlayerInputs(InputType.Menu);

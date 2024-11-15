@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour {
@@ -24,7 +25,9 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     private GameObject titleParent, characterSelectParent, mapSelectParent, gameParent, pauseParent, resultsParent;
     [SerializeField]
-    private Button startButton, continueToMapSelect, continueToGame;
+    private Button startButton, continueToGame;
+    [SerializeField]
+    private List<TMP_Text> characterSelectionPlayerSubTexts;
     [SerializeField]
     private List<TMP_Text> playerNameTexts;
     [SerializeField]
@@ -44,9 +47,13 @@ public class UIManager : MonoBehaviour {
             [MenuState.Results] = resultsParent
         };
 
-        startButton.onClick.AddListener(() => GameManager.instance.ChangeMenuState(MenuState.CharacterSelect));
-        continueToMapSelect.onClick.AddListener(() => GameManager.instance.ChangeMenuState(MenuState.MapSelect));
-        continueToGame.onClick.AddListener(() => GameManager.instance.ChangeMenuState(MenuState.Game));
+        startButton.onClick.AddListener(delegate {
+            GameManager.instance.ChangeMenuState(MenuState.CharacterSelect);
+        });
+
+        continueToGame.onClick.AddListener(delegate {
+            GameManager.instance.ChangeMenuState(MenuState.Game);
+        });
 
         UpdateAllPlayerUI();
     }
@@ -60,12 +67,47 @@ public class UIManager : MonoBehaviour {
         foreach(KeyValuePair<MenuState, GameObject> menuStateData in menuStateParents) {
             menuStateData.Value.SetActive(menuStateData.Key == newMenuState);
         }
+
+        switch(newMenuState) {
+            case MenuState.Title:
+                foreach(TMP_Text playerSubText in characterSelectionPlayerSubTexts) {
+                    playerSubText.text = "";
+                }
+                break;
+            case MenuState.CharacterSelect:
+                foreach(TMP_Text playerSubText in characterSelectionPlayerSubTexts) {
+                    playerSubText.text = "Press \'Start\' to Join";
+                }
+                break;
+            case MenuState.MapSelect:
+                EventSystem.current.SetSelectedGameObject(continueToGame.gameObject);
+                break;
+        }
     }
 
     public void UpdateAllPlayerUI() {
+        if(PlayerManager.instance.PlayerInputs.Count > 0) {
+            CharacterSelectManager.instance.ShowCharacterSelectors(PlayerManager.instance.PlayerInputs.Count);
+        }
+
+        UpdateCharacterSelectPlayerSubText();
+
         UpdatePlayerNames();
         UpdatePlayerHealth();
         UpdatePlayerSpecial();
+    }
+
+    public void UpdateCharacterSelectPlayerSubText() {
+        for(int i = 0; i < characterSelectionPlayerSubTexts.Count; i++) {
+            string subTextString = "";
+            if(i < PlayerManager.instance.PlayerInputs.Count) {
+                if(CharacterSelectManager.instance.PlayerReadyStatuses[i]) {
+                    subTextString = string.Format("Player {0} is Ready!", i + 1);
+                }
+
+                characterSelectionPlayerSubTexts[i].text = subTextString;
+            }
+        }
     }
 
     /// <summary>

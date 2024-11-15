@@ -28,26 +28,36 @@ public class PlayerMovement : MonoBehaviour {
 
     void Update() {
         moveDirection = input.GetMove();
-        animator.SetBool("canMove", rb.velocity.x != 0.0f);
-        if(rb.velocity.x != 0.0f) {
-            animator.speed = Mathf.Abs(moveDirection.x);
-        } else {
-            animator.speed = 1.0f;
+
+        if(GameManager.instance.CurrentMenuState == MenuState.Game) {
+            if(moveDirection.x != 0.0f) {
+                // Ensure facing direction is either -1 or 1
+                facingDirection = moveDirection.x;
+                facingDirection /= Mathf.Abs(facingDirection);
+                // Flip the sprite based on the facing direction
+                transform.GetChild(0).GetComponent<SpriteRenderer>().flipX = facingDirection < 0.0f;
+            }
+
+            animator.SetBool("canMove", rb.velocity.x != 0.0f);
+            if(rb.velocity.x != 0.0f) {
+                animator.speed = Mathf.Abs(moveDirection.x);
+            } else {
+                animator.speed = 1.0f;
+            }
+            grounded = CheckGrounded();
         }
-        grounded = CheckGrounded();
     }
 
     void FixedUpdate() {
-        if(moveDirection.x != 0.0f) {
-            // Ensure facing direction is either -1 or 1
-            facingDirection = moveDirection.x;
-            facingDirection /= Mathf.Abs(facingDirection);
-            // Flip the sprite based on the facing direction
-            transform.GetChild(0).GetComponent<SpriteRenderer>().flipX = facingDirection < 0.0f;
+        if(GameManager.instance.CurrentMenuState == MenuState.CharacterSelect) {
+            int playerNum = PlayerManager.instance.GetPlayerNum(gameObject);
+            if(playerNum >= 0) {
+                CharacterSelectManager.instance.UpdateCharacterSelection(moveDirection, playerNum);
+            }
+        } else if(GameManager.instance.CurrentMenuState == MenuState.Game) {
+            rb.velocity = new Vector2(moveDirection.x * moveSpeed * moveSpeedMod, rb.velocity.y);
+            animator.SetFloat("yVelocity", rb.velocity.y);
         }
-
-        rb.velocity = new Vector2(moveDirection.x * moveSpeed * moveSpeedMod, rb.velocity.y);
-        animator.SetFloat("yVelocity", rb.velocity.y);
     }
 
     /// <summary>

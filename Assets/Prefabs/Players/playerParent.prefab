@@ -206,8 +206,12 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 7080cf02-d614-4e3e-860f-250440dd52cf
     m_ActionName: Player/ChangeCharacterDown[/DualSenseGamepadHID/leftShoulder,/DualSenseGamepadHID1/leftShoulder,/Keyboard/1]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6eeb5882-3881-46a8-9236-40f5a528a09b
+    m_ActionName: Player/Pause[/DualSenseGamepadHID/select,/DualSenseGamepadHID1/select,/DualSenseGamepadHID/start,/DualSenseGamepadHID1/start,/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard&Mouse
+  m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -239,8 +243,6 @@ MonoBehaviour:
   jumpSpeed: 30
   facingDirection: 1
   moveSpeedMod: 0
-  moveDirection: {x: 0, y: 0}
-  grounded: 0
 --- !u!1001 &3869462570422607247
 PrefabInstance:
   m_ObjectHideFlags: 0

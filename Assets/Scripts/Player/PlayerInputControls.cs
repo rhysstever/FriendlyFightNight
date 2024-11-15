@@ -33,8 +33,6 @@ public class PlayerInputControls : MonoBehaviour {
         player.FindAction("Block").started += Block;
         player.FindAction("Special").started += Special;
         move = player.FindAction("Move");
-        player.FindAction("ChangeCharacterUp").started += ChangeCharacterUp;
-        player.FindAction("ChangeCharacterDown").started += ChangeCharacterDown;
         player.FindAction("Pause").started += PauseGame;
         player.Enable();
     }
@@ -44,8 +42,6 @@ public class PlayerInputControls : MonoBehaviour {
         player.FindAction("Fire").started -= Fire;
         player.FindAction("Block").started -= Block;
         player.FindAction("Special").started -= Special;
-        player.FindAction("ChangeCharacterUp").started -= ChangeCharacterUp;
-        player.FindAction("ChangeCharacterDown").started -= ChangeCharacterDown;
         player.FindAction("Pause").started -= PauseGame;
         player.Disable();
     }
@@ -55,7 +51,12 @@ public class PlayerInputControls : MonoBehaviour {
     }
 
     private void Jump(InputAction.CallbackContext obj) {
-        playerMovement.Jump();
+        if(GameManager.instance.CurrentMenuState == MenuState.CharacterSelect) {
+            int playerNum = PlayerManager.instance.GetPlayerNum(gameObject);
+            CharacterSelectManager.instance.Submit(playerNum);
+        } else if(GameManager.instance.CurrentMenuState == MenuState.Game) {
+            playerMovement.Jump();
+        }
     }
 
     private void Fire(InputAction.CallbackContext obj) {
@@ -69,14 +70,6 @@ public class PlayerInputControls : MonoBehaviour {
     private void Special(InputAction.CallbackContext obj) {
         Transform playerChild = transform.GetChild(0);
         playerChild.GetComponent<PlayerCombat>().ActiveAbility.UseSpecial();
-    }
-
-    private void ChangeCharacterUp(InputAction.CallbackContext obj) {
-        PlayerManager.instance.ChangeCharacter(gameObject, 1);
-    }
-
-    private void ChangeCharacterDown(InputAction.CallbackContext obj) {
-        PlayerManager.instance.ChangeCharacter(gameObject, -1);
     }
 
     private void PauseGame(InputAction.CallbackContext obj) {
