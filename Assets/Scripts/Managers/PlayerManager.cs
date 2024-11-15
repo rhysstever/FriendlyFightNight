@@ -83,11 +83,6 @@ public class PlayerManager : MonoBehaviour {
     /// <param name="currentCharacter">The current character object</param>
     /// <param name="characterChange">How index of the current character will change</param>
     public void ChangeCharacter(GameObject currentCharacter, Character newCharacter) {
-        // Exit early if the new character is the same as the current one
-        if(currentCharacter.GetComponent<PlayerCombat>().Character == newCharacter) {
-            return;
-        }
-
         // Use the current character to get the sprite facing direction
         bool spriteFlipX = currentCharacter.transform.GetChild(0).GetComponent<SpriteRenderer>().flipX;
 

@@ -7687,8 +7687,7 @@ MonoBehaviour:
   - {fileID: 925488799805180518, guid: 69331b831c927ec4593dcabbe2614f57, type: 3}
   - {fileID: 925488799805180518, guid: e49aa670740cdcb499800bb119c24ac0, type: 3}
   - {fileID: 925488799805180518, guid: a038b96e9879b43468f6d8274dbc1cdb, type: 3}
-  xOffset: 3
-  yOffset: 5
+  offset: {x: 3, y: 5}
   itemsPerRow: 4
 --- !u!1 &1919402050
 GameObject:
