@@ -74,46 +74,48 @@ public class PlayerManager : MonoBehaviour {
         UIManager.instance.UpdateAllPlayerUI();
     }
 
-    public void ChangeCharacter(Character newCharacter, int playerNum) {
-        GameObject currentPlayerObject = playerInputs[playerNum].gameObject;
-        ChangeCharacter(currentPlayerObject, newCharacter);
-    }
-
     /// <summary>
     /// Changes a character object to another character
     /// </summary>
-    /// <param name="currentCharacter">The current character object</param>
-    /// <param name="characterChange">How index of the current character will change</param>
-    public void ChangeCharacter(GameObject currentCharacter, Character newCharacter) {
+    /// <param name="newCharacter">The new Character</param>
+    /// <param name="playerNum">The player's index</param>
+    public void ChangeCharacter(int playerNum, Character newCharacter) {
+        GameObject currentCharacterObject = playerInputs[playerNum].gameObject;
+
         // Use the current character to get the sprite facing direction
-        bool spriteFlipX = currentCharacter.transform.GetChild(0).GetComponent<SpriteRenderer>().flipX;
+        bool spriteFlipX = currentCharacterObject.transform.GetChild(0).GetComponent<SpriteRenderer>().flipX;
 
         // Get the new character's prefab
         GameObject newCharacterPrefab = characters[newCharacter];
 
         // Remove the current character
-        Destroy(currentCharacter.transform.GetChild(0).gameObject);
+        Destroy(currentCharacterObject.transform.GetChild(0).gameObject);
 
         // Add the new character
-        GameObject newCharacterObject = Instantiate(newCharacterPrefab, currentCharacter.transform);
+        GameObject newCharacterObject = Instantiate(newCharacterPrefab, currentCharacterObject.transform);
 
         // Update the parent player object with new references to components of the new child character object
-        currentCharacter.GetComponent<PlayerInputControls>().UpdateCombat(newCharacterObject.GetComponent<PlayerCombat>());
-        currentCharacter.GetComponent<PlayerMovement>().SetNewAnimator(newCharacterObject.GetComponent<Animator>());
+        currentCharacterObject.GetComponent<PlayerInputControls>().UpdateCombat(newCharacterObject.GetComponent<PlayerCombat>());
+        currentCharacterObject.GetComponent<PlayerMovement>().SetNewAnimator(newCharacterObject.GetComponent<Animator>());
 
         // Ensure the sprite is facing the same way as it was before
         newCharacterObject.GetComponent<SpriteRenderer>().flipX = spriteFlipX;
 
         // Get the index of player (indexed at 1)
-        if(int.TryParse(currentCharacter.name.Substring("Player".Length), out int index)) {
+        if(int.TryParse(currentCharacterObject.name.Substring("Player".Length), out int index)) {
             // Update Player Name UI
             UIManager.instance.UpdatePlayerNames(index - 1, newCharacter.ToString());
         }
     }
 
-    public int GetPlayerNum(GameObject parentObject) {
+    /// <summary>
+    /// Find a player's index from the GameObject
+    /// </summary>
+    /// <param name="playerObject">The player's parent GameObject</param>
+    /// <returns>The player's index</returns>
+    public int GetPlayerNum(GameObject playerObject) {
         for(int i = 0; i < playerInputs.Count; i++) {
-            if(playerInputs[i].gameObject == parentObject) {
+            if(playerInputs[i].gameObject == playerObject) {
                 return i;
             }
         }

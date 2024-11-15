@@ -82,24 +82,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ChangeCharacterUp"",
-                    ""type"": ""Button"",
-                    ""id"": ""5d322b6f-e341-4134-9baf-cad51b78c320"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ChangeCharacterDown"",
-                    ""type"": ""Button"",
-                    ""id"": ""7080cf02-d614-4e3e-860f-250440dd52cf"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Pause"",
                     ""type"": ""Button"",
                     ""id"": ""6eeb5882-3881-46a8-9236-40f5a528a09b"",
@@ -327,50 +309,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Join"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""d1562287-2e8e-46f3-ac63-e12710d5144d"",
-                    ""path"": ""<Gamepad>/rightShoulder"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""ChangeCharacterUp"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e2859a37-942d-470c-b889-03835d676e63"",
-                    ""path"": ""<Keyboard>/3"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""ChangeCharacterUp"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""9e09f489-f033-49e6-85db-4f0cb066326f"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""ChangeCharacterDown"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""7eb6a7e4-1000-4656-a010-0fe1fdc4ad94"",
-                    ""path"": ""<Keyboard>/1"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""ChangeCharacterDown"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -743,8 +681,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_Block = m_Player.FindAction("Block", throwIfNotFound: true);
         m_Player_Special = m_Player.FindAction("Special", throwIfNotFound: true);
         m_Player_Join = m_Player.FindAction("Join", throwIfNotFound: true);
-        m_Player_ChangeCharacterUp = m_Player.FindAction("ChangeCharacterUp", throwIfNotFound: true);
-        m_Player_ChangeCharacterDown = m_Player.FindAction("ChangeCharacterDown", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
@@ -820,8 +756,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Block;
     private readonly InputAction m_Player_Special;
     private readonly InputAction m_Player_Join;
-    private readonly InputAction m_Player_ChangeCharacterUp;
-    private readonly InputAction m_Player_ChangeCharacterDown;
     private readonly InputAction m_Player_Pause;
     public struct PlayerActions
     {
@@ -833,8 +767,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Block => m_Wrapper.m_Player_Block;
         public InputAction @Special => m_Wrapper.m_Player_Special;
         public InputAction @Join => m_Wrapper.m_Player_Join;
-        public InputAction @ChangeCharacterUp => m_Wrapper.m_Player_ChangeCharacterUp;
-        public InputAction @ChangeCharacterDown => m_Wrapper.m_Player_ChangeCharacterDown;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
@@ -863,12 +795,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Join.started += instance.OnJoin;
             @Join.performed += instance.OnJoin;
             @Join.canceled += instance.OnJoin;
-            @ChangeCharacterUp.started += instance.OnChangeCharacterUp;
-            @ChangeCharacterUp.performed += instance.OnChangeCharacterUp;
-            @ChangeCharacterUp.canceled += instance.OnChangeCharacterUp;
-            @ChangeCharacterDown.started += instance.OnChangeCharacterDown;
-            @ChangeCharacterDown.performed += instance.OnChangeCharacterDown;
-            @ChangeCharacterDown.canceled += instance.OnChangeCharacterDown;
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
@@ -894,12 +820,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Join.started -= instance.OnJoin;
             @Join.performed -= instance.OnJoin;
             @Join.canceled -= instance.OnJoin;
-            @ChangeCharacterUp.started -= instance.OnChangeCharacterUp;
-            @ChangeCharacterUp.performed -= instance.OnChangeCharacterUp;
-            @ChangeCharacterUp.canceled -= instance.OnChangeCharacterUp;
-            @ChangeCharacterDown.started -= instance.OnChangeCharacterDown;
-            @ChangeCharacterDown.performed -= instance.OnChangeCharacterDown;
-            @ChangeCharacterDown.canceled -= instance.OnChangeCharacterDown;
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
@@ -1024,8 +944,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnBlock(InputAction.CallbackContext context);
         void OnSpecial(InputAction.CallbackContext context);
         void OnJoin(InputAction.CallbackContext context);
-        void OnChangeCharacterUp(InputAction.CallbackContext context);
-        void OnChangeCharacterDown(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
     }
     public interface IUIActions

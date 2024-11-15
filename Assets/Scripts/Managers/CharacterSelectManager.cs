@@ -69,18 +69,16 @@ public class CharacterSelectManager : MonoBehaviour
         changedSelectionTimer = changedSelectionRate;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    /// <summary>
+    /// Create a grid of selectable character objects
+    /// </summary>
     public void DisplayCharacterSelections() {
         // Clear all of the ui parent's children
         for(int i = uiParent.childCount - 1; i >= 0; i--) { 
             Destroy(uiParent.GetChild(i).gameObject);
         }
 
+        // Calculate the full size based on the number of selectable character and the offets
         Vector2 fullSize = new Vector2(
             pack1CharacterSelections[0].transform.localScale.x * itemsPerRow + offset.x * (itemsPerRow - 1),
             pack1CharacterSelections[0].transform.localScale.y * (totalCharacters / itemsPerRow) + offset.y * (totalCharacters / itemsPerRow - 1)
@@ -99,31 +97,50 @@ public class CharacterSelectManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Shows a character selector based on the last player joined
+    /// </summary>
+    /// <param name="playerCount">The current player count</param>
     public void ShowCharacterSelectors(int playerCount) {
         uiParent.transform.GetChild(0).GetComponent<CharacterSelectItem>().Focus(playerCount - 1);
     }
 
-    public bool CanUpdateSelection(int playerNum) {
+    /// <summary>
+    /// Gets whether the current player can update its focused character (they havent ready'ed up yet)
+    /// </summary>
+    /// <param name="playerNum">The player's number (based 0)</param>
+    /// <returns>Whether the current player can update its focused character</returns>
+    private bool CanUpdateSelection(int playerNum) {
         return !playerReadyStatuses[playerNum];
     }
 
+    /// <summary>
+    /// Update a player's focused character object
+    /// </summary>
+    /// <param name="move">The input move from the controller</param>
+    /// <param name="playerNum">The player number that is changing its focus</param>
     public void UpdateCharacterSelection(Vector2 move, int playerNum) {
+        // Exit early if the character focus cannot be updated
         if(!CanUpdateSelection(playerNum)) {
             return;
         }
 
+        // Update the time since the last focus change
         changedSelectionTimer += Time.deltaTime;
 
+        // If the move input is strong enough and there has been enough time since the last focus change
         if(move.magnitude > 0.5f
             && changedSelectionTimer >= changedSelectionRate) {
             float threshold = 0.25f;
 
+            // Move the focus based on the move input
             if(Mathf.Abs(move.x) > threshold) {
                 if(move.x > 0) {
                     MoveFocusRight(playerNum);
                 } else {
                     MoveFocusLeft(playerNum);
                 }
+                // Reset the timer
                 changedSelectionTimer = 0.0f;
             } else if(Mathf.Abs(move.y) > threshold) {
                 if(move.y > 0) {
@@ -131,11 +148,16 @@ public class CharacterSelectManager : MonoBehaviour
                 } else {
                     MoveFocusUp(playerNum);
                 }
+                // Reset the timer
                 changedSelectionTimer = 0.0f;
             }
         }
     }
 
+    /// <summary>
+    /// Ready up a player
+    /// </summary>
+    /// <param name="playerNum">The player's index</param>
     public void Submit(int playerNum) {
         // Update the player's ready status and UI
         playerReadyStatuses[playerNum] = true;
@@ -152,6 +174,10 @@ public class CharacterSelectManager : MonoBehaviour
         GameManager.instance.ChangeMenuState(MenuState.MapSelect);
     }
 
+    /// <summary>
+    /// Moves a player's focus to the item to the right
+    /// </summary>
+    /// <param name="playerNum">The player's index</param>
     private void MoveFocusRight(int playerNum) {
         int newFocus = playerFocusIndecies[playerNum] + 1;
 
@@ -159,9 +185,13 @@ public class CharacterSelectManager : MonoBehaviour
             newFocus %= totalCharacters;
         }
 
-        UpdateSelection(newFocus, playerNum);
+        UpdateFocusData(newFocus, playerNum);
     }
 
+    /// <summary>
+    /// Moves a player's focus to the item to the left
+    /// </summary>
+    /// <param name="playerNum">The player's index</param>
     private void MoveFocusLeft(int playerNum) {
         int newFocus = playerFocusIndecies[playerNum] - 1;
 
@@ -169,9 +199,13 @@ public class CharacterSelectManager : MonoBehaviour
             newFocus += totalCharacters;
         }
 
-        UpdateSelection(newFocus, playerNum);
+        UpdateFocusData(newFocus, playerNum);
     }
 
+    /// <summary>
+    /// Moves a player's focus to the item below
+    /// </summary>
+    /// <param name="playerNum">The player's index</param>
     private void MoveFocusDown(int playerNum) {
         int newFocus = playerFocusIndecies[playerNum] + itemsPerRow;
 
@@ -179,9 +213,13 @@ public class CharacterSelectManager : MonoBehaviour
             newFocus %= totalCharacters;
         }
 
-        UpdateSelection(newFocus, playerNum);
+        UpdateFocusData(newFocus, playerNum);
     }
 
+    /// <summary>
+    /// Moves a player's focus to the item above
+    /// </summary>
+    /// <param name="playerNum">The player's index</param>
     private void MoveFocusUp(int playerNum) {
         int newFocus = playerFocusIndecies[playerNum] - itemsPerRow;
 
@@ -189,10 +227,15 @@ public class CharacterSelectManager : MonoBehaviour
             newFocus += totalCharacters;
         }
 
-        UpdateSelection(newFocus, playerNum);
+        UpdateFocusData(newFocus, playerNum);
     }
 
-    private void UpdateSelection(int newFocus, int playerNum) {
+    /// <summary>
+    /// Update the focus data of a player
+    /// </summary>
+    /// <param name="newFocus">The index of the new focused item</param>
+    /// <param name="playerNum">The player's index</param>
+    private void UpdateFocusData(int newFocus, int playerNum) {
         // Deselect the old focus
         uiParent.GetChild(playerFocusIndecies[playerNum]).GetComponent<CharacterSelectItem>().Unfocus(playerNum);
         // Update focus within the bounds of the available characters
@@ -200,6 +243,6 @@ public class CharacterSelectManager : MonoBehaviour
         // Update the Character the player is focused on
         playerCharacterSelections[playerNum] = uiParent.GetChild(playerFocusIndecies[playerNum]).GetComponent<CharacterSelectItem>().Focus(playerNum);
         // Change the Character for the player
-        PlayerManager.instance.ChangeCharacter(playerCharacterSelections[playerNum], playerNum);
+        PlayerManager.instance.ChangeCharacter(playerNum, playerCharacterSelections[playerNum]);
     }
 }

@@ -30,6 +30,11 @@ public class CharacterSelectItem : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Focus the item for a player
+    /// </summary>
+    /// <param name="playerNum">The player's index</param>
+    /// <returns>The Character of the item</returns>
     public Character Focus(int playerNum) {
         isFocusedByPlayers[playerNum] = true;
         playerSelectors[playerNum].SetActive(true);
@@ -37,11 +42,18 @@ public class CharacterSelectItem : MonoBehaviour
         return character;
     }
 
+    /// <summary>
+    /// Unfocus the item for a player
+    /// </summary>
+    /// <param name="playerNum">The player's index</param>
     public void Unfocus(int playerNum) {
         isFocusedByPlayers[playerNum] = false;
         playerSelectors[playerNum].SetActive(false);
     }
 
+    /// <summary>
+    /// Reset the focus (unfocus) of the item for all players
+    /// </summary>
     public void Reset() {
         for(int i = 0; i < playerSelectors.Count; i++) {
             isFocusedByPlayers[i] = false;
