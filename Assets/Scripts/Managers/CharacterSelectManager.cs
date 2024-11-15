@@ -29,7 +29,7 @@ public class CharacterSelectManager : MonoBehaviour
     [SerializeField]
     private List<GameObject> pack1CharacterSelections;
     [SerializeField]
-    private float xOffset, yOffset;
+    private Vector2 offset;
     [SerializeField]
     private int itemsPerRow;
 
@@ -82,13 +82,18 @@ public class CharacterSelectManager : MonoBehaviour
             Destroy(uiParent.GetChild(i).gameObject);
         }
 
+        Vector2 fullSize = new Vector2(
+            pack1CharacterSelections[0].transform.localScale.x * itemsPerRow + offset.x * (itemsPerRow - 1),
+            pack1CharacterSelections[0].transform.localScale.y * (totalCharacters / itemsPerRow) + offset.y * (totalCharacters / itemsPerRow - 1)
+            );
+
         foreach(PlayerPack characterPack in characterPacks.Keys) {
             // Loop through the character pack and display each character
             for(int i = 0; i < characterPacks[characterPack].Count; i++) {
                 GameObject characterObject = characterPacks[characterPack][i];
 
                 // Figure out the position for the character 
-                Vector2 position = new Vector2((i % itemsPerRow) * xOffset, -yOffset * (i / itemsPerRow));
+                Vector2 position = new Vector2((-fullSize.x / itemsPerRow) + offset.x * (i % itemsPerRow), (-fullSize.y / 2) - offset.y * (i / itemsPerRow));
 
                 Instantiate(characterObject, position, Quaternion.identity, uiParent);
             }
