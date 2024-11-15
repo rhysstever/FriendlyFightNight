@@ -26,8 +26,9 @@ public class SpecialAbility : MonoBehaviour {
     }
 
     protected virtual void FixedUpdate() {
-        if(cooldownTimer < cooldown)
+        if(GameManager.instance.CurrentMenuState == MenuState.Game) {
             cooldownTimer += Time.deltaTime;
+        }
     }
 
     public virtual bool UseSpecial() {

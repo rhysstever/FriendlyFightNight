@@ -144,7 +144,10 @@ public class CharacterSelectManager : MonoBehaviour
         playerReadyStatuses[playerNum] = true;
         UIManager.instance.UpdateCharacterSelectPlayerSubText();
 
-        // Check if at least one player is not ready
+        // Change the Character for the player
+        PlayerManager.instance.ChangeCharacter(playerCharacterSelections[playerNum], playerNum);
+
+        // Check if at least one player is NOT ready
         foreach(bool playerReady in playerReadyStatuses) {
             if(!playerReady) {
                 return;
@@ -200,9 +203,7 @@ public class CharacterSelectManager : MonoBehaviour
         uiParent.GetChild(playerFocusIndecies[playerNum]).GetComponent<CharacterSelectItem>().Unfocus(playerNum);
         // Update focus within the bounds of the available characters
         playerFocusIndecies[playerNum] = newFocus;
-        // Select the new focus
+        // Update the Character the player is focused on
         playerCharacterSelections[playerNum] = uiParent.GetChild(playerFocusIndecies[playerNum]).GetComponent<CharacterSelectItem>().Focus(playerNum);
-        // Change Character
-        PlayerManager.instance.ChangeCharacter(playerCharacterSelections[playerNum], playerNum);
     }
 }

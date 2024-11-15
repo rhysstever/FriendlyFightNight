@@ -55,7 +55,9 @@ public class PlayerCombat : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        fireTimer += Time.deltaTime;
+        if(GameManager.instance.CurrentMenuState == MenuState.Game) {
+            fireTimer += Time.deltaTime;
+        }
     }
 
     private bool CanFire() {
