@@ -56,7 +56,7 @@ public class UIManager : MonoBehaviour {
 
         backToMainMenuButton.onClick.AddListener(() => GameManager.instance.ChangeMenuState(MenuState.Title));
 
-        UpdateAllPlayerUI();
+        UpdateAllPlayerGameUI();
     }
 
     // Update is called once per frame
@@ -84,6 +84,9 @@ public class UIManager : MonoBehaviour {
             case MenuState.MapSelect:
                 EventSystem.current.SetSelectedGameObject(continueToGame.gameObject);
                 break;
+            case MenuState.Game:
+                UpdateAllPlayerGameUI();
+                break;
             case MenuState.Results:
                 for(int i = 0; i < PlayerManager.instance.PlayerInputs.Count; i++) {
                     if(PlayerManager.instance.PlayerInputs[i].GetComponentInChildren<PlayerCombat>().HealthPercentage > 0.0f) {
@@ -95,36 +98,26 @@ public class UIManager : MonoBehaviour {
         }
     }
 
-    public void UpdateAllPlayerUI() {
-        if(PlayerManager.instance.PlayerInputs.Count > 0) {
-            CharacterSelectManager.instance.ShowCharacterSelectors(PlayerManager.instance.PlayerInputs.Count);
-        }
-
-        UpdateCharacterSelectPlayerSubText();
-
+    public void UpdateAllPlayerGameUI() {
         UpdatePlayerNames();
         UpdatePlayerHealth();
         UpdatePlayerSpecial();
     }
 
-    public void UpdateCharacterSelectPlayerSubText() {
-        for(int i = 0; i < characterSelectionPlayerSubTexts.Count; i++) {
-            string subTextString = "";
-            if(i < PlayerManager.instance.PlayerInputs.Count) {
-                if(CharacterSelectManager.instance.PlayerReadyStatuses[i]) {
-                    subTextString = string.Format("Player {0} is Ready!", i + 1);
-                } else {
-                    //PlayerCombat playerCombat = PlayerManager.instance.PlayerInputs[i].GetComponentInChildren<PlayerCombat>();
-                    //Debug.Log(playerCombat.ToString());
-                    //subTextString = string.Format("{0}\n{1}\n{2}",
-                    //    playerCombat.Character,
-                    //    playerCombat.PassiveAbility.AbilityName,
-                    //    playerCombat.ActiveAbility.AbilityName);
-                }
+    public void UpdateCharacterSelectPlayerSubText(int playerIndex, Character character) {
+        string subTextString;
+        if(CharacterSelectManager.instance.PlayerReadyStatuses[playerIndex]) {
+            subTextString = string.Format("Player {0} is Ready!", playerIndex + 1);
+        } else {
+            PlayerCombat playerCombat = PlayerManager.instance.CharacterPrefabs[character].GetComponent<PlayerCombat>();
 
-                characterSelectionPlayerSubTexts[i].text = subTextString;
-            }
+            subTextString = string.Format("{0}\n\n{1}\n{2}",
+                playerCombat.Character,
+                playerCombat.PassiveAbility.AbilityName,
+                playerCombat.ActiveAbility.AbilityName);
         }
+
+        characterSelectionPlayerSubTexts[playerIndex].text = subTextString;
     }
 
     /// <summary>
@@ -179,7 +172,7 @@ public class UIManager : MonoBehaviour {
 
             if(playerExists) {
                 Transform child = PlayerManager.instance.PlayerInputs[i].transform.GetChild(0);
-                SpecialAbility activeAbility = child.GetComponent<PlayerCombat>().GetAbility(false);
+                SpecialAbility activeAbility = child.GetComponent<PlayerCombat>().ActiveAbility;
 
                 if(activeAbility != null) {
                     float specialPercent = activeAbility.CooldownPercentage;

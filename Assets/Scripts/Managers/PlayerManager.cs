@@ -39,6 +39,7 @@ public class PlayerManager : MonoBehaviour {
     private List<PlayerInput> playerInputs;
     private PlayerInputManager playerInputManager;
 
+    public Dictionary<Character, GameObject> CharacterPrefabs { get { return characters; } }
     public List<PlayerInput> PlayerInputs { get { return playerInputs; } }
     public PlayerInputManager PlayerInputManager { get { return playerInputManager; } }
 
@@ -70,7 +71,6 @@ public class PlayerManager : MonoBehaviour {
                 return i;
             }
         }
-
         return -1;
     }
 
@@ -81,21 +81,28 @@ public class PlayerManager : MonoBehaviour {
     public void AddPlayer(PlayerInput playerInput) {
         playerInputs.Add(playerInput);
         playerInput.gameObject.name = "Player" + playerInputs.Count;
-        playerInput.transform.position = spawnPoints[playerInputs.Count - 1].position;
+
+        int playerIndex = playerInputs.Count - 1;
+        playerInput.transform.position = spawnPoints[playerIndex].position;
         
         // Flip the sprite based on the player count
         playerInput.gameObject.GetComponentInChildren<SpriteRenderer>().flipX = playerInputs.Count % 2 == 0;
 
-        UIManager.instance.UpdateAllPlayerUI();
+        // Show the character's selector shape/ui
+        CharacterSelectManager.instance.ShowCharacterSelectors(playerInputs.Count);
+
+        // Update the character selection sub text
+        Character character = playerInput.gameObject.GetComponentInChildren<PlayerCombat>().Character;
+        UIManager.instance.UpdateCharacterSelectPlayerSubText(playerIndex, character);
     }
 
     /// <summary>
     /// Changes a character object to another character
     /// </summary>
     /// <param name="newCharacter">The new Character</param>
-    /// <param name="playerNum">The player's index</param>
-    public void ChangeCharacter(int playerNum, Character newCharacter) {
-        GameObject currentPlayerObject = playerInputs[playerNum].gameObject;
+    /// <param name="playerIndex">The player's index</param>
+    public void ChangeCharacter(int playerIndex, Character newCharacter) {
+        GameObject currentPlayerObject = playerInputs[playerIndex].gameObject;
 
         // Get the new character's prefab
         GameObject newCharacterPrefab = characters[newCharacter];
@@ -118,12 +125,27 @@ public class PlayerManager : MonoBehaviour {
         currentPlayerObject.GetComponent<PlayerMovement>().SetNewAnimator(newCharacterObject.GetComponent<Animator>());
 
         // Flip the sprite if the player num is odd
-        newCharacterObject.GetComponent<SpriteRenderer>().flipX = playerNum % 2 == 1;
+        newCharacterObject.GetComponent<SpriteRenderer>().flipX = playerIndex % 2 == 1;
 
         // Get the index of player (indexed at 1)
         if(int.TryParse(currentPlayerObject.name.Substring("Player".Length), out int index)) {
-            // Update Player Name UI
-            UIManager.instance.UpdatePlayerNames(index - 1, newCharacter.ToString());
+            // Update UI
+            UIManager.instance.UpdateCharacterSelectPlayerSubText(playerIndex, newCharacter);
+        }
+    }
+
+    /// <summary>
+    /// Resets each character for a new match
+    /// </summary>
+    public void ResetCharacters() {
+        for(int i = 0; i < playerInputs.Count; i++) {
+            PlayerCombat playerCombat = playerInputs[i].GetComponentInChildren<PlayerCombat>();
+
+            playerCombat.ResetTimers();
+            ClearDebuffs(playerCombat.gameObject);
+
+            // Flip the sprite according to starting position
+            playerInputs[i].gameObject.GetComponentInChildren<SpriteRenderer>().flipX = playerInputs.Count % 2 == 0;
         }
     }
 

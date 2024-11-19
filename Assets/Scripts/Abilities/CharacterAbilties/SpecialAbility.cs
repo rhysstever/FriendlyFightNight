@@ -44,7 +44,7 @@ public class SpecialAbility : MonoBehaviour {
         return cooldownTimer >= cooldown;
     }
 
-    protected void ResetCooldown() {
+    public void ResetCooldown() {
         cooldownTimer = 0.0f;
     }
 }
