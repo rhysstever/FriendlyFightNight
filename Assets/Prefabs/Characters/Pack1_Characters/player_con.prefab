@@ -148,6 +148,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityName: Diablo Rounds
+  description: Base attacks deal less impact damage, but burn the target for damage
+    over time
   cooldown: 0
   isPassive: 1
   effectType: 1
@@ -169,6 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityName: Energy Slash
+  description: Send out an enery wave in front of you, damaging enemies it hits
   cooldown: 5
   isPassive: 0
   attackProjectile: {fileID: 5953922024688288479, guid: 53fc8d0ad3cc3d444a3ab011b1579de9, type: 3}

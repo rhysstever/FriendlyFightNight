@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityName: Befriend
+  description: Take less damage from enemies
   cooldown: 0
   isPassive: 1
   effectType: 0
@@ -166,6 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityName: Pooled Luck
+  description: Temporarily leech move speed, damage, or bullet dropoff
   cooldown: 5
   isPassive: 0
   leechingAttributes: 010000000300000005000000

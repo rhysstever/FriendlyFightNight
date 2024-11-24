@@ -111,10 +111,12 @@ public class UIManager : MonoBehaviour {
         } else {
             PlayerCombat playerCombat = PlayerManager.instance.CharacterPrefabs[character].GetComponent<PlayerCombat>();
 
-            subTextString = string.Format("{0}\n\n{1}\n{2}",
+            subTextString = string.Format("{0}\n\n{1}:\n{2}\n\n{3}:\n{4}",
                 playerCombat.Character,
                 playerCombat.PassiveAbility.AbilityName,
-                playerCombat.ActiveAbility.AbilityName);
+                playerCombat.PassiveAbility.Description,
+                playerCombat.ActiveAbility.AbilityName,
+                playerCombat.ActiveAbility.Description);
         }
 
         characterSelectionPlayerSubTexts[playerIndex].text = subTextString;

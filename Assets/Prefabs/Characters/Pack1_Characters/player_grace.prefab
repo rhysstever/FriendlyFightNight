@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityName: Attractive
+  description: Enemies are slows when they are far away
   cooldown: 0
   isPassive: 1
   effectType: 1
@@ -168,6 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityName: Coffee Sip
+  description: Heal some health over a short period of time
   cooldown: 10
   isPassive: 0
   effectType: 0

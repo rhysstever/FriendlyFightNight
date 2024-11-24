@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpecialAbility : MonoBehaviour {
     [SerializeField]
-    protected string abilityName;
+    protected string abilityName, description;
     [SerializeField]
     protected float cooldown;
     protected float cooldownTimer;
@@ -12,6 +10,7 @@ public class SpecialAbility : MonoBehaviour {
     protected bool isPassive;
 
     public string AbilityName { get { return abilityName; } }
+    public string Description { get { return description; } }
     public float Cooldown { get { return cooldown; } }
     public float CooldownTimer { get { return cooldownTimer; } }
     public bool IsPassive { get { return isPassive; } }

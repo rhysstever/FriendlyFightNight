@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityName: Eagle Eye
+  description: Base attacks resist gravity and fly farther
   cooldown: 0
   isPassive: 1
   effectType: 0
@@ -166,6 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityName: Watermelon Chuck
+  description: Hurl a large watermelon into the air, damaging enemies it hits
   cooldown: 7.5
   isPassive: 0
   attackProjectile: {fileID: 7862096177016241195, guid: ea7011e49641e574ab1a148952cee96a, type: 3}
