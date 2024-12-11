@@ -25,6 +25,8 @@ public class PlayerCombat : MonoBehaviour {
     private SpecialAbility passiveAbility, activeAbility;
 
     private float fireTimer;
+    private float takeDamageDuration, takeDamageTimer;
+    private bool isTakingDamage;
 
     public Character Character { get { return character; } }
     public float HealthPercentage { get { return currentHealth / maxHealth; } }
@@ -38,6 +40,11 @@ public class PlayerCombat : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         fireTimer = fireRate;   // can fire right away
+
+        takeDamageDuration = 0.25f;
+        takeDamageTimer = 0.0f;
+        isTakingDamage = false;
+
         damageMod = 0.0f;
         bulletGravityMod = 0.0f;
         armorMod = 0.0f;
@@ -50,6 +57,8 @@ public class PlayerCombat : MonoBehaviour {
     private void FixedUpdate() {
         if(GameManager.instance.CurrentMenuState == MenuState.Game) {
             fireTimer += Time.deltaTime;
+
+            CheckTakeDamage(Time.deltaTime);
         }
     }
 
@@ -122,6 +131,7 @@ public class PlayerCombat : MonoBehaviour {
     /// </summary>
     public void ResetTimers() {
         fireTimer = fireRate;
+        takeDamageTimer = 0.0f;
         activeAbility.ResetCooldown();
     }
 
@@ -163,12 +173,38 @@ public class PlayerCombat : MonoBehaviour {
     /// </summary>
     /// <param name="amount">The amount of damage (pre-armor reductions) dealth</param>
     public void TakeDamage(float amount) {
+        // Calculate damage taken after armor reductions
         float damageTaken = amount * (2 - armor + armorMod);
         currentHealth -= damageTaken;
+        isTakingDamage = true;
+
+        // Update UI
         UIManager.instance.UpdatePlayerHealth();
 
+        // Check for the player's death
         if(currentHealth <= 0.0f) {
             GameManager.instance.ChangeMenuState(MenuState.Results);
+        }
+    }
+
+    /// <summary>
+    /// Handles when the player takes damage (mostly visual)
+    /// </summary>
+    /// <param name="increment">How much time should be added to the timer if it is active</param>
+    private void CheckTakeDamage(float increment) {
+        if(isTakingDamage) {
+            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+            // Toggle between red and white for the material
+            spriteRenderer.color = Color.red;
+
+            // Increment timer and check if its done
+            takeDamageTimer += increment;
+            if(takeDamageTimer >= takeDamageDuration) {
+                // Revert values
+                isTakingDamage = false;
+                takeDamageTimer = 0.0f;
+                spriteRenderer.color = Color.white;
+            }
         }
     }
 
