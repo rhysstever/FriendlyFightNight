@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public enum MenuState {
     Title,
@@ -67,13 +68,16 @@ public class GameManager : MonoBehaviour {
         switch(newMenuState) {
             case MenuState.Title:
                 ChangePlayerInputs(InputType.Menu);
+                GetComponent<PlayerInputManager>().DisableJoining();
                 break;
             case MenuState.CharacterSelect:
                 ChangePlayerInputs(InputType.Menu);
+                GetComponent<PlayerInputManager>().EnableJoining();
                 CharacterSelectManager.instance.DisplayCharacterSelections();
                 break;
             case MenuState.MapSelect:
                 ChangePlayerInputs(InputType.Menu);
+                GetComponent<PlayerInputManager>().DisableJoining();
                 break;
             case MenuState.Game:
                 ChangePlayerInputs(InputType.Player);

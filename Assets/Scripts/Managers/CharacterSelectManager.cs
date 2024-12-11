@@ -81,8 +81,7 @@ public class CharacterSelectManager : MonoBehaviour
         // Calculate the full size based on the number of selectable character and the offets
         Vector2 fullSize = new Vector2(
             pack1CharacterSelections[0].transform.localScale.x * itemsPerRow + offset.x * (itemsPerRow - 1),
-            pack1CharacterSelections[0].transform.localScale.y * (totalCharacters / itemsPerRow) + offset.y * (totalCharacters / itemsPerRow - 1)
-            );
+            pack1CharacterSelections[0].transform.localScale.y * (totalCharacters / itemsPerRow) + offset.y * (totalCharacters / itemsPerRow - 1));
 
         foreach(PlayerPack characterPack in characterPacks.Keys) {
             // Loop through the character pack and display each character
@@ -90,7 +89,9 @@ public class CharacterSelectManager : MonoBehaviour
                 GameObject characterObject = characterPacks[characterPack][i];
 
                 // Figure out the position for the character 
-                Vector2 position = new Vector2((-fullSize.x / itemsPerRow) + offset.x * (i % itemsPerRow), (-fullSize.y / 2) - offset.y * (i / itemsPerRow));
+                Vector2 position = new Vector2(
+                    (-fullSize.x / itemsPerRow) + offset.x * (i % itemsPerRow), 
+                    (-fullSize.y / 2) - offset.y * (i / itemsPerRow));
 
                 Instantiate(characterObject, position, Quaternion.identity, uiParent);
             }
