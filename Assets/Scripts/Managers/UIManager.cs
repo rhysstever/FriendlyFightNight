@@ -24,7 +24,7 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     private GameObject titleParent, characterSelectParent, mapSelectParent, gameParent, pauseParent, resultsParent;
     [SerializeField]
-    private Button startButton, continueToGame;
+    private Button startButton, continueToGameButton, resumeButton, backToMainMenuButton;
     [SerializeField]
     private List<TMP_Text> characterSelectionPlayerSubTexts;
     [SerializeField]
@@ -33,8 +33,6 @@ public class UIManager : MonoBehaviour {
     private List<GameObject> playerHealthBars, playerSpecialBars;
     [SerializeField]
     private TMP_Text resultsText;
-    [SerializeField]
-    private Button backToMainMenuButton;
 
     private Dictionary<MenuState, GameObject> menuStateParents;
 
@@ -51,9 +49,8 @@ public class UIManager : MonoBehaviour {
         };
 
         startButton.onClick.AddListener(() => GameManager.instance.ChangeMenuState(MenuState.CharacterSelect));
-
-        continueToGame.onClick.AddListener(() => GameManager.instance.ChangeMenuState(MenuState.Game));
-
+        continueToGameButton.onClick.AddListener(() => GameManager.instance.ChangeMenuState(MenuState.Game));
+        resumeButton.onClick.AddListener(() => GameManager.instance.ChangeMenuState(MenuState.Game));
         backToMainMenuButton.onClick.AddListener(() => GameManager.instance.ChangeMenuState(MenuState.Title));
 
         UpdateAllPlayerGameUI();
@@ -82,10 +79,13 @@ public class UIManager : MonoBehaviour {
                 }
                 break;
             case MenuState.MapSelect:
-                EventSystem.current.SetSelectedGameObject(continueToGame.gameObject);
+                EventSystem.current.SetSelectedGameObject(continueToGameButton.gameObject);
                 break;
             case MenuState.Game:
                 UpdateAllPlayerGameUI();
+                break;
+            case MenuState.Pause:
+                EventSystem.current.SetSelectedGameObject(resumeButton.gameObject);
                 break;
             case MenuState.Results:
                 for(int i = 0; i < PlayerManager.instance.PlayerInputs.Count; i++) {
